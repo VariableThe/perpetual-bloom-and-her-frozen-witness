@@ -1425,15 +1425,6 @@ html[data-theme="dark"] .reader-page--blank {
   text-transform: uppercase;
 }
 
-/* ---------- Audio/Phase 2 hook ---------- */
-
-.audio-dock {
-  position: fixed;
-  right: 20px;
-  bottom: max(20px, env(safe-area-inset-bottom));
-  z-index: 350;
-}
-
 /* ---------- Small screens ---------- */
 
 /* Contract: duo is enabled at 1000px and wider (see utils.js). The collapse

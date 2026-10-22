@@ -915,13 +915,13 @@ export class Reader {
       ]));
     });
 
-    const upload = el('div', { class: 'upload-shell', 'data-phase': '2' }, [
+    const upload = el('div', { class: 'upload-shell', 'data-upload-state': 'coming-later' }, [
       el('span', { class: 'upload-shell__mark', 'aria-hidden': 'true', text: '+' }),
       el('p', {}, [
         el('strong', { text: 'Your plate belongs here' }),
-        'Fan-art uploads arrive in Phase 2. Files will be stored locally with IndexedDB and never uploaded.'
+        'Fan-art uploads are not part of this build yet. When they arrive, files will be stored locally with IndexedDB and never uploaded.'
       ]),
-      el('button', { type: 'button', disabled: true, 'aria-label': 'Artwork uploads are not active until Phase 2' }, ['Phase 2'])
+      el('button', { type: 'button', disabled: true, 'aria-label': 'Artwork uploads are not available in this build yet' }, ['Coming later'])
     ]);
 
     const actions = el('div', { class: 'gallery-page__actions' }, [

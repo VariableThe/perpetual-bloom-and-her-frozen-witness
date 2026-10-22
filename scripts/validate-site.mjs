@@ -59,7 +59,9 @@ try {
     'assets/css/base.css',
     'assets/css/landing.css',
     'assets/css/reader.css',
+    'assets/css/audio.css',
     'assets/js/app.js',
+    'assets/js/audio.js',
     'assets/js/data.js',
     'assets/js/landing.js',
     'assets/js/paginate.js',
@@ -98,6 +100,10 @@ try {
     'page-slider',
     'settings-popover',
     'chapter-drawer',
+    'audio-bar',
+    'track-drawer',
+    'track-drawer-list',
+    'track-drawer-close',
     'ending-toast',
     'petal-canvas',
     'paginate-probe'
@@ -108,11 +114,21 @@ try {
 
   check(html.includes('assets/js/app.js'), 'index.html does not load assets/js/app.js');
   check(/<script type="module" src="assets\/js\/app\.js"><\/script>/.test(html), 'app.js must be loaded as a module');
+  check(html.includes('assets/css/audio.css'), 'index.html does not load assets/css/audio.css');
+  check(!html.includes('audio-dock'), 'index.html still contains the old hidden audio dock');
+
+  const stageIndex = html.indexOf('id="reader-stage"');
+  const audioIndex = html.indexOf('id="audio-bar"');
+  const controlsIndex = html.indexOf('class="reader-controls"');
+  check(
+    stageIndex !== -1 && audioIndex > stageIndex && controlsIndex > audioIndex,
+    'The audio bar must sit between the reader stage and the page controls'
+  );
 
   const htmlRefs = [...html.matchAll(/\b(?:href|src)="([^"]+)"/g)].map((match) => match[1]);
   htmlRefs.forEach((reference) => checkLocalReference(reference, INDEX));
 
-  const cssFiles = ['assets/css/base.css', 'assets/css/landing.css', 'assets/css/reader.css'];
+  const cssFiles = ['assets/css/base.css', 'assets/css/landing.css', 'assets/css/reader.css', 'assets/css/audio.css'];
   for (const cssPath of cssFiles) {
     if (!exists(cssPath)) continue;
     const cssFile = path.join(ROOT, cssPath);
@@ -153,6 +169,23 @@ try {
     check(
       !/https?:\/\//.test(stripSvgNamespace(read(file))),
       `${relative(file)} contains an external runtime URL`
+    );
+  }
+
+  const copyFiles = [
+    'index.html',
+    'README.md',
+    'assets/js/app.js',
+    'assets/js/audio.js',
+    'assets/js/landing.js',
+    'assets/js/reader.js'
+  ];
+  for (const copyFile of copyFiles) {
+    const target = path.join(ROOT, copyFile);
+    if (!fs.existsSync(target)) continue;
+    check(
+      !/Phase\s*2|playback arrives/i.test(read(target)),
+      `${copyFile} still contains outdated soundtrack copy`
     );
   }
 

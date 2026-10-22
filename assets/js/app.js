@@ -3,6 +3,7 @@
 import { loadStory } from './data.js';
 import { initTheme } from './theme.js';
 import { createParticleField } from './particles.js';
+import { createAudio } from './audio.js';
 import { initLanding } from './landing.js';
 import { Reader } from './reader.js';
 import { Router } from './router.js';
@@ -44,6 +45,7 @@ function boot() {
   let router = null;
   let landing = null;
   let reader = null;
+  let audio = null;
   let pendingSection = null;
   let pendingEnding = null;
 
@@ -59,6 +61,7 @@ function boot() {
     if (route.view === 'reader') {
       landing?.hideEnding();
       landing?.setInert(true);
+      audio?.setChapter(route.chapter);
       reader.show(route.chapter, route.pageToken, {
         animate: meta.source !== 'load' && meta.source !== 'history'
       });
@@ -70,7 +73,9 @@ function boot() {
       return;
     }
 
+    const wasReading = Boolean(reader?.open);
     reader?.close();
+    if (wasReading) audio?.pause({ silent: true });
     landing?.setInert(false);
     landing?.refreshProgress();
 
@@ -103,9 +108,14 @@ function boot() {
   loadStory()
     .then((story) => {
       router = new Router(handleRoute);
+      audio = createAudio(story);
+      audio.mountDock(document.getElementById('audio-bar'));
+      audio.mountTrackDrawer(document.getElementById('track-drawer'));
+      window.__pbAudio = Object.freeze({ getState: () => audio.getState() });
 
       landing = initLanding(story, {
-        navigate: (path) => router.navigate(path)
+        navigate: (path) => router.navigate(path),
+        audio
       });
 
       reader = new Reader(story, {

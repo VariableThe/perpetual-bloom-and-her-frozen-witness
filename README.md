@@ -1,6 +1,6 @@
 # Perpetual Bloom and her Frozen Witness
 
-An interactive, local-first web reader for a novel in twenty-one chapters by Me and Sravz. The edition includes a landing page, a hash-routed reader with real text pagination and 3D page turns, twenty-one chapter covers, and two gallery plates per chapter.
+An interactive, local-first web reader for a novel in twenty-one chapters by Me and Sravz. The edition includes a landing page, a hash-routed reader with real text pagination and 3D page turns, twenty-one chapter covers, two gallery plates per chapter, and a live generative soundtrack for every chapter.
 
 ## Run the reader
 
@@ -31,11 +31,24 @@ Use the arrow keys, Page Up/Page Down, the on-screen page buttons, click zones o
 
 The chapter drawer, theme, text size and layout are stored only in the browser. The saved reading position stores a route token (`gallery` or a screen number) plus the character offset of the current text page, so Continue survives text-size, layout and viewport changes without turning a saved gallery into a text page. Records written by older builds are read as numeric tokens and upgraded when the next position is saved.
 
+## Soundtrack
+
+All 21 tracks are synthesized live with the Web Audio API. There are no audio files, samples, streams or third-party players. Each palette is built from its configured root, mode, tempo, chord progression, pad, chime, density, brightness, air and bell settings, then arranged into a slow eight-chord arc.
+
+- **Start from a gesture.** Browsers require a click, tap or key press before audio can begin. Use **Begin with sound** on the landing page, a track's play button, or the reader's audio bar.
+- **Chapter changes crossfade.** Opening a different chapter while playing moves to that chapter's palette. Turning pages within a chapter leaves the music alone.
+- **Leaving the reader pauses.** Returning to the archive, the end of the book, or leaving/hiding the tab pauses playback. It never auto-resumes.
+- **Controls.** Play/pause, previous/next track, mute, volume, loop and the full track drawer are available in the reader. The drawer also links each track to its chapter.
+- **Loop is optional.** With loop off, the current eight-chord arc finishes and the track stops cleanly.
+- **Unsupported browsers stay readable.** If Web Audio is unavailable, the player says so and disables its controls; reading is unaffected.
+
+Volume, mute and loop are remembered in `localStorage` under `pb.audio.v1`. Playing state is deliberately not saved. The audio bar is a normal part of the reader layout, not a floating overlay.
+
+Fan-art uploads are not part of this build yet. When they arrive they will use IndexedDB and stay on the device.
+
 ## What is local
 
-Everything is served from this repository. Fonts are bundled WOFF2 files with their OFL licences in `assets/fonts/`, artwork is original SVG in `assets/art/`, and there are no runtime network requests, analytics or accounts.
-
-Audio playback and fan-art uploads are honestly deferred to Phase 2. The tracklist maps every chapter to its generative palette, and the gallery and `#audio-dock` include labelled Phase 2 hooks, but neither feature pretends to be active yet. Uploads will use IndexedDB and stay on the device when implemented.
+Everything is served from this repository. Fonts are bundled WOFF2 files with their OFL licences in `assets/fonts/`, artwork is original SVG in `assets/art/`, and there are no runtime network requests, analytics or accounts. The soundtrack is generated in the browser; no note, buffer or request leaves the page.
 
 ## Validate
 
@@ -43,7 +56,15 @@ Audio playback and fan-art uploads are honestly deferred to Phase 2. The trackli
 npm test
 ```
 
-This runs focused navigation/persistence unit tests, the content validator and the site validator. The content validator checks chapter counts, word counts, metadata, soundtrack palettes and SVG integrity. The site validator checks the reader shell, local references, module imports, font files, artwork paths and the no-external-runtime-request rule.
+This runs focused navigation/persistence unit tests, the content validator and the site validator. The content validator checks chapter counts, word counts, metadata, soundtrack palettes and SVG integrity. The site validator checks the reader shell, audio shell, local references, module imports, font files, artwork paths and the no-external-runtime-request rule.
+
+For the headless audio smoke test:
+
+```powershell
+npm run qa:audio
+```
+
+It drives the installed Microsoft Edge in headless mode and writes screenshots to `qa/audio/`. The test verifies UI state and graph lifecycle, not audible quality.
 
 ## Content pipeline
 
@@ -63,11 +84,11 @@ npm run validate
 index.html              landing page and reader shell
 start.bat               Windows one-click server launcher
 server.mjs              zero-dependency local static server
-assets/css/             design tokens, landing and reader styles
-assets/js/              data loading, routing, pagination and reading UI
+assets/css/             design tokens, landing, reader and audio player styles
+assets/js/              data loading, routing, pagination, reading UI and audio engine
 assets/fonts/           local variable fonts and OFL licences
 assets/art/             original covers and gallery plates
 data/                   generated book data and edition configuration
-scripts/                content, artwork and site validation
+scripts/                content, artwork, site validation and audio QA
 src/data/               source novel text and extraction notes
 ```

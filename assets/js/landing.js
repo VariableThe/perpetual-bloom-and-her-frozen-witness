@@ -42,17 +42,29 @@ function renderHeroStats(story) {
   }
 }
 
-function renderHeroCtas() {
+function renderHeroCtas(audio, navigate) {
   const host = document.getElementById('hero-ctas');
   if (!host) return;
   clear(host);
 
-  host.append(
-    el('a', { class: 'btn btn--primary', href: chapterHref(1, 0) }, [
-      'Begin reading',
-      el('span', { 'aria-hidden': 'true', text: '→' })
-    ])
-  );
+  const soundReady = Boolean(audio && audio.supported);
+  const begin = el('button', {
+    class: 'btn btn--primary',
+    type: 'button',
+    disabled: !soundReady,
+    title: soundReady ? 'Start Chapter 1 with its soundtrack' : 'WebAudio is unavailable in this browser'
+  }, [
+    soundReady ? 'Begin with sound' : 'Sound unavailable',
+    el('span', { 'aria-hidden': 'true', text: soundReady ? '▶' : '·' })
+  ]);
+
+  begin.addEventListener('click', () => {
+    if (!soundReady) return;
+    audio.playTrack(1);
+    if (typeof navigate === 'function') navigate(chapterHref(1, 0));
+    else location.hash = chapterHref(1, 0);
+  });
+  host.append(begin);
 
   const saved = getSavedPosition();
   if (saved) {
@@ -66,9 +78,9 @@ function renderHeroCtas() {
       el('span', { 'aria-hidden': 'true', text: '↩' })
     ]));
   } else {
-    host.append(el('a', { class: 'btn btn--ghost', href: '#chapters' }, [
-      'Explore the chapters',
-      el('span', { 'aria-hidden': 'true', text: '↓' })
+    host.append(el('a', { class: 'btn btn--ghost', href: chapterHref(1, 0) }, [
+      'Read silently',
+      el('span', { 'aria-hidden': 'true', text: '→' })
     ]));
   }
 }
@@ -166,82 +178,6 @@ function renderActs(story) {
   }
 }
 
-function renderSoundtrack(story, navigate) {
-  const host = document.getElementById('soundtrack-list');
-  if (!host) return;
-  clear(host);
-
-  const panel = el('div', { class: 'soundtrack-panel' });
-
-  const intro = el('div', { class: 'soundtrack-intro' }, [
-    el('p', { class: 'eyebrow soundtrack-intro__eyebrow', text: 'A listening companion' }),
-    el('h3', { class: 'soundtrack-intro__title' }, ['One palette for every ', el('em', { text: 'chapter' })]),
-    el('p', {
-      class: 'soundtrack-intro__lead',
-      text: 'Twenty-one generative WebAudio palettes, each tuned to the mood of its chapter. The tracklist is mapped; the sound engine arrives in Phase 2.'
-    }),
-    el('div', { class: 'soundtrack-disc', 'aria-hidden': 'true' }, [
-      el('span', { class: 'soundtrack-disc__label', text: 'Phase 2' })
-    ]),
-    el('p', { class: 'soundtrack-intro__note' }, [
-      el('strong', { text: 'Honest status: ' }),
-      'no audio plays on this page yet. For now each row opens its chapter, ready for the Phase 2 player.'
-    ]),
-    el('span', { class: 'phase-pill soundtrack-intro__phase', text: 'Playback · Phase 2' })
-  ]);
-
-  const tracks = el('div', { class: 'soundtrack-tracks' });
-
-  for (const act of story.acts) {
-    const group = el('section', {
-      class: 'track-act',
-      'aria-label': `${act.title} soundtrack`
-    });
-
-    group.append(el('header', { class: 'track-act__head' }, [
-      el('span', { class: 'track-act__title', text: act.id === 'prologue' ? 'Prologue' : `Act ${act.roman} · ${act.title}` }),
-      el('span', { class: 'track-act__count', text: `${act.chapters.length} tracks` })
-    ]));
-
-    for (const chapter of act.chapters) {
-      const row = el('button', {
-        class: 'track-row',
-        type: 'button',
-        'data-track-id': chapter.track.id,
-        'data-chapter': chapter.number,
-        'aria-label': `Read Chapter ${chapter.number}, ${chapter.title}, with the track ${chapter.track.title}`
-      }, [
-        el('span', { class: 'track-row__num', 'aria-hidden': 'true', text: padded(chapter.track.number) }),
-        el('span', { class: 'track-row__main' }, [
-          el('span', { class: 'track-row__title', text: chapter.track.title }),
-          el('span', { class: 'track-row__mood', text: chapter.track.mood })
-        ]),
-        el('span', { class: 'track-row__chapter' }, [
-          el('strong', { text: chapter.title }),
-          `Ch. ${chapter.number}`
-        ]),
-        el('span', { class: 'track-row__cta' }, [
-          'Read with this chapter',
-          el('span', { class: 'track-row__arrow', 'aria-hidden': 'true', text: '→' })
-        ])
-      ]);
-
-      group.append(row);
-    }
-
-    tracks.append(group);
-  }
-
-  panel.append(intro, tracks);
-  host.append(panel);
-
-  host.addEventListener('click', (event) => {
-    const row = event.target.closest('[data-track-id]');
-    if (!row) return;
-    navigate(chapterHref(Number(row.dataset.chapter), 0));
-  });
-}
-
 function renderGalleryPreviews(story) {
   const host = document.getElementById('gallery-preview');
   if (!host) return;
@@ -314,16 +250,16 @@ function renderAbout(story) {
     noteHost.append(
       el('p', {}, [
         el('strong', { text: 'Me and Sravz. ' }),
-        'Original SVG artwork and generative soundtrack palettes were made for this edition. All twenty-one chapters are presented from the extracted novel text.'
+        'Original SVG artwork and a live generative WebAudio score were made for this edition. All twenty-one chapters are presented from the extracted novel text.'
       ]),
       el('p', {}, [
         el('strong', { text: 'Local-first. ' }),
-        'No accounts, no analytics and no runtime network requests. Reading position, theme and type settings stay in this browser. Phase 2 artwork uploads will stay on this device too.'
+        'No accounts, no analytics and no runtime network requests. Reading position, theme, type and soundtrack settings stay in this browser. Fan-art uploads are not part of this build yet; when they arrive they will stay on this device too.'
       ]),
       el('p', {}, [
         'Inspired by interactive fan-comic readers. No Attack on Titan artwork, music or lyrics are used, and this edition is not affiliated with any existing work, publisher or rights holder.'
       ]),
-      el('span', { class: 'phase-pill', text: 'Audio & uploads · Phase 2' })
+      el('span', { class: 'phase-pill', text: 'Sound on · 21 generative tracks' })
     );
   }
 
@@ -417,7 +353,7 @@ function initEndingToast() {
   };
 }
 
-export function initLanding(story, { navigate }) {
+export function initLanding(story, { navigate, audio = null }) {
   const landingView = document.getElementById('landing-view');
   const echo = initEndingToast();
 
@@ -436,10 +372,12 @@ export function initLanding(story, { navigate }) {
   const aboutQuote = document.getElementById('about-quote');
   if (aboutQuote) aboutQuote.textContent = story.meta.openingQuote || '';
 
-  renderHeroCtas();
+  renderHeroCtas(audio, navigate);
   renderHeroStats(story);
   renderActs(story);
-  renderSoundtrack(story, navigate);
+  if (audio) {
+    audio.mountLanding(document.getElementById('soundtrack-list'), { navigate });
+  }
   renderGalleryPreviews(story);
   renderAbout(story);
   initMobileNav();
@@ -447,7 +385,7 @@ export function initLanding(story, { navigate }) {
 
   return {
     refreshProgress() {
-      renderHeroCtas();
+      renderHeroCtas(audio, navigate);
     },
     setInert(value) {
       if (!landingView) return;

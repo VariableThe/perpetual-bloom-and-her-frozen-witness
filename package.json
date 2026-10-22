@@ -14,6 +14,7 @@
     "validate:site": "node scripts/validate-site.mjs",
     "validate": "npm run validate:content && npm run validate:site",
     "test:unit": "node --test scripts/test-navigation.mjs",
-    "test": "npm run test:unit && npm run validate"
+    "test": "npm run test:unit && npm run validate",
+    "qa:audio": "node scripts/qa-audio.mjs"
   }
 }

@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/landing.css">
   <link rel="stylesheet" href="assets/css/reader.css">
+  <link rel="stylesheet" href="assets/css/audio.css">
   <script>
     (function () {
       try {
@@ -169,7 +170,7 @@
               <p class="eyebrow">The soundtrack</p>
               <h2 class="display" id="soundtrack-title">Twenty-one <em>generative palettes</em></h2>
             </div>
-            <p class="section-head__lead">One WebAudio palette per chapter. Playback arrives in Phase 2 — until then, each track is a reading companion, mapped to the chapter it belongs to.</p>
+            <p class="section-head__lead">One live WebAudio palette per chapter. Press play here, or begin a chapter and the reader carries its score with you.</p>
           </header>
           <div id="soundtrack-list" class="soundtrack-host" data-track-list></div>
         </div>
@@ -182,12 +183,12 @@
               <p class="eyebrow">The galleries</p>
               <h2 class="display" id="galleries-title">Plates at the <em>end of chapters</em></h2>
             </div>
-            <p class="section-head__lead">Each chapter closes with two original plates: a bloom study and a relic study. Fan-art uploads will join them in Phase 2 and will stay in this browser.</p>
+            <p class="section-head__lead">Each chapter closes with two original plates: a bloom study and a relic study. Fan-art uploads are not part of this build yet, but the gallery pages are already in place.</p>
           </header>
           <div class="gallery-grid" id="gallery-preview"></div>
           <div class="gallery-footnote reveal">
-            <span class="phase-pill">Phase 2</span>
-            <p>Uploads are not active yet. When they arrive, artwork will be stored locally with IndexedDB — never uploaded, never tracked.</p>
+            <span class="phase-pill">Coming later</span>
+            <p>Artwork uploads are not part of this build yet. When they arrive, files will be stored locally with IndexedDB — never uploaded, never tracked.</p>
           </div>
         </div>
       </section>
@@ -299,6 +300,8 @@
       </div>
     </div>
 
+    <section id="audio-bar" class="audio-bar" aria-label="Chapter soundtrack"></section>
+
     <footer class="reader-controls">
       <div class="reader-controls__inner">
         <button class="reader-turn reader-turn--prev" id="reader-prev" type="button" aria-label="Previous screen">
@@ -324,8 +327,6 @@
     <div class="paginate-probe page-text" id="paginate-probe" aria-hidden="true"></div>
     <p class="sr-only" id="reader-status" aria-live="polite"></p>
 
-    <!-- Phase 2 hook: the generative WebAudio player will mount into this dock. -->
-    <div id="audio-dock" class="audio-dock" data-phase="2" hidden aria-hidden="true"></div>
   </section>
 
   <div id="chapter-drawer" class="drawer" hidden>
@@ -341,6 +342,22 @@
         </button>
       </header>
       <div class="drawer__body" id="drawer-list"></div>
+    </aside>
+  </div>
+
+  <div id="track-drawer" class="drawer track-drawer" hidden>
+    <div class="drawer__backdrop" data-track-drawer-close></div>
+    <aside class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="track-drawer-title" tabindex="-1">
+      <header class="drawer__head">
+        <div>
+          <p class="eyebrow">The soundtrack</p>
+          <h2 class="display" id="track-drawer-title">All tracks</h2>
+        </div>
+        <button class="reader-icon-button" id="track-drawer-close" type="button" aria-label="Close track list" title="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </header>
+      <div class="drawer__body track-drawer__body" id="track-drawer-list"></div>
     </aside>
   </div>
 
