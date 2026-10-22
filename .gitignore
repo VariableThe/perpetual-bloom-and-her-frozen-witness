@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+
+# Media placeholders (assets are added later; keep directory markers)
+public/media/*
+!public/media/.gitkeep
+src/assets/media/*
+!src/assets/media/.gitkeep
+
+# Build output
+dist/
+build/
