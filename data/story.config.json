@@ -1,0 +1,896 @@
+{
+  "meta": {
+    "title": "Perpetual Bloom and her Frozen Witness",
+    "subtitle": "A novel in twenty-one chapters",
+    "authors": "Me and Sravz",
+    "wordCount": 85846,
+    "chapterCount": 21,
+    "tagline": "Some love stories are kept in objects; this one is kept in frost and bloom.",
+    "description": "A luminous, object-haunted love story told across twenty-one chapters, where memory, monsoon light and small kept things gather into a witness.",
+    "openingQuote": "You came, you saw, and somehow you conquered the part of me that had forgotten how to be gentle.",
+    "coverArt": "assets/art/cover.svg",
+    "credits": {
+      "story": "Me and Sravz",
+      "source": "Novel Draft(Me and Sravz).pdf",
+      "textExtraction": "PyMuPDF extraction, 22 October 2026",
+      "artwork": "Original SVG artwork made for this edition",
+      "soundtrack": "Generative WebAudio palettes, one per chapter"
+    },
+    "notes": [
+      "Chapter titles and word counts follow the printed chapter headings.",
+      "Chapter 20 belongs to Act IV although no act label is printed above it.",
+      "The opening quote is transcribed from Chapter 1.",
+      "All artwork is original SVG and works offline."
+    ]
+  },
+  "acts": [
+    {
+      "id": "prologue",
+      "roman": "—",
+      "title": "Prologue",
+      "subtitle": "The book and the arrow",
+      "blurb": "Before the acts begin, a manuscript waits under a paper crane and a summer train carries a confession toward the sea.",
+      "chapterNumbers": [
+        1,
+        2
+      ]
+    },
+    {
+      "id": "act-1",
+      "roman": "I",
+      "title": "The Arrival",
+      "subtitle": "Clover, earbuds, and the minute at 7:02",
+      "blurb": "The ordinary office becomes luminous as small objects start keeping time: a clover, a pair of earbuds, a hair clip in the rain.",
+      "chapterNumbers": [
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "id": "act-2",
+      "roman": "II",
+      "title": "The Accumulation",
+      "subtitle": "Cups, sparrows, and things kept",
+      "blurb": "Days accumulate into relics. Shared sips, morning sparrows and folded notes make a private museum of a July.",
+      "chapterNumbers": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "id": "act-3",
+      "roman": "III",
+      "title": "The Relics",
+      "subtitle": "What the petals remember",
+      "blurb": "The light thins. Bracelets, petals, a metro window and a pocket-sized penguin hold what the calendar cannot.",
+      "chapterNumbers": [
+        13,
+        14,
+        15,
+        16,
+        17,
+        18
+      ]
+    },
+    {
+      "id": "act-4",
+      "roman": "IV",
+      "title": "The Turning",
+      "subtitle": "The letter and the final fold",
+      "blurb": "A minute returns, a letter crosses distance, and a last crane is folded with the patience of something that means to stay.",
+      "chapterNumbers": [
+        19,
+        20,
+        21
+      ]
+    }
+  ],
+  "tracks": [
+    {
+      "id": "track-01",
+      "number": 1,
+      "title": "Pages Between Us",
+      "mood": "wonder, ink and first light",
+      "root": 50,
+      "mode": "ionian",
+      "tempo": 56,
+      "chordProgression": [
+        0,
+        5,
+        3,
+        4
+      ],
+      "padWave": "sine",
+      "chimeWave": "sine",
+      "density": 0.2,
+      "brightness": 1800,
+      "air": 0.18,
+      "bells": 0.35
+    },
+    {
+      "id": "track-02",
+      "number": 2,
+      "title": "Arrowheart",
+      "mood": "tender vertigo",
+      "root": 52,
+      "mode": "lydian",
+      "tempo": 58,
+      "chordProgression": [
+        0,
+        4,
+        2,
+        3
+      ],
+      "padWave": "triangle",
+      "chimeWave": "sine",
+      "density": 0.24,
+      "brightness": 2000,
+      "air": 0.16,
+      "bells": 0.3
+    },
+    {
+      "id": "track-03",
+      "number": 3,
+      "title": "Cloverlight",
+      "mood": "bright luck, warm rain",
+      "root": 53,
+      "mode": "lydian",
+      "tempo": 60,
+      "chordProgression": [
+        0,
+        4,
+        5,
+        3
+      ],
+      "padWave": "triangle",
+      "chimeWave": "sine",
+      "density": 0.3,
+      "brightness": 2100,
+      "air": 0.14,
+      "bells": 0.4
+    },
+    {
+      "id": "track-04",
+      "number": 4,
+      "title": "The Things We Keep",
+      "mood": "soft inventory of the heart",
+      "root": 55,
+      "mode": "ionian",
+      "tempo": 62,
+      "chordProgression": [
+        0,
+        5,
+        3,
+        4
+      ],
+      "padWave": "triangle",
+      "chimeWave": "sine",
+      "density": 0.32,
+      "brightness": 2200,
+      "air": 0.12,
+      "bells": 0.35
+    },
+    {
+      "id": "track-05",
+      "number": 5,
+      "title": "Seven Oh Two",
+      "mood": "a held minute",
+      "root": 57,
+      "mode": "dorian",
+      "tempo": 64,
+      "chordProgression": [
+        0,
+        3,
+        4,
+        5
+      ],
+      "padWave": "triangle",
+      "chimeWave": "sine",
+      "density": 0.34,
+      "brightness": 2000,
+      "air": 0.1,
+      "bells": 0.45
+    },
+    {
+      "id": "track-06",
+      "number": 6,
+      "title": "The First Sip",
+      "mood": "first sweetness",
+      "root": 55,
+      "mode": "mixolydian",
+      "tempo": 62,
+      "chordProgression": [
+        0,
+        4,
+        3,
+        5
+      ],
+      "padWave": "triangle",
+      "chimeWave": "sine",
+      "density": 0.36,
+      "brightness": 2150,
+      "air": 0.09,
+      "bells": 0.3
+    },
+    {
+      "id": "track-07",
+      "number": 7,
+      "title": "Sparrows at First Light",
+      "mood": "morning lift",
+      "root": 57,
+      "mode": "ionian",
+      "tempo": 66,
+      "chordProgression": [
+        0,
+        5,
+        3,
+        4
+      ],
+      "padWave": "triangle",
+      "chimeWave": "sine",
+      "density": 0.38,
+      "brightness": 2250,
+      "air": 0.12,
+      "bells": 0.42
+    },
+    {
+      "id": "track-08",
+      "number": 8,
+      "title": "The Box of Yesterdays",
+      "mood": "tender archive",
+      "root": 53,
+      "mode": "aeolian",
+      "tempo": 58,
+      "chordProgression": [
+        0,
+        5,
+        2,
+        4
+      ],
+      "padWave": "sine",
+      "chimeWave": "triangle",
+      "density": 0.27,
+      "brightness": 1600,
+      "air": 0.15,
+      "bells": 0.25
+    },
+    {
+      "id": "track-09",
+      "number": 9,
+      "title": "A Pink Heart, Noticed",
+      "mood": "a quiet shock of being seen",
+      "root": 60,
+      "mode": "dorian",
+      "tempo": 64,
+      "chordProgression": [
+        0,
+        3,
+        5,
+        4
+      ],
+      "padWave": "triangle",
+      "chimeWave": "sine",
+      "density": 0.3,
+      "brightness": 1900,
+      "air": 0.1,
+      "bells": 0.5
+    },
+    {
+      "id": "track-10",
+      "number": 10,
+      "title": "Four Eleven",
+      "mood": "amber afternoon",
+      "root": 58,
+      "mode": "mixolydian",
+      "tempo": 60,
+      "chordProgression": [
+        0,
+        4,
+        5,
+        3
+      ],
+      "padWave": "triangle",
+      "chimeWave": "sine",
+      "density": 0.25,
+      "brightness": 1750,
+      "air": 0.14,
+      "bells": 0.35
+    },
+    {
+      "id": "track-11",
+      "number": 11,
+      "title": "The Orange Vigil",
+      "mood": "small, stubborn courage",
+      "root": 55,
+      "mode": "majorPentatonic",
+      "tempo": 68,
+      "chordProgression": [
+        0,
+        2,
+        4,
+        3
+      ],
+      "padWave": "triangle",
+      "chimeWave": "sine",
+      "density": 0.4,
+      "brightness": 2200,
+      "air": 0.08,
+      "bells": 0.2
+    },
+    {
+      "id": "track-12",
+      "number": 12,
+      "title": "Note in Hot Pink",
+      "mood": "bright, unguarded",
+      "root": 62,
+      "mode": "lydian",
+      "tempo": 66,
+      "chordProgression": [
+        0,
+        4,
+        5,
+        3
+      ],
+      "padWave": "triangle",
+      "chimeWave": "sine",
+      "density": 0.33,
+      "brightness": 2300,
+      "air": 0.1,
+      "bells": 0.55
+    },
+    {
+      "id": "track-13",
+      "number": 13,
+      "title": "Petals in the Bracelet",
+      "mood": "farewell glow",
+      "root": 50,
+      "mode": "aeolian",
+      "tempo": 54,
+      "chordProgression": [
+        0,
+        5,
+        2,
+        6
+      ],
+      "padWave": "sine",
+      "chimeWave": "triangle",
+      "density": 0.18,
+      "brightness": 1200,
+      "air": 0.2,
+      "bells": 0.25
+    },
+    {
+      "id": "track-14",
+      "number": 14,
+      "title": "One Petal Returns",
+      "mood": "pressed and preserved",
+      "root": 52,
+      "mode": "dorian",
+      "tempo": 52,
+      "chordProgression": [
+        0,
+        3,
+        5,
+        2
+      ],
+      "padWave": "sine",
+      "chimeWave": "triangle",
+      "density": 0.16,
+      "brightness": 1100,
+      "air": 0.22,
+      "bells": 0.2
+    },
+    {
+      "id": "track-15",
+      "number": 15,
+      "title": "First Metro, Blue Hour",
+      "mood": "blue-hour departure",
+      "root": 48,
+      "mode": "phrygian",
+      "tempo": 50,
+      "chordProgression": [
+        0,
+        1,
+        4,
+        5
+      ],
+      "padWave": "sine",
+      "chimeWave": "triangle",
+      "density": 0.2,
+      "brightness": 1000,
+      "air": 0.18,
+      "bells": 0.15
+    },
+    {
+      "id": "track-16",
+      "number": 16,
+      "title": "Pocket-Sized Winter",
+      "mood": "small warmth in a cold pocket",
+      "root": 53,
+      "mode": "aeolian",
+      "tempo": 56,
+      "chordProgression": [
+        0,
+        5,
+        3,
+        6
+      ],
+      "padWave": "sine",
+      "chimeWave": "triangle",
+      "density": 0.22,
+      "brightness": 1250,
+      "air": 0.16,
+      "bells": 0.3
+    },
+    {
+      "id": "track-17",
+      "number": 17,
+      "title": "The Rose Remembers",
+      "mood": "beautiful impermanence",
+      "root": 45,
+      "mode": "aeolian",
+      "tempo": 48,
+      "chordProgression": [
+        0,
+        5,
+        2,
+        6
+      ],
+      "padWave": "sine",
+      "chimeWave": "triangle",
+      "density": 0.14,
+      "brightness": 950,
+      "air": 0.24,
+      "bells": 0.18
+    },
+    {
+      "id": "track-18",
+      "number": 18,
+      "title": "The Borrowed Hoodie",
+      "mood": "borrowed warmth",
+      "root": 50,
+      "mode": "dorian",
+      "tempo": 52,
+      "chordProgression": [
+        0,
+        3,
+        5,
+        4
+      ],
+      "padWave": "sine",
+      "chimeWave": "triangle",
+      "density": 0.19,
+      "brightness": 1150,
+      "air": 0.2,
+      "bells": 0.28
+    },
+    {
+      "id": "track-19",
+      "number": 19,
+      "title": "Seven Oh Three",
+      "mood": "the minute after",
+      "root": 57,
+      "mode": "aeolian",
+      "tempo": 54,
+      "chordProgression": [
+        0,
+        5,
+        3,
+        4
+      ],
+      "padWave": "sine",
+      "chimeWave": "triangle",
+      "density": 0.22,
+      "brightness": 1300,
+      "air": 0.18,
+      "bells": 0.32
+    },
+    {
+      "id": "track-20",
+      "number": 20,
+      "title": "A Letter Across Distance",
+      "mood": "distance, folded",
+      "root": 55,
+      "mode": "ionian",
+      "tempo": 58,
+      "chordProgression": [
+        0,
+        4,
+        5,
+        3
+      ],
+      "padWave": "sine",
+      "chimeWave": "sine",
+      "density": 0.26,
+      "brightness": 1700,
+      "air": 0.16,
+      "bells": 0.38
+    },
+    {
+      "id": "track-21",
+      "number": 21,
+      "title": "The Final Crane",
+      "mood": "elegiac bloom",
+      "root": 60,
+      "mode": "majorPentatonic",
+      "tempo": 60,
+      "chordProgression": [
+        0,
+        4,
+        2,
+        5
+      ],
+      "padWave": "sine",
+      "chimeWave": "sine",
+      "density": 0.3,
+      "brightness": 2050,
+      "air": 0.14,
+      "bells": 0.5
+    }
+  ],
+  "chapters": [
+    {
+      "number": 1,
+      "title": "The Book That Introduced Her to Him",
+      "actId": "prologue",
+      "part": null,
+      "date": null,
+      "relic": null,
+      "galleryPrompt": "A single paper crane resting on a manuscript beside a pink-ink journal, monsoon light through office windows, origami folds catching frost.",
+      "galleryPlates": [
+        "assets/art/gallery/chapter-01-bloom.svg",
+        "assets/art/gallery/chapter-01-relic.svg"
+      ],
+      "coverArt": "assets/art/chapters/chapter-01.svg",
+      "accent": "#D76C9B",
+      "wordCount": 4633,
+      "trackId": "track-01"
+    },
+    {
+      "number": 2,
+      "title": "The Arrow That Became a Heart",
+      "actId": "prologue",
+      "part": null,
+      "date": null,
+      "relic": null,
+      "galleryPrompt": "A paper arrow folding itself into a heart on a rain-grey train platform, pink thread and cold window light.",
+      "galleryPlates": [
+        "assets/art/gallery/chapter-02-bloom.svg",
+        "assets/art/gallery/chapter-02-relic.svg"
+      ],
+      "coverArt": "assets/art/chapters/chapter-02.svg",
+      "accent": "#C47BAE",
+      "wordCount": 4535,
+      "trackId": "track-02"
+    },
+    {
+      "number": 3,
+      "title": "The Clover and the Home",
+      "actId": "act-1",
+      "part": null,
+      "date": "Tuesday, June 30, 2026",
+      "relic": "the clover bracelet (and the white, black and empty clover necklace) · Supporting: the umbrella, the purse, the van",
+      "galleryPrompt": "A clover bracelet and a white, black and empty clover necklace on a rain-damp desk with a folded umbrella.",
+      "galleryPlates": [
+        "assets/art/gallery/chapter-03-bloom.svg",
+        "assets/art/gallery/chapter-03-relic.svg"
+      ],
+      "coverArt": "assets/art/chapters/chapter-03.svg",
+      "accent": "#B88BCB",
+      "wordCount": 3843,
+      "trackId": "track-03"
+    },
+    {
+      "number": 4,
+      "title": "The Things She Could Not Replace",
+      "actId": "act-1",
+      "part": null,
+      "date": "Wednesday, July 1, 2026 (morning to afternoon)",
+      "relic": "the sentimental earbuds · Supporting: the diamond bowtie, the royal-blue outfit, the hair clip",
+      "galleryPrompt": "Sentimental earbuds tangled around a diamond bowtie and a hair clip, royal-blue fabric and soft afternoon light.",
+      "galleryPlates": [
+        "assets/art/gallery/chapter-04-bloom.svg",
+        "assets/art/gallery/chapter-04-relic.svg"
+      ],
+      "coverArt": "assets/art/chapters/chapter-04.svg",
+      "accent": "#D98BA8",
+      "wordCount": 4502,
+      "trackId": "track-04"
+    },
+    {
+      "number": 5,
+      "title": "The Hair Clip at 7:02",
+      "actId": "act-1",
+      "part": null,
+      "date": "Wednesday, July 1, 2026 (evening)",
+      "relic": "the hair clip · Supporting: the golden hoop earrings, the taxi dashboard clock, the umbrellas",
+      "galleryPrompt": "A hair clip beside a taxi dashboard clock reading 7:02, rain on glass, golden hoop earrings catching the last light.",
+      "galleryPlates": [
+        "assets/art/gallery/chapter-05-bloom.svg",
+        "assets/art/gallery/chapter-05-relic.svg"
+      ],
+      "coverArt": "assets/art/chapters/chapter-05.svg",
+      "accent": "#C36C93",
+      "wordCount": 4322,
+      "trackId": "track-05"
+    },
+    {
+      "number": 6,
+      "title": "The First Sip",
+      "actId": "act-2",
+      "part": null,
+      "date": "Thursday, July 2, 2026",
+      "relic": "the Ocean drink and the shared cup · Supporting: the KitKat, the pink top, the Fossil watch, the staircase",
+      "galleryPrompt": "An Ocean drink and a shared cup with one straw on a staircase, a KitKat wrapper and a pink top in warm office light.",
+      "galleryPlates": [
+        "assets/art/gallery/chapter-06-bloom.svg",
+        "assets/art/gallery/chapter-06-relic.svg"
+      ],
+      "coverArt": "assets/art/chapters/chapter-06.svg",
+      "accent": "#E08FA6",
+      "wordCount": 4417,
+      "trackId": "track-06"
+    },
+    {
+      "number": 7,
+      "title": "The Sparrows That Kept Getting Up",
+      "actId": "act-2",
+      "part": null,
+      "date": "Friday, July 3, 2026",
+      "relic": "the camera and the photograph gallery · Supporting: The Palace of Illusions, The Concise Laws of Human Nature, the Lightning charger, the Bournville wrapper",
+      "galleryPrompt": "Two sparrows rising from a windowsill above a camera and a small stack of books, Friday light and a Bournville wrapper.",
+      "galleryPlates": [
+        "assets/art/gallery/chapter-07-bloom.svg",
+        "assets/art/gallery/chapter-07-relic.svg"
+      ],
+      "coverArt": "assets/art/chapters/chapter-07.svg",
+      "accent": "#B879A6",
+      "wordCount": 5080,
+      "trackId": "track-07"
+    },
+    {
+      "number": 8,
+      "title": "The Memory Box",
+      "actId": "act-2",
+      "part": null,
+      "date": "Saturday, July 4 and Sunday, July 5, 2026",
+      "relic": "her memory box · Supporting: the twenty-page letter, the phone, the journal, the ziplock bag",
+      "galleryPrompt": "An open memory box spilling a twenty-page letter, a phone, a journal and a ziplock bag onto a bed of pale petals.",
+      "galleryPlates": [
+        "assets/art/gallery/chapter-08-bloom.svg",
+        "assets/art/gallery/chapter-08-relic.svg"
+      ],
+      "coverArt": "assets/art/chapters/chapter-08.svg",
+      "accent": "#A98CC6",
+      "wordCount": 3381,
+      "trackId": "track-08"
+    },
+    {
+      "number": 9,
+      "title": "The Sentence \"I Noticed\"",
+      "actId": "act-2",
+      "part": null,
+      "date": "Monday, July 6, 2026",
+      "relic": "the phone and the pink heart beside his name · Supporting: the call, the signal bars, the earbuds, the journal",
+      "galleryPrompt": "A phone screen with a pink heart beside a name, signal bars and earbuds, a sentence glowing in the dark.",
+      "galleryPlates": [
+        "assets/art/gallery/chapter-09-bloom.svg",
+        "assets/art/gallery/chapter-09-relic.svg"
+      ],
+      "coverArt": "assets/art/chapters/chapter-09.svg",
+      "accent": "#D69AB4",
+      "wordCount": 2735,
+      "trackId": "track-09"
+    },
+    {
+      "number": 10,
+      "title": "4:11",
+      "actId": "act-2",
+      "part": null,
+      "date": "Tuesday, July 7, 2026",
+      "relic": "the signed book with the lipstick marks · Supporting: the Giorgio Armani lipstick, the ice cream, the journal",
+      "galleryPrompt": "A signed book with a lipstick mark beside melting ice cream at 4:11, pages open under a warm lamp.",
+      "galleryPlates": [
+        "assets/art/gallery/chapter-10-bloom.svg",
+        "assets/art/gallery/chapter-10-relic.svg"
+      ],
+      "coverArt": "assets/art/chapters/chapter-10.svg",
+      "accent": "#C17FA3",
+      "wordCount": 3944,
+      "trackId": "track-10"
+    },
+    {
+      "number": 11,
+      "title": "The Goku Figurine",
+      "actId": "act-2",
+      "part": null,
+      "date": "Wednesday, July 8, 2026",
+      "relic": "the Goku figurine and the Watchmen compilation · Supporting: Katabasis, the Halo bracelet, the twin-heart necklace, the letter",
+      "galleryPrompt": "A tiny Goku figurine standing on a Watchmen compilation, twin-heart necklace and letter nearby, shelf-light and dust motes.",
+      "galleryPlates": [
+        "assets/art/gallery/chapter-11-bloom.svg",
+        "assets/art/gallery/chapter-11-relic.svg"
+      ],
+      "coverArt": "assets/art/chapters/chapter-11.svg",
+      "accent": "#B58BCF",
+      "wordCount": 3047,
+      "trackId": "track-11"
+    },
+    {
+      "number": 12,
+      "title": "The Hot Pink Note",
+      "actId": "act-2",
+      "part": null,
+      "date": "Thursday, July 9, 2026",
+      "relic": "the hot pink handwritten note and the KitKat · Supporting: the roses (planned), the journal, the unmade lipstick mark",
+      "galleryPrompt": "A hot-pink handwritten note and a KitKat on a desk, an unmade lipstick mark and planned roses in soft morning light.",
+      "galleryPlates": [
+        "assets/art/gallery/chapter-12-bloom.svg",
+        "assets/art/gallery/chapter-12-relic.svg"
+      ],
+      "coverArt": "assets/art/chapters/chapter-12.svg",
+      "accent": "#E05F9F",
+      "wordCount": 2673,
+      "trackId": "track-12"
+    },
+    {
+      "number": 13,
+      "title": "The Bracelet and the Dried Petals",
+      "actId": "act-3",
+      "part": null,
+      "date": "Friday, July 10, 2026",
+      "relic": "the Palmonas bracelet and the dried petals · Supporting: the internship certificate, the clover bracelet, the red top, the City Two lift",
+      "galleryPrompt": "A Palmonas bracelet with dried petals, an internship certificate and a clover bracelet on red fabric, lift-light and farewell quiet.",
+      "galleryPlates": [
+        "assets/art/gallery/chapter-13-bloom.svg",
+        "assets/art/gallery/chapter-13-relic.svg"
+      ],
+      "coverArt": "assets/art/chapters/chapter-13.svg",
+      "accent": "#C68CAB",
+      "wordCount": 3620,
+      "trackId": "track-13"
+    },
+    {
+      "number": 14,
+      "title": "The Dried Petal Returns",
+      "actId": "act-3",
+      "part": null,
+      "date": "Monday, July 13, 2026",
+      "relic": "the preserved dried petals · Supporting: the white shirt and Singapore jeans, the star earrings, the arrow-hearts necklace, the hot pink note",
+      "galleryPrompt": "A single preserved dried petal on a white shirt beside star earrings and an arrow-hearts necklace, hot-pink note at the edge.",
+      "galleryPlates": [
+        "assets/art/gallery/chapter-14-bloom.svg",
+        "assets/art/gallery/chapter-14-relic.svg"
+      ],
+      "coverArt": "assets/art/chapters/chapter-14.svg",
+      "accent": "#AE87BE",
+      "wordCount": 3188,
+      "trackId": "track-14"
+    },
+    {
+      "number": 15,
+      "title": "The First Metro",
+      "actId": "act-3",
+      "part": null,
+      "date": "Monday, July 20, 2026",
+      "relic": "the S necklace · Supporting: the roses, the tiny bangles, the two cold coffees and the brownie, the KitKats",
+      "galleryPrompt": "A first metro train seen through a window, an S necklace and tiny bangles on a table with two cold coffees and a brownie.",
+      "galleryPlates": [
+        "assets/art/gallery/chapter-15-bloom.svg",
+        "assets/art/gallery/chapter-15-relic.svg"
+      ],
+      "coverArt": "assets/art/chapters/chapter-15.svg",
+      "accent": "#A18BBB",
+      "wordCount": 2602,
+      "trackId": "track-15"
+    },
+    {
+      "number": 16,
+      "title": "The Penguin in the Pocket",
+      "actId": "act-3",
+      "part": null,
+      "date": "Wednesday, July 22, 2026",
+      "relic": "Pooks, the pink penguin figurine · Supporting: the letter, the Canva photographs, the blue teardrop, the snowflake, the Lindt bars",
+      "galleryPrompt": "A small pink penguin figurine in a coat pocket, with a letter, snowflake and blue teardrop, Canva photographs on a desk.",
+      "galleryPlates": [
+        "assets/art/gallery/chapter-16-bloom.svg",
+        "assets/art/gallery/chapter-16-relic.svg"
+      ],
+      "coverArt": "assets/art/chapters/chapter-16.svg",
+      "accent": "#D49AAF",
+      "wordCount": 4212,
+      "trackId": "track-16"
+    },
+    {
+      "number": 17,
+      "title": "The Rose That Knows It Will Wilt",
+      "actId": "act-3",
+      "part": "The Witness and the Bloom",
+      "date": "Friday, July 24, 2026",
+      "relic": "the rose and the photograph · Supporting: the purple top, the layered bracelets, the train to Andheri, McDonald's",
+      "galleryPrompt": "A rose and a photograph on a purple top, layered bracelets and a train ticket to Andheri, late-July window light.",
+      "galleryPlates": [
+        "assets/art/gallery/chapter-17-bloom.svg",
+        "assets/art/gallery/chapter-17-relic.svg"
+      ],
+      "coverArt": "assets/art/chapters/chapter-17.svg",
+      "accent": "#C76A92",
+      "wordCount": 5423,
+      "trackId": "track-17"
+    },
+    {
+      "number": 18,
+      "title": "The Hoodie, the Straw, and the Bouquet",
+      "actId": "act-3",
+      "part": null,
+      "date": "Thursday, July 30, 2026",
+      "relic": "the oversized hoodie · Supporting: the grapefruit matcha, the single straw, the bouquet, the tote and backpack, the Palmonas bracelet and its safety pin, the journal",
+      "galleryPrompt": "An oversized hoodie beside a grapefruit matcha with a single straw and a bouquet, tote and backpack by the door.",
+      "galleryPlates": [
+        "assets/art/gallery/chapter-18-bloom.svg",
+        "assets/art/gallery/chapter-18-relic.svg"
+      ],
+      "coverArt": "assets/art/chapters/chapter-18.svg",
+      "accent": "#D387A3",
+      "wordCount": 7049,
+      "trackId": "track-18"
+    },
+    {
+      "number": 19,
+      "title": "7:02 / 7:03",
+      "actId": "act-4",
+      "part": null,
+      "date": "Wednesday, July 1, 2026 (the minute, and the midnight that returned it)",
+      "relic": "the taxi dashboard clock · Supporting: the hair clip, the golden hoop earrings, the shared earphone wire, the journal's white band",
+      "galleryPrompt": "A taxi dashboard clock holding 7:02 and 7:03, hair clip and golden hoop earrings, one shared earphone wire.",
+      "galleryPlates": [
+        "assets/art/gallery/chapter-19-bloom.svg",
+        "assets/art/gallery/chapter-19-relic.svg"
+      ],
+      "coverArt": "assets/art/chapters/chapter-19.svg",
+      "accent": "#A97BA8",
+      "wordCount": 4059,
+      "trackId": "track-19"
+    },
+    {
+      "number": 20,
+      "title": "The Letter That Crosses Distance",
+      "actId": "act-4",
+      "part": null,
+      "date": "Sunday, August 2, 2026 (and every day that leans toward November 11)",
+      "relic": "the letter and the poem · Supporting: the Palmonas bracelet and its safety pin, the Hello Kitty figurine, the memory box, the fries, the journal",
+      "galleryPrompt": "A handwritten letter and a folded poem on an airplane tray table, Palmonas bracelet with its safety pin, August light above clouds.",
+      "galleryPlates": [
+        "assets/art/gallery/chapter-20-bloom.svg",
+        "assets/art/gallery/chapter-20-relic.svg"
+      ],
+      "coverArt": "assets/art/chapters/chapter-20.svg",
+      "accent": "#C78FB0",
+      "wordCount": 4185,
+      "trackId": "track-20"
+    },
+    {
+      "number": 21,
+      "title": "The Folding of the Final Crane",
+      "actId": "act-4",
+      "part": "The Witness and the Bloom",
+      "date": "Wednesday, November 11, 2026",
+      "relic": "the paper crane · Supporting: the journal, the memory box, the dashboard clock, every object that survived",
+      "galleryPrompt": "A final paper crane with a crescent groove in one wing, resting on a journal beside a memory box and a clock, November morning light.",
+      "galleryPlates": [
+        "assets/art/gallery/chapter-21-bloom.svg",
+        "assets/art/gallery/chapter-21-relic.svg"
+      ],
+      "coverArt": "assets/art/chapters/chapter-21.svg",
+      "accent": "#E0A0C2",
+      "wordCount": 4396,
+      "trackId": "track-21"
+    }
+  ]
+}
