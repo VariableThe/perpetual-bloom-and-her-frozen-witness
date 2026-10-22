@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Perpetual Bloom and her Frozen Witness</title>
+  <meta name="description" content="A local-first, page-by-page reader for Perpetual Bloom and her Frozen Witness — a novel in twenty-one chapters by Me and Sravz.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#fdf8f7" id="theme-color-meta">
+  <link rel="icon" href="assets/art/cover.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/cormorant-garamond-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/lora-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/landing.css">
+  <link rel="stylesheet" href="assets/css/reader.css">
+  <script>
+    (function () {
+      try {
+        var saved = JSON.parse(localStorage.getItem('pb.reader.settings.v1') || 'null');
+        var theme = saved && (saved.theme === 'light' || saved.theme === 'dark') ? saved.theme : null;
+        if (!theme) {
+          theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    }());
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#landing-main">Skip to the story</a>
+
+  <div id="ambient" class="ambient" aria-hidden="true">
+    <canvas id="petal-canvas" class="ambient__canvas"></canvas>
+    <div class="ambient__grain"></div>
+  </div>
+
+  <div id="loading-screen" class="loading-screen" role="status" aria-live="polite">
+    <div class="loading-screen__mark" aria-hidden="true">
+      <svg viewBox="0 0 48 48" width="54" height="54" focusable="false">
+        <path d="M6 33 22 21 18 10l9 6 14-9-6 15 7 9-13-2-7 13-2-12Z" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+        <path d="m18 10 4 11M35 22l-13-1M22 21l-4 20" fill="none" stroke="currentColor" stroke-width="1" opacity=".55"/>
+      </svg>
+    </div>
+    <p class="loading-screen__title">Perpetual Bloom <em>and her Frozen Witness</em></p>
+    <p class="loading-screen__note">Gathering petals, frost and twenty-one chapters…</p>
+    <span class="loading-screen__line" aria-hidden="true"></span>
+  </div>
+
+  <div id="error-screen" class="error-screen" hidden role="alert">
+    <p class="eyebrow">The archive could not open</p>
+    <h1 class="display">A page has slipped loose.</h1>
+    <p>The story data could not be loaded. Make sure you are running the local server (<code>start.bat</code> or <code>npm start</code>) rather than opening the file directly.</p>
+    <button class="btn btn--primary" type="button" onclick="location.reload()">Try again</button>
+  </div>
+
+  <div id="landing-view" class="landing-view">
+    <header class="site-header" id="site-header">
+      <div class="header-inner">
+        <a class="brand" href="#top" aria-label="Perpetual Bloom — home">
+          <span class="brand__mark" aria-hidden="true">
+            <svg viewBox="0 0 48 48" width="34" height="34" focusable="false">
+              <path d="M6 33 22 21 18 10l9 6 14-9-6 15 7 9-13-2-7 13-2-12Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+              <path d="m18 10 4 11M35 22l-13-1M22 21l-4 20" fill="none" stroke="currentColor" stroke-width="1" opacity=".5"/>
+            </svg>
+          </span>
+          <span class="brand__word">Perpetual <em>Bloom</em></span>
+        </a>
+
+        <nav class="site-nav" id="site-nav" aria-label="Primary">
+          <a href="#story">Story</a>
+          <a href="#chapters">Chapters</a>
+          <a href="#soundtrack">Soundtrack</a>
+          <a href="#galleries">Galleries</a>
+          <a class="site-nav__mobile-cta" href="#/read/1/0">Begin reading</a>
+        </nav>
+
+        <div class="header-actions">
+          <button class="icon-button" type="button" data-theme-toggle aria-label="Switch to dark theme" title="Switch theme">
+            <svg class="theme-icon theme-icon--sun" viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" focusable="false">
+              <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M12 2v2.3M12 19.7V22M2 12h2.3M19.7 12H22M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M19.1 4.9l-1.6 1.6M6.5 17.5l-1.6 1.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <svg class="theme-icon theme-icon--moon" viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" focusable="false">
+              <path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.4 8.4 0 1 0 10.2 10.2Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <a class="btn btn--small btn--primary header-begin" href="#/read/1/0">Begin reading</a>
+          <button class="icon-button nav-toggle" id="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
+            <svg viewBox="0 0 24 24" width="21" height="21" aria-hidden="true" focusable="false">
+              <path class="nav-toggle__open" d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path class="nav-toggle__close" d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="landing-main">
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div class="container hero__inner">
+          <div class="hero__copy">
+            <p class="eyebrow" id="hero-eyebrow">A novel in twenty-one chapters</p>
+            <h1 class="hero__title" id="hero-title">
+              <span class="hero__title-main">Perpetual Bloom</span>
+              <span class="hero__title-sub">and her <em>Frozen Witness</em></span>
+            </h1>
+            <p class="hero__tagline" id="hero-tagline"></p>
+            <blockquote class="hero__quote">
+              <p id="hero-quote"></p>
+              <cite id="hero-quote-cite">— Chapter 1</cite>
+            </blockquote>
+            <div class="hero__ctas" id="hero-ctas"></div>
+            <ul class="hero__stats" id="hero-stats" aria-label="Edition at a glance"></ul>
+          </div>
+
+          <div class="hero__visual" aria-label="The book">
+            <div class="book-aura book-aura--one" aria-hidden="true"></div>
+            <div class="book-aura book-aura--two" aria-hidden="true"></div>
+            <div class="book-float">
+              <div class="book-3d">
+                <div class="book-cover">
+                  <img id="hero-cover" src="assets/art/cover.svg" width="1200" height="1600" alt="Cover of Perpetual Bloom and her Frozen Witness" decoding="async">
+                </div>
+                <span class="book-spine" aria-hidden="true"></span>
+                <span class="book-pages" aria-hidden="true"></span>
+              </div>
+            </div>
+            <div class="hero__petals" aria-hidden="true">
+              <span class="petal petal--one"></span>
+              <span class="petal petal--two"></span>
+              <span class="petal petal--three"></span>
+              <span class="petal petal--four"></span>
+              <span class="petal petal--five"></span>
+            </div>
+            <p class="hero__edition">Original art · local-first edition</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee__track">
+          <span>ink <i>·</i> frost <i>·</i> petals <i>·</i> paper cranes <i>·</i> 7:02 <i>·</i> kept things <i>·</i> monsoon light <i>·</i> bloom <i>·</i></span>
+          <span>ink <i>·</i> frost <i>·</i> petals <i>·</i> paper cranes <i>·</i> 7:02 <i>·</i> kept things <i>·</i> monsoon light <i>·</i> bloom <i>·</i></span>
+        </div>
+      </div>
+
+      <section class="section section--story" id="story" aria-labelledby="story-title">
+        <div class="container">
+          <header class="section-head reveal">
+            <div>
+              <p class="eyebrow">The story</p>
+              <h2 class="display" id="story-title">Five movements of <em>kept things</em></h2>
+            </div>
+            <p class="section-head__lead">A prologue and four acts, moving from a manuscript under a paper crane to a final fold in November light. Every chapter keeps its own object, its own minute, its own weather.</p>
+          </header>
+          <div id="chapters">
+            <div class="act-list" id="act-list" data-chapters></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--soundtrack" id="soundtrack" aria-labelledby="soundtrack-title">
+        <div class="container">
+          <header class="section-head section-head--light reveal">
+            <div>
+              <p class="eyebrow">The soundtrack</p>
+              <h2 class="display" id="soundtrack-title">Twenty-one <em>generative palettes</em></h2>
+            </div>
+            <p class="section-head__lead">One WebAudio palette per chapter. Playback arrives in Phase 2 — until then, each track is a reading companion, mapped to the chapter it belongs to.</p>
+          </header>
+          <div id="soundtrack-list" class="soundtrack-host" data-track-list></div>
+        </div>
+      </section>
+
+      <section class="section section--galleries" id="galleries" aria-labelledby="galleries-title">
+        <div class="container">
+          <header class="section-head reveal">
+            <div>
+              <p class="eyebrow">The galleries</p>
+              <h2 class="display" id="galleries-title">Plates at the <em>end of chapters</em></h2>
+            </div>
+            <p class="section-head__lead">Each chapter closes with two original plates: a bloom study and a relic study. Fan-art uploads will join them in Phase 2 and will stay in this browser.</p>
+          </header>
+          <div class="gallery-grid" id="gallery-preview"></div>
+          <div class="gallery-footnote reveal">
+            <span class="phase-pill">Phase 2</span>
+            <p>Uploads are not active yet. When they arrive, artwork will be stored locally with IndexedDB — never uploaded, never tracked.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--about" id="about" aria-labelledby="about-title">
+        <div class="container about">
+          <blockquote class="about__quote reveal">
+            <p id="about-quote"></p>
+            <cite id="about-quote-cite">— Chapter 1</cite>
+          </blockquote>
+          <div class="about__body reveal">
+            <p class="eyebrow">About this edition</p>
+            <h2 class="display" id="about-title">A witness made of <em>small kept things</em></h2>
+            <div id="about-credits" class="credits"></div>
+            <div id="about-note" class="about__note"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container site-footer__inner">
+        <div>
+          <a class="brand brand--footer" href="#top" aria-label="Back to the top">
+            <span class="brand__mark" aria-hidden="true">
+              <svg viewBox="0 0 48 48" width="30" height="30" focusable="false">
+                <path d="M6 33 22 21 18 10l9 6 14-9-6 15 7 9-13-2-7 13-2-12Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="brand__word">Perpetual <em>Bloom</em></span>
+          </a>
+          <p class="site-footer__line">and her Frozen Witness</p>
+        </div>
+        <div class="site-footer__meta" id="footer-meta"></div>
+        <div class="site-footer__links">
+          <a href="#story">Story</a>
+          <a href="#soundtrack">Soundtrack</a>
+          <a href="#galleries">Galleries</a>
+          <a href="#top">Back to top</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <section id="reader-view" class="reader-view" hidden aria-label="Chapter reader">
+    <header class="reader-header">
+      <div class="reader-header__start">
+        <button class="reader-icon-button reader-back" id="reader-back" type="button" aria-label="Back to the story archive" title="Back to the archive">
+          <span class="reader-icon-button__icon" aria-hidden="true">←</span>
+          <span class="reader-icon-button__label">Archive</span>
+        </button>
+        <button class="reader-icon-button" id="reader-index" type="button" aria-label="Open chapter index" aria-expanded="false" aria-controls="chapter-drawer" title="Chapter index">
+          <span class="reader-icon-button__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="17" height="17" focusable="false">
+              <path d="M5 5h14M5 12h14M5 19h14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="2.5" cy="5" r="1" fill="currentColor"/><circle cx="2.5" cy="12" r="1" fill="currentColor"/><circle cx="2.5" cy="19" r="1" fill="currentColor"/>
+            </svg>
+          </span>
+          <span class="reader-icon-button__label">Index</span>
+        </button>
+      </div>
+
+      <div class="reader-heading">
+        <p class="reader-heading__act" id="reader-act"></p>
+        <h2 class="reader-heading__title" id="reader-chapter-title"></h2>
+      </div>
+
+      <div class="reader-header__end">
+        <p class="reader-counter" id="reader-counter" aria-hidden="true">1 / 1</p>
+        <button class="reader-icon-button" type="button" data-theme-toggle aria-label="Switch to dark theme" title="Switch theme">
+          <svg class="theme-icon theme-icon--sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M12 2v2.3M12 19.7V22M2 12h2.3M19.7 12H22M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M19.1 4.9l-1.6 1.6M6.5 17.5l-1.6 1.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <svg class="theme-icon theme-icon--moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+            <path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.4 8.4 0 1 0 10.2 10.2Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button class="reader-icon-button" id="reader-settings" type="button" aria-label="Open reading settings" aria-expanded="false" aria-controls="settings-popover" title="Reading settings">
+          <span class="reader-icon-button__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" focusable="false">
+              <path d="M4 7h16M4 17h16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="9" cy="7" r="2.2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="15" cy="17" r="2.2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+          </span>
+          <span class="sr-only">Reading settings</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="reader-stage" id="reader-stage" data-mode="single" tabindex="-1">
+      <div class="book-stage" id="book-stage">
+        <div class="spread" id="spread-underlay"></div>
+      </div>
+      <div class="reader-loading" id="reader-loading" hidden>
+        <span class="reader-loading__flake" aria-hidden="true">✦</span>
+        <p>Setting the type…</p>
+      </div>
+      <div class="reader-error" id="reader-error" hidden role="group" aria-labelledby="reader-error-title">
+        <span class="reader-error__mark" aria-hidden="true">✦</span>
+        <p class="eyebrow">The type would not set</p>
+        <h3 id="reader-error-title">This chapter could not be opened</h3>
+        <p class="reader-error__detail" id="reader-error-detail">The chapter text could not be typeset. Try again, or return to the archive.</p>
+        <div class="reader-error__actions">
+          <button class="btn btn--primary" id="reader-error-retry" type="button">Retry</button>
+          <button class="btn btn--ghost" id="reader-error-back" type="button">Back to chapters</button>
+        </div>
+      </div>
+    </div>
+
+    <footer class="reader-controls">
+      <div class="reader-controls__inner">
+        <button class="reader-turn reader-turn--prev" id="reader-prev" type="button" aria-label="Previous screen">
+          <span class="reader-turn__arrow" aria-hidden="true">←</span>
+          <span class="reader-turn__label">Previous</span>
+        </button>
+
+        <div class="reader-progress">
+          <label class="sr-only" for="page-slider">Jump to screen</label>
+          <input class="page-slider" id="page-slider" type="range" min="0" max="1" value="0" step="1">
+          <div class="chapter-progress" aria-hidden="true"><span id="chapter-progress-bar"></span></div>
+          <p class="reader-progress__label" id="page-slider-label">Cover</p>
+        </div>
+
+        <button class="reader-turn reader-turn--next" id="reader-next" type="button" aria-label="Next screen">
+          <span class="reader-turn__label">Next</span>
+          <span class="reader-turn__arrow" aria-hidden="true">→</span>
+        </button>
+      </div>
+      <p class="reader-controls__hint">← → turn · Home cover · End gallery · Esc archive</p>
+    </footer>
+
+    <div class="paginate-probe page-text" id="paginate-probe" aria-hidden="true"></div>
+    <p class="sr-only" id="reader-status" aria-live="polite"></p>
+
+    <!-- Phase 2 hook: the generative WebAudio player will mount into this dock. -->
+    <div id="audio-dock" class="audio-dock" data-phase="2" hidden aria-hidden="true"></div>
+  </section>
+
+  <div id="chapter-drawer" class="drawer" hidden>
+    <div class="drawer__backdrop" data-drawer-close></div>
+    <aside class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="drawer-title" tabindex="-1">
+      <header class="drawer__head">
+        <div>
+          <p class="eyebrow">The archive</p>
+          <h2 class="display" id="drawer-title">Chapters</h2>
+        </div>
+        <button class="reader-icon-button" id="drawer-close" type="button" aria-label="Close chapter index" title="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </header>
+      <div class="drawer__body" id="drawer-list"></div>
+    </aside>
+  </div>
+
+  <div id="settings-popover" class="settings-popover" hidden role="dialog" aria-labelledby="settings-title">
+    <header class="settings-popover__head">
+      <div>
+        <p class="eyebrow">On this device</p>
+        <h2 id="settings-title">Reading settings</h2>
+      </div>
+      <button class="reader-icon-button" id="settings-close" type="button" aria-label="Close reading settings" title="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+    </header>
+
+    <fieldset class="setting-group">
+      <legend>Theme</legend>
+      <div class="segmented" role="group" aria-label="Theme">
+        <button type="button" data-theme-choice="light" aria-pressed="true">Light</button>
+        <button type="button" data-theme-choice="dark" aria-pressed="false">Dark</button>
+      </div>
+    </fieldset>
+
+    <fieldset class="setting-group">
+      <legend>Text size</legend>
+      <div class="segmented segmented--font" role="group" aria-label="Text size">
+        <button type="button" data-font-step="1" aria-pressed="false" aria-label="Smaller text"><span style="font-size:.78em">A</span></button>
+        <button type="button" data-font-step="2" aria-pressed="true" aria-label="Standard text"><span style="font-size:.95em">A</span></button>
+        <button type="button" data-font-step="3" aria-pressed="false" aria-label="Larger text"><span style="font-size:1.12em">A</span></button>
+        <button type="button" data-font-step="4" aria-pressed="false" aria-label="Largest text"><span style="font-size:1.3em">A</span></button>
+      </div>
+    </fieldset>
+
+    <fieldset class="setting-group">
+      <legend>Page layout</legend>
+      <div class="segmented" role="group" aria-label="Page layout">
+        <button type="button" data-mode-choice="single" aria-pressed="true">Single</button>
+        <button type="button" data-mode-choice="duo" aria-pressed="false">Duo</button>
+      </div>
+      <p class="setting-hint" id="duo-hint">Duo is available at 1000px and wider; below 1000px pages stay single.</p>
+    </fieldset>
+
+    <div class="setting-group setting-group--row">
+      <label for="particles-toggle">Ambient petals</label>
+      <input id="particles-toggle" type="checkbox" checked>
+    </div>
+
+    <p class="setting-note">Theme, type, layout and your place are saved only in this browser. Nothing leaves your device.</p>
+  </div>
+
+  <div id="ending-toast" class="ending-toast" hidden role="status" aria-live="polite">
+    <span aria-hidden="true">✦</span>
+    <p></p>
+  </div>
+
+  <noscript>
+    <div class="noscript">
+      <h1>This reader needs JavaScript</h1>
+      <p>The novel is stored as plain text in <code>data/book.json</code>. Start the local server with <code>start.bat</code> or <code>npm start</code>, then enable JavaScript to read with page turns, chapter galleries and reading settings.</p>
+    </div>
+  </noscript>
+
+  <script type="module" src="assets/js/app.js"></script>
+</body>
+</html>

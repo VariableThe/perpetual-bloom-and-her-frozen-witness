@@ -1,11 +1,19 @@
 {
   "name": "perpetual-bloom-and-her-frozen-witness",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
+  "type": "module",
   "description": "An interactive, page-by-page web reader with chapter soundtracks and end-of-chapter galleries.",
   "scripts": {
+    "start": "node server.mjs",
+    "start:open": "node server.mjs --open",
+    "serve": "node server.mjs",
     "build:content": "node scripts/build-content.mjs",
     "build:art": "node scripts/build-art.mjs",
-    "validate": "node scripts/validate-content.mjs"
+    "validate:content": "node scripts/validate-content.mjs",
+    "validate:site": "node scripts/validate-site.mjs",
+    "validate": "npm run validate:content && npm run validate:site",
+    "test:unit": "node --test scripts/test-navigation.mjs",
+    "test": "npm run test:unit && npm run validate"
   }
 }
