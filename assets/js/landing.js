@@ -254,12 +254,12 @@ function renderAbout(story) {
       ]),
       el('p', {}, [
         el('strong', { text: 'Local-first. ' }),
-        'No accounts, no analytics and no runtime network requests. Reading position, theme, type and soundtrack settings stay in this browser. Fan-art uploads are not part of this build yet; when they arrive they will stay on this device too.'
+        'No accounts, no analytics and no runtime network requests. Reading position, theme, type, soundtrack settings and your fan-art gallery stay in this browser. Uploads are saved with IndexedDB, optimised on your device and never sent anywhere.'
       ]),
       el('p', {}, [
         'Inspired by interactive fan-comic readers. No Attack on Titan artwork, music or lyrics are used, and this edition is not affiliated with any existing work, publisher or rights holder.'
       ]),
-      el('span', { class: 'phase-pill', text: 'Sound on · 21 generative tracks' })
+      el('span', { class: 'phase-pill', text: 'Sound on · 21 tracks · local galleries' })
     );
   }
 

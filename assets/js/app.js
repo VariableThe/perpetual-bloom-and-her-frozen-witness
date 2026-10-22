@@ -4,6 +4,7 @@ import { loadStory } from './data.js';
 import { initTheme } from './theme.js';
 import { createParticleField } from './particles.js';
 import { createAudio } from './audio.js';
+import { createGallery } from './gallery.js';
 import { initLanding } from './landing.js';
 import { Reader } from './reader.js';
 import { Router } from './router.js';
@@ -113,6 +114,11 @@ function boot() {
       audio.mountTrackDrawer(document.getElementById('track-drawer'));
       window.__pbAudio = Object.freeze({ getState: () => audio.getState() });
 
+      /* One gallery controller for the whole session; the reader mounts it
+         into whichever chapter page is on screen and unmounts it on exit. */
+      const gallery = createGallery(story);
+      window.__pbGallery = Object.freeze({ getState: () => gallery.getState() });
+
       landing = initLanding(story, {
         navigate: (path) => router.navigate(path),
         audio
@@ -120,6 +126,7 @@ function boot() {
 
       reader = new Reader(story, {
         particles,
+        gallery,
         onOpen() {
           landing?.setInert(true);
         },

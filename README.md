@@ -1,6 +1,6 @@
 # Perpetual Bloom and her Frozen Witness
 
-An interactive, local-first web reader for a novel in twenty-one chapters by Me and Sravz. The edition includes a landing page, a hash-routed reader with real text pagination and 3D page turns, twenty-one chapter covers, two gallery plates per chapter, and a live generative soundtrack for every chapter.
+An interactive, local-first web reader for a novel in twenty-one chapters by Me and Sravz. The edition includes a landing page, a hash-routed reader with real text pagination and 3D page turns, twenty-one chapter covers, two gallery plates per chapter, end-of-chapter galleries for local fan-art uploads, and a live generative soundtrack for every chapter.
 
 ## Run the reader
 
@@ -44,11 +44,24 @@ All 21 tracks are synthesized live with the Web Audio API. There are no audio fi
 
 Volume, mute and loop are remembered in `localStorage` under `pb.audio.v1`. Playing state is deliberately not saved. The audio bar is a normal part of the reader layout, not a floating overlay.
 
-Fan-art uploads are not part of this build yet. When they arrive they will use IndexedDB and stay on the device.
+## Chapter galleries
+
+Every chapter's final screen is an end-of-chapter gallery. It shows the chapter's two original plates (a **Bloom plate 01** and a **Relic plate 02**) and a dropzone for your own fan art. Everything stays on your device.
+
+- **Add art.** Use **Add images** or drag files onto the dropzone. Accepted formats are JPEG, PNG, WebP and AVIF (when the browser can decode it). Up to 15 MB per file, 10 files per batch and 60 images per chapter.
+- **Optimised locally.** Each image is decoded, its EXIF orientation is respected, its longest edge is scaled down to at most 1800px (never upscaled) and it is re-encoded to WebP at quality 0.86 — or JPEG on white when WebP is unavailable. Transparency is kept when it can be. The raw file is never stored.
+- **Titles and artists.** A title is derived from the filename; the artist starts blank. Use **Edit** on any card to change the title (required, up to 80 characters) and the optional artist (up to 60 characters).
+- **Lightbox.** Click any plate or addition to open a full-screen viewer over one sequence of plates and uploads. Arrow keys or the Prev/Next buttons move through it, `Esc` closes it, and a backdrop click closes it too. Focus returns to the card you opened.
+- **Delete.** The **Delete** button asks once (`Delete?`) before removing the record and its blob. There is no undo.
+- **Local-only storage.** Artworks live in IndexedDB under the `perpetual-bloom-gallery` database (object store `artworks`, indexed by chapter). Nothing is uploaded, there are no accounts or analytics, and no network request is made. The gallery footer shows the count and the human-readable size for the current chapter and the note "Saved only in this browser".
+- **Clearing it.** Removing the site's data (browser settings → site data, or the storage pane in DevTools) deletes the database and every stored image.
+- **Caveats.** Browsers can apply a storage quota and can evict "best effort" data under pressure. Private/incognito windows usually discard IndexedDB when they close, and some browsers block storage in embedded contexts. If IndexedDB is unavailable or blocked, the gallery says so inline and the original plates remain readable — images are never moved to `localStorage`.
+
+The two seeded plates are original SVG artwork made for this edition; they remain part of the repository and are not affected by uploads.
 
 ## What is local
 
-Everything is served from this repository. Fonts are bundled WOFF2 files with their OFL licences in `assets/fonts/`, artwork is original SVG in `assets/art/`, and there are no runtime network requests, analytics or accounts. The soundtrack is generated in the browser; no note, buffer or request leaves the page.
+Everything is served from this repository. Fonts are bundled WOFF2 files with their OFL licences in `assets/fonts/`, artwork is original SVG in `assets/art/`, and there are no runtime network requests, analytics or accounts. The soundtrack is generated in the browser; no note, buffer or request leaves the page. Fan art you add is optimised on your device and stored only in this browser's IndexedDB, so it also never leaves the machine.
 
 ## Validate
 
@@ -56,7 +69,7 @@ Everything is served from this repository. Fonts are bundled WOFF2 files with th
 npm test
 ```
 
-This runs focused navigation/persistence unit tests, the content validator and the site validator. The content validator checks chapter counts, word counts, metadata, soundtrack palettes and SVG integrity. The site validator checks the reader shell, audio shell, local references, module imports, font files, artwork paths and the no-external-runtime-request rule.
+This runs focused navigation/persistence unit tests, the content validator and the site validator. The content validator checks chapter counts, word counts, metadata, soundtrack palettes and SVG integrity. The site validator checks the reader shell, audio shell, gallery shell, local references, module imports, font files, artwork paths and the no-external-runtime-request rule.
 
 For the headless audio smoke test:
 
@@ -65,6 +78,14 @@ npm run qa:audio
 ```
 
 It drives the installed Microsoft Edge in headless mode and writes screenshots to `qa/audio/`. The test verifies UI state and graph lifecycle, not audible quality.
+
+For the headless gallery smoke test:
+
+```powershell
+npm run qa:gallery
+```
+
+It drives Edge/Chrome through the Chrome DevTools Protocol and writes screenshots to `qa/gallery/`. The test uploads generated fixture images through the real file input, then checks IndexedDB persistence across a reload, the lightbox, editing, deletion, validation errors and responsive layouts.
 
 ## Content pipeline
 
@@ -84,11 +105,11 @@ npm run validate
 index.html              landing page and reader shell
 start.bat               Windows one-click server launcher
 server.mjs              zero-dependency local static server
-assets/css/             design tokens, landing, reader and audio player styles
-assets/js/              data loading, routing, pagination, reading UI and audio engine
+assets/css/             design tokens, landing, reader, audio and gallery styles
+assets/js/              data loading, routing, pagination, reading UI, audio engine and gallery
 assets/fonts/           local variable fonts and OFL licences
 assets/art/             original covers and gallery plates
 data/                   generated book data and edition configuration
-scripts/                content, artwork, site validation and audio QA
+scripts/                content, artwork, site validation, audio QA and gallery QA
 src/data/               source novel text and extraction notes
 ```

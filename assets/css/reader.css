@@ -587,111 +587,6 @@ html[data-theme="dark"] .reader-page--blank {
   text-align: right;
 }
 
-.reader-gallery__plates {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(10px, 1.6vw, 16px);
-}
-
-.reader-plate {
-  overflow: hidden;
-  margin: 0;
-  border: 1px solid var(--reader-rule);
-  border-radius: 8px;
-  background: color-mix(in srgb, var(--reader-paper) 74%, var(--paper-3));
-  box-shadow: 0 12px 24px -22px rgba(48, 15, 41, 0.4);
-}
-
-.reader-plate__art {
-  overflow: hidden;
-  aspect-ratio: 4 / 3;
-  background: var(--paper-3);
-}
-
-.reader-plate__art img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 700ms var(--ease-out);
-}
-
-.reader-plate:hover .reader-plate__art img {
-  transform: scale(1.025);
-}
-
-.reader-plate figcaption {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.8rem;
-  padding: 0.65rem 0.8rem;
-  border-top: 1px solid var(--reader-rule);
-  color: var(--reader-muted);
-  font-family: var(--font-ui);
-  font-size: 0.56rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  line-height: 1.4;
-  text-transform: uppercase;
-}
-
-.reader-plate figcaption strong {
-  color: var(--accent);
-  font-weight: 700;
-}
-
-.upload-shell {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.9rem 1rem;
-  border: 1px dashed var(--line-strong);
-  border-radius: 10px;
-  background: color-mix(in srgb, var(--accent-soft) 50%, transparent);
-}
-
-.upload-shell__mark {
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  flex: 0 0 auto;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  color: var(--muted);
-  font-size: 1rem;
-}
-
-.upload-shell p {
-  flex: 1 1 auto;
-  color: var(--reader-muted);
-  font-size: 0.65rem;
-  line-height: 1.55;
-}
-
-.upload-shell strong {
-  display: block;
-  margin-bottom: 0.1rem;
-  color: var(--ink-soft);
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-}
-
-.upload-shell button {
-  flex: 0 0 auto;
-  padding: 0.42rem 0.75rem;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: transparent;
-  color: var(--faint);
-  font-size: 0.56rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  opacity: 0.8;
-}
-
 .gallery-page__actions {
   display: flex;
   flex-wrap: wrap;
@@ -1554,22 +1449,6 @@ html[data-theme="dark"] .reader-page--blank {
   .reader-gallery__intro p {
     max-width: none;
     text-align: left;
-  }
-
-  .reader-gallery__plates {
-    grid-template-columns: 1fr;
-  }
-
-  .reader-plate__art {
-    aspect-ratio: 16 / 10;
-  }
-
-  .upload-shell {
-    align-items: flex-start;
-  }
-
-  .upload-shell button {
-    display: none;
   }
 
   .reader-controls {

@@ -60,9 +60,11 @@ try {
     'assets/css/landing.css',
     'assets/css/reader.css',
     'assets/css/audio.css',
+    'assets/css/gallery.css',
     'assets/js/app.js',
     'assets/js/audio.js',
     'assets/js/data.js',
+    'assets/js/gallery.js',
     'assets/js/landing.js',
     'assets/js/paginate.js',
     'assets/js/particles.js',
@@ -70,6 +72,7 @@ try {
     'assets/js/router.js',
     'assets/js/theme.js',
     'assets/js/utils.js',
+    'scripts/qa-gallery.mjs',
     'assets/fonts/cormorant-garamond-normal.woff2',
     'assets/fonts/cormorant-garamond-italic.woff2',
     'assets/fonts/lora-normal.woff2',
@@ -106,7 +109,8 @@ try {
     'track-drawer-close',
     'ending-toast',
     'petal-canvas',
-    'paginate-probe'
+    'paginate-probe',
+    'gallery-layer'
   ];
   for (const id of keyIds) {
     check(html.includes(`id="${id}"`), `index.html is missing #${id}`);
@@ -115,6 +119,11 @@ try {
   check(html.includes('assets/js/app.js'), 'index.html does not load assets/js/app.js');
   check(/<script type="module" src="assets\/js\/app\.js"><\/script>/.test(html), 'app.js must be loaded as a module');
   check(html.includes('assets/css/audio.css'), 'index.html does not load assets/css/audio.css');
+  check(html.includes('assets/css/gallery.css'), 'index.html does not load assets/css/gallery.css');
+  check(
+    read(path.join(ROOT, 'assets/js/app.js')).includes("from './gallery.js'"),
+    'app.js must import the gallery controller from ./gallery.js'
+  );
   check(!html.includes('audio-dock'), 'index.html still contains the old hidden audio dock');
 
   const stageIndex = html.indexOf('id="reader-stage"');
@@ -128,7 +137,7 @@ try {
   const htmlRefs = [...html.matchAll(/\b(?:href|src)="([^"]+)"/g)].map((match) => match[1]);
   htmlRefs.forEach((reference) => checkLocalReference(reference, INDEX));
 
-  const cssFiles = ['assets/css/base.css', 'assets/css/landing.css', 'assets/css/reader.css', 'assets/css/audio.css'];
+  const cssFiles = ['assets/css/base.css', 'assets/css/landing.css', 'assets/css/reader.css', 'assets/css/audio.css', 'assets/css/gallery.css'];
   for (const cssPath of cssFiles) {
     if (!exists(cssPath)) continue;
     const cssFile = path.join(ROOT, cssPath);
@@ -177,15 +186,17 @@ try {
     'README.md',
     'assets/js/app.js',
     'assets/js/audio.js',
+    'assets/js/gallery.js',
     'assets/js/landing.js',
     'assets/js/reader.js'
   ];
   for (const copyFile of copyFiles) {
     const target = path.join(ROOT, copyFile);
     if (!fs.existsSync(target)) continue;
+    const copy = read(target);
     check(
-      !/Phase\s*2|playback arrives/i.test(read(target)),
-      `${copyFile} still contains outdated soundtrack copy`
+      !/Phase\s*2|playback arrives|not part of this build|coming later|when they arrive/i.test(copy),
+      `${copyFile} still contains outdated soundtrack or upload copy`
     );
   }
 

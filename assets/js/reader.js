@@ -40,6 +40,7 @@ export class Reader {
   constructor(story, callbacks = {}) {
     this.story = story;
     this.callbacks = callbacks;
+    this.gallery = callbacks.gallery || null;
     this.settings = getSettings();
 
     this.view = document.getElementById('reader-view');
@@ -320,6 +321,9 @@ export class Reader {
   onKeyDown(event) {
     if (!this.open) return;
 
+    /* A gallery lightbox or editor is modal; let it own the keyboard. */
+    if (this.gallery?.isOverlayOpen?.()) return;
+
     if (this.settingsOpen) {
       if (event.key === 'Escape') {
         event.preventDefault();
@@ -389,6 +393,7 @@ export class Reader {
 
   close() {
     if (!this.open) return;
+    this.gallery?.unmount();
     this.endTransition();
     this.closeDrawer({ restoreFocus: false });
     this.closeSettings({ restoreFocus: false });
@@ -741,6 +746,11 @@ export class Reader {
     const mode = this.effectiveMode;
     const last = this.totalPages - 1;
 
+    /* The gallery controller owns object URLs and pending work. Tear the
+       previous mount down before the underlay is rebuilt so a page turn
+       never leaves an orphaned gallery behind. */
+    this.gallery?.unmount();
+
     if (page === 0) {
       this.underlay.className = 'spread spread--single';
       clear(this.underlay);
@@ -751,7 +761,9 @@ export class Reader {
     if (page === last) {
       this.underlay.className = 'spread spread--single';
       clear(this.underlay);
-      this.underlay.append(this.renderGalleryPage());
+      const galleryPage = this.renderGalleryPage();
+      this.underlay.append(galleryPage);
+      this.mountGallery(galleryPage);
       return;
     }
 
@@ -882,7 +894,6 @@ export class Reader {
 
   renderGalleryPage() {
     const chapter = this.chapter;
-    const plates = chapter.galleryPlates || [];
     const isLast = chapter.number === this.story.chapters.length;
 
     const header = el('header', { class: 'reader-page__head' }, [
@@ -895,34 +906,11 @@ export class Reader {
       el('p', { text: chapter.galleryPrompt || 'Two original plates and a space for your own artwork.' })
     ]);
 
-    const plateGrid = el('div', { class: 'reader-gallery__plates' });
-    plates.forEach((src, index) => {
-      plateGrid.append(el('figure', { class: 'reader-plate' }, [
-        el('div', { class: 'reader-plate__art' }, [
-          el('img', {
-            src,
-            alt: `${index === 0 ? 'Bloom' : 'Relic'} plate for Chapter ${chapter.number}: ${chapter.title}`,
-            width: 1200,
-            height: 900,
-            loading: index === 0 ? 'eager' : 'lazy',
-            decoding: 'async'
-          })
-        ]),
-        el('figcaption', {}, [
-          el('span', { text: index === 0 ? 'Bloom plate' : 'Relic plate' }),
-          el('strong', { text: `Plate ${padded(index + 1)}` })
-        ])
-      ]));
+    const galleryHost = el('div', {
+      class: 'pb-gallery-host',
+      'data-gallery-host': '',
+      'data-chapter': chapter.number
     });
-
-    const upload = el('div', { class: 'upload-shell', 'data-upload-state': 'coming-later' }, [
-      el('span', { class: 'upload-shell__mark', 'aria-hidden': 'true', text: '+' }),
-      el('p', {}, [
-        el('strong', { text: 'Your plate belongs here' }),
-        'Fan-art uploads are not part of this build yet. When they arrive, files will be stored locally with IndexedDB and never uploaded.'
-      ]),
-      el('button', { type: 'button', disabled: true, 'aria-label': 'Artwork uploads are not available in this build yet' }, ['Coming later'])
-    ]);
 
     const actions = el('div', { class: 'gallery-page__actions' }, [
       el('button', {
@@ -946,7 +934,7 @@ export class Reader {
       id: 'reader-gallery-container',
       'data-chapter': chapter.number,
       'data-no-swipe': ''
-    }, [intro, plateGrid, upload, actions]);
+    }, [intro, galleryHost, actions]);
 
     const body = el('div', {
       class: 'reader-page__body reader-page__body--gallery',
@@ -966,6 +954,15 @@ export class Reader {
         el('span', { class: 'reader-page__folio', text: 'Gallery' })
       ])
     ]);
+  }
+
+  mountGallery(article) {
+    if (!this.gallery || !this.chapter) return;
+    const host = article?.querySelector('[data-gallery-host]');
+    if (!host) return;
+    Promise.resolve(this.gallery.mount(host, this.chapter)).catch((error) => {
+      console.error('The chapter gallery could not mount:', error);
+    });
   }
 
   /* ------------------------------------------------------------------ */

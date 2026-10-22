@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="assets/css/landing.css">
   <link rel="stylesheet" href="assets/css/reader.css">
   <link rel="stylesheet" href="assets/css/audio.css">
+  <link rel="stylesheet" href="assets/css/gallery.css">
   <script>
     (function () {
       try {
@@ -183,12 +184,12 @@
               <p class="eyebrow">The galleries</p>
               <h2 class="display" id="galleries-title">Plates at the <em>end of chapters</em></h2>
             </div>
-            <p class="section-head__lead">Each chapter closes with two original plates: a bloom study and a relic study. Fan-art uploads are not part of this build yet, but the gallery pages are already in place.</p>
+            <p class="section-head__lead">Each chapter closes with two original plates: a bloom study and a relic study. Add your own fan art beside them; it is optimised on your device and saved only in this browser.</p>
           </header>
           <div class="gallery-grid" id="gallery-preview"></div>
           <div class="gallery-footnote reveal">
-            <span class="phase-pill">Coming later</span>
-            <p>Artwork uploads are not part of this build yet. When they arrive, files will be stored locally with IndexedDB — never uploaded, never tracked.</p>
+            <span class="phase-pill">Local only</span>
+            <p>Uploads live in this browser through IndexedDB and never leave your device. There are no accounts, no cloud and no analytics. Clearing site data removes them.</p>
           </div>
         </div>
       </section>
@@ -411,6 +412,8 @@
     <span aria-hidden="true">✦</span>
     <p></p>
   </div>
+
+  <div id="gallery-layer" class="gallery-layer"></div>
 
   <noscript>
     <div class="noscript">
