@@ -77,15 +77,4 @@
     <path d="M -58,-98 C -20,-110 22,-108 56,-94" stroke="#C78FB0" stroke-width="1.2" stroke-dasharray="2 8" opacity="0.7"/>
     <path d="M 66,-98 C 76,-106 86,-108 96,-102" stroke="#C78FB0" stroke-width="1.2" stroke-dasharray="2 8" opacity="0.5"/>
   </g></g>
-<g>
-  <line x1="92" y1="104" x2="196" y2="104" stroke="#C78FB0" stroke-width="1.4" opacity="0.8"/>
-  <text x="92" y="92" font-family="Georgia, 'Times New Roman', serif" font-size="19" letter-spacing="5" fill="#C78FB0">CHAPTER 20</text>
-  <text x="92" y="142" font-family="Georgia, 'Times New Roman', serif" font-size="15" letter-spacing="3" fill="#5B3F62" fill-opacity="0.75">ACT IV · THE TURNING</text>
-  
-</g>
-<g>
-  <text x="500" y="1106.28" font-family="Georgia, 'Times New Roman', serif" font-size="54" font-weight="400" fill="#3B2B40" text-anchor="middle"><tspan x="500" dy="0">The Letter That Crosses</tspan><tspan x="500" dy="62.64">Distance</tspan></text>
-  <line x1="380" y1="1202.92" x2="620" y2="1202.92" stroke="#C78FB0" stroke-width="1.2" opacity="0.7"/>
-  <text x="500" y="1230.92" font-family="Georgia, 'Times New Roman', serif" font-size="12" letter-spacing="3.5" fill="#5B3F62" fill-opacity="0.62" text-anchor="middle">PERPETUAL BLOOM AND HER FROZEN WITNESS</text>
-</g>
 </svg>

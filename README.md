@@ -87,6 +87,14 @@ npm run qa:gallery
 
 It drives Edge/Chrome through the Chrome DevTools Protocol and writes screenshots to `qa/gallery/`. The test uploads generated fixture images through the real file input, then checks IndexedDB persistence across a reload, the lightbox, editing, deletion, validation errors and responsive layouts.
 
+For the headless cover-page smoke test:
+
+```powershell
+npm run qa:cover
+```
+
+It writes screenshots to `qa/cover/`, verifies the HTML cover overlay fits at desktop, mobile and short viewports without horizontal overflow, and checks that the chapter SVGs contain no embedded readable chapter labels or titles.
+
 ## Content pipeline
 
 ```powershell
@@ -110,6 +118,6 @@ assets/js/              data loading, routing, pagination, reading UI, audio eng
 assets/fonts/           local variable fonts and OFL licences
 assets/art/             original covers and gallery plates
 data/                   generated book data and edition configuration
-scripts/                content, artwork, site validation, audio QA and gallery QA
+scripts/                content, artwork, site validation and headless QA harnesses
 src/data/               source novel text and extraction notes
 ```

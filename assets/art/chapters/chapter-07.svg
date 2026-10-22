@@ -72,15 +72,4 @@
     <path d="M 58,58 C 82,40 100,32 118,30 C 100,44 92,58 78,74 C 92,62 106,58 122,60 C 104,70 90,84 72,88" stroke="#B879A6" stroke-width="1.8"/>
     <path d="M -110,-52 C -84,-66 -58,-68 -32,-60 C -58,-52 -80,-38 -98,-22 C -86,-42 -96,-52 -110,-52 Z" fill="rgb(205, 161, 193)" fill-opacity="0.45" stroke="#B879A6" stroke-width="1.4"/>
   </g></g>
-<g>
-  <line x1="92" y1="104" x2="196" y2="104" stroke="#B879A6" stroke-width="1.4" opacity="0.8"/>
-  <text x="92" y="92" font-family="Georgia, 'Times New Roman', serif" font-size="19" letter-spacing="5" fill="#B879A6">CHAPTER 07</text>
-  <text x="92" y="142" font-family="Georgia, 'Times New Roman', serif" font-size="15" letter-spacing="3" fill="#5B3F62" fill-opacity="0.75">ACT II · THE ACCUMULATION</text>
-  
-</g>
-<g>
-  <text x="500" y="1106.28" font-family="Georgia, 'Times New Roman', serif" font-size="54" font-weight="400" fill="#3B2B40" text-anchor="middle"><tspan x="500" dy="0">The Sparrows That Kept</tspan><tspan x="500" dy="62.64">Getting Up</tspan></text>
-  <line x1="380" y1="1202.92" x2="620" y2="1202.92" stroke="#B879A6" stroke-width="1.2" opacity="0.7"/>
-  <text x="500" y="1230.92" font-family="Georgia, 'Times New Roman', serif" font-size="12" letter-spacing="3.5" fill="#5B3F62" fill-opacity="0.62" text-anchor="middle">PERPETUAL BLOOM AND HER FROZEN WITNESS</text>
-</g>
 </svg>

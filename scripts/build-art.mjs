@@ -265,27 +265,27 @@ function baseBackground(w, h, accent, id = 'art') {
 }
 
 const LAYOUTS = [
-  { family: 'arch', numeral: [628, 856, 540, -3], motif: [470, 770, 1.18], bloom: [[240, 520, 1.18], [812, 420, 0.8]], title: 'left' },
-  { family: 'diagonal', numeral: [252, 872, 470, -7], motif: [684, 730, 1.05], bloom: [[860, 320, 0.95], [390, 850, 0.76]], title: 'left' },
-  { family: 'wreath', numeral: [500, 804, 520, 0], motif: [500, 662, 0.95], bloom: [[500, 430, 1.05], [782, 660, 0.55]], title: 'center' },
-  { family: 'column', numeral: [548, 890, 500, 2], motif: [480, 704, 1.02], bloom: [[286, 720, 1.08], [760, 860, 0.62]], title: 'left' },
-  { family: 'horizon', numeral: [500, 764, 550, 0], motif: [500, 690, 1.1], bloom: [[302, 560, 0.85], [730, 500, 0.94]], title: 'center' },
-  { family: 'constellation', numeral: [724, 858, 470, 5], motif: [420, 708, 1.0], bloom: [[230, 380, 0.82], [846, 610, 0.7]], title: 'left' },
-  { family: 'frame', numeral: [500, 828, 510, 0], motif: [500, 688, 1.0], bloom: [[224, 300, 0.7], [790, 1010, 0.74]], title: 'center' },
-  { family: 'canopy', numeral: [312, 842, 510, -4], motif: [640, 752, 1.08], bloom: [[700, 300, 1.0], [290, 1030, 0.64]], title: 'left' },
-  { family: 'spiral', numeral: [694, 846, 490, 3], motif: [410, 740, 1.06], bloom: [[810, 410, 0.84], [330, 360, 0.72]], title: 'left' },
-  { family: 'tide', numeral: [500, 842, 530, 0], motif: [500, 690, 1.08], bloom: [[300, 560, 0.98], [780, 540, 0.72]], title: 'center' },
-  { family: 'arch', numeral: [296, 846, 520, 4], motif: [650, 748, 1.05], bloom: [[772, 450, 1.02], [248, 930, 0.62]], title: 'left' },
-  { family: 'diagonal', numeral: [748, 856, 470, 6], motif: [352, 726, 1.0], bloom: [[240, 360, 0.9], [830, 980, 0.68]], title: 'left' },
-  { family: 'wreath', numeral: [500, 812, 520, 0], motif: [500, 670, 1.0], bloom: [[500, 430, 1.08], [270, 680, 0.56]], title: 'center' },
-  { family: 'column', numeral: [452, 888, 510, -2], motif: [560, 706, 0.96], bloom: [[760, 520, 0.95], [270, 900, 0.7]], title: 'left' },
-  { family: 'horizon', numeral: [500, 758, 550, 0], motif: [500, 684, 1.1], bloom: [[326, 500, 0.86], [764, 570, 0.82]], title: 'center' },
-  { family: 'constellation', numeral: [276, 862, 480, -5], motif: [626, 716, 1.02], bloom: [[820, 340, 0.88], [288, 1030, 0.6]], title: 'left' },
-  { family: 'frame', numeral: [500, 832, 510, 0], motif: [500, 685, 1.28], bloom: [[220, 990, 0.68], [790, 296, 0.78]], title: 'center' },
-  { family: 'canopy', numeral: [688, 846, 500, 4], motif: [352, 748, 1.04], bloom: [[300, 340, 1.02], [750, 1020, 0.62]], title: 'left' },
-  { family: 'spiral', numeral: [312, 850, 500, -4], motif: [634, 738, 1.04], bloom: [[790, 410, 0.9], [300, 360, 0.68]], title: 'left' },
-  { family: 'tide', numeral: [500, 836, 540, 0], motif: [500, 686, 1.08], bloom: [[282, 570, 0.9], [800, 520, 0.78]], title: 'center' },
-  { family: 'arch', numeral: [500, 816, 530, 0], motif: [500, 664, 1.12], bloom: [[260, 470, 1.04], [760, 480, 0.98]], title: 'center' },
+  { family: 'arch', numeral: [628, 856, 540, -3], motif: [470, 770, 1.18], bloom: [[240, 520, 1.18], [812, 420, 0.8]] },
+  { family: 'diagonal', numeral: [252, 872, 470, -7], motif: [684, 730, 1.05], bloom: [[860, 320, 0.95], [390, 850, 0.76]] },
+  { family: 'wreath', numeral: [500, 804, 520, 0], motif: [500, 662, 0.95], bloom: [[500, 430, 1.05], [782, 660, 0.55]] },
+  { family: 'column', numeral: [548, 890, 500, 2], motif: [480, 704, 1.02], bloom: [[286, 720, 1.08], [760, 860, 0.62]] },
+  { family: 'horizon', numeral: [500, 764, 550, 0], motif: [500, 690, 1.1], bloom: [[302, 560, 0.85], [730, 500, 0.94]] },
+  { family: 'constellation', numeral: [724, 858, 470, 5], motif: [420, 708, 1.0], bloom: [[230, 380, 0.82], [846, 610, 0.7]] },
+  { family: 'frame', numeral: [500, 828, 510, 0], motif: [500, 688, 1.0], bloom: [[224, 300, 0.7], [790, 1010, 0.74]] },
+  { family: 'canopy', numeral: [312, 842, 510, -4], motif: [640, 752, 1.08], bloom: [[700, 300, 1.0], [290, 1030, 0.64]] },
+  { family: 'spiral', numeral: [694, 846, 490, 3], motif: [410, 740, 1.06], bloom: [[810, 410, 0.84], [330, 360, 0.72]] },
+  { family: 'tide', numeral: [500, 842, 530, 0], motif: [500, 690, 1.08], bloom: [[300, 560, 0.98], [780, 540, 0.72]] },
+  { family: 'arch', numeral: [296, 846, 520, 4], motif: [650, 748, 1.05], bloom: [[772, 450, 1.02], [248, 930, 0.62]] },
+  { family: 'diagonal', numeral: [748, 856, 470, 6], motif: [352, 726, 1.0], bloom: [[240, 360, 0.9], [830, 980, 0.68]] },
+  { family: 'wreath', numeral: [500, 812, 520, 0], motif: [500, 670, 1.0], bloom: [[500, 430, 1.08], [270, 680, 0.56]] },
+  { family: 'column', numeral: [452, 888, 510, -2], motif: [560, 706, 0.96], bloom: [[760, 520, 0.95], [270, 900, 0.7]] },
+  { family: 'horizon', numeral: [500, 758, 550, 0], motif: [500, 684, 1.1], bloom: [[326, 500, 0.86], [764, 570, 0.82]] },
+  { family: 'constellation', numeral: [276, 862, 480, -5], motif: [626, 716, 1.02], bloom: [[820, 340, 0.88], [288, 1030, 0.6]] },
+  { family: 'frame', numeral: [500, 832, 510, 0], motif: [500, 685, 1.28], bloom: [[220, 990, 0.68], [790, 296, 0.78]] },
+  { family: 'canopy', numeral: [688, 846, 500, 4], motif: [352, 748, 1.04], bloom: [[300, 340, 1.02], [750, 1020, 0.62]] },
+  { family: 'spiral', numeral: [312, 850, 500, -4], motif: [634, 738, 1.04], bloom: [[790, 410, 0.9], [300, 360, 0.68]] },
+  { family: 'tide', numeral: [500, 836, 540, 0], motif: [500, 686, 1.08], bloom: [[282, 570, 0.9], [800, 520, 0.78]] },
+  { family: 'arch', numeral: [500, 816, 530, 0], motif: [500, 664, 1.12], bloom: [[260, 470, 1.04], [760, 480, 0.98]] },
 ];
 
 function familyBackground(family, w, h, accent, rng, id = 'art') {
@@ -714,11 +714,6 @@ function chapterCover(chapter) {
   const id = `c${chapter.number}`;
   const rng = mulberry32(1000 + chapter.number * 7919);
   const alcove = familyBackground(layout.family, 1000, 1400, accent, rng, id);
-  const titleLines = wrapTitle(chapter.title, 27);
-  const titleSize = titleLines.length > 2 ? 46 : 54;
-  const titleY = 1170 - (titleLines.length - 1) * titleSize * 1.18;
-  const titleX = layout.title === 'center' ? 500 : 92;
-  const anchor = layout.title === 'center' ? 'middle' : 'start';
   const act = config.acts.find((item) => item.id === chapter.actId);
   const actLabel = act.id === 'prologue' ? 'PROLOGUE' : `ACT ${act.roman} · ${act.title.toUpperCase()}`;
   const [nx, ny, ns, nrot] = layout.numeral;
@@ -749,17 +744,6 @@ ${alcove}
 <g>${petals.join('\n')}</g>
 <text x="${nx}" y="${ny}" font-family="${FONT}" font-size="${ns}" font-weight="700" fill="${accent}" fill-opacity="0.12" text-anchor="middle" transform="rotate(${nrot} ${nx} ${ny})">${chapter.number}</text>
 <g transform="translate(${mx} ${my}) scale(${ms})">${motif(MOTIFS[index], accent)}</g>
-<g>
-  <line x1="92" y1="104" x2="196" y2="104" stroke="${accent}" stroke-width="1.4" opacity="0.8"/>
-  <text x="92" y="92" font-family="${FONT}" font-size="19" letter-spacing="5" fill="${accent}">CHAPTER ${String(chapter.number).padStart(2, '0')}</text>
-  <text x="92" y="142" font-family="${FONT}" font-size="15" letter-spacing="3" fill="${PLUM}" fill-opacity="0.75">${esc(actLabel)}</text>
-  ${chapter.part ? `<text x="92" y="172" font-family="${FONT}" font-size="13" letter-spacing="2.5" fill="${accent}" fill-opacity="0.9">${esc(chapter.part.toUpperCase())}</text>` : ''}
-</g>
-<g>
-  ${textBlock(titleLines, titleX, titleY, titleSize, INK, { anchor, weight: '400', lineHeight: titleSize * 1.16 })}
-  <line x1="${layout.title === 'center' ? 380 : 92}" y1="${titleY + (titleLines.length - 1) * titleSize * 1.16 + 34}" x2="${layout.title === 'center' ? 620 : 320}" y2="${titleY + (titleLines.length - 1) * titleSize * 1.16 + 34}" stroke="${accent}" stroke-width="1.2" opacity="0.7"/>
-  <text x="${layout.title === 'center' ? 500 : 92}" y="${titleY + (titleLines.length - 1) * titleSize * 1.16 + 62}" font-family="${FONT}" font-size="12" letter-spacing="3.5" fill="${PLUM}" fill-opacity="0.62" text-anchor="${anchor}">PERPETUAL BLOOM AND HER FROZEN WITNESS</text>
-</g>
 </svg>
 `;
 }
