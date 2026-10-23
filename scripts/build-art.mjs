@@ -38,6 +38,7 @@ const WHITE = '#FFFFFF';
 
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 const n = (value) => Number(value.toFixed(2));
+const o = (value) => Number(value.toFixed(3));
 const esc = (value) =>
   String(value)
     .replaceAll('&', '&amp;')
@@ -88,11 +89,12 @@ function petalPath(rx, ry) {
 }
 
 function petal(cx, cy, rx, ry, rotation, fill, opacity = 1, stroke = 'none') {
-  return `<path d="${petalPath(rx, ry)}" transform="translate(${n(cx)} ${n(cy)}) rotate(${n(rotation)})" fill="${fill}" opacity="${opacity}" stroke="${stroke}" stroke-width="1.2"/>`;
+  const strokeAttr = stroke === 'none' ? '' : ` stroke="${stroke}" stroke-width="1.2"`;
+  return `<path d="${petalPath(rx, ry)}" transform="translate(${n(cx)} ${n(cy)}) rotate(${n(rotation)})" fill="${fill}" opacity="${o(opacity)}"${strokeAttr}/>`;
 }
 
 function leaf(cx, cy, rx, ry, rotation, fill, opacity = 1) {
-  return `<path d="M0 0 C ${n(-rx)} ${n(-ry * 0.55)} ${n(-rx * 0.85)} ${n(-ry)} 0 ${n(-ry)} C ${n(rx * 0.45)} ${n(-ry * 0.7)} ${n(rx * 0.7)} ${n(-ry * 0.25)} 0 0 Z" transform="translate(${n(cx)} ${n(cy)}) rotate(${n(rotation)})" fill="${fill}" opacity="${opacity}"/>`;
+  return `<path d="M0 0 C ${n(-rx)} ${n(-ry * 0.55)} ${n(-rx * 0.85)} ${n(-ry)} 0 ${n(-ry)} C ${n(rx * 0.45)} ${n(-ry * 0.7)} ${n(rx * 0.7)} ${n(-ry * 0.25)} 0 0 Z" transform="translate(${n(cx)} ${n(cy)}) rotate(${n(rotation)})" fill="${fill}" opacity="${o(opacity)}"/>`;
 }
 
 function flower(cx, cy, radius, count, rotation, fill, opacity, rng) {
@@ -110,7 +112,7 @@ function flower(cx, cy, radius, count, rotation, fill, opacity, rng) {
       ),
     );
   }
-  return `<g>${petals.join('')}<circle cx="${n(cx)}" cy="${n(cy)}" r="${n(radius * 0.19)}" fill="${INK}" opacity="${opacity * 0.5}"/></g>`;
+  return `<g>${petals.join('')}<circle cx="${n(cx)}" cy="${n(cy)}" r="${n(radius * 0.19)}" fill="${INK}" opacity="${o(opacity * 0.5)}"/></g>`;
 }
 
 function frost(cx, cy, size, color, opacity, rng, width = 1.6) {
@@ -134,15 +136,15 @@ function frost(cx, cy, size, color, opacity, rng, width = 1.6) {
       );
     }
   }
-  return `<g stroke="${color}" stroke-width="${width}" opacity="${opacity}" stroke-linecap="round">${parts.join('')}</g>`;
+  return `<g stroke="${color}" stroke-width="${width}" opacity="${o(opacity)}" stroke-linecap="round">${parts.join('')}</g>`;
 }
 
 function star(cx, cy, size, color, opacity) {
-  return `<path d="M ${n(cx)} ${n(cy - size)} Q ${n(cx + size * 0.16)} ${n(cy - size * 0.16)} ${n(cx + size)} ${n(cy)} Q ${n(cx + size * 0.16)} ${n(cy + size * 0.16)} ${n(cx)} ${n(cy + size)} Q ${n(cx - size * 0.16)} ${n(cy + size * 0.16)} ${n(cx - size)} ${n(cy)} Q ${n(cx - size * 0.16)} ${n(cy - size * 0.16)} ${n(cx)} ${n(cy - size)} Z" fill="${color}" opacity="${opacity}"/>`;
+  return `<path d="M ${n(cx)} ${n(cy - size)} Q ${n(cx + size * 0.16)} ${n(cy - size * 0.16)} ${n(cx + size)} ${n(cy)} Q ${n(cx + size * 0.16)} ${n(cy + size * 0.16)} ${n(cx)} ${n(cy + size)} Q ${n(cx - size * 0.16)} ${n(cy + size * 0.16)} ${n(cx - size)} ${n(cy)} Q ${n(cx - size * 0.16)} ${n(cy - size * 0.16)} ${n(cx)} ${n(cy - size)} Z" fill="${color}" opacity="${o(opacity)}"/>`;
 }
 
 function ring(cx, cy, radius, color, opacity, width = 1.4, dash = '') {
-  return `<circle cx="${n(cx)}" cy="${n(cy)}" r="${n(radius)}" fill="none" stroke="${color}" stroke-width="${width}" opacity="${opacity}"${dash ? ` stroke-dasharray="${dash}"` : ''}/>`;
+  return `<circle cx="${n(cx)}" cy="${n(cy)}" r="${n(radius)}" fill="none" stroke="${color}" stroke-width="${width}" opacity="${o(opacity)}"${dash ? ` stroke-dasharray="${dash}"` : ''}/>`;
 }
 
 function spray(x, y, scale, rotation, color, rng, opacity = 0.9) {
@@ -151,7 +153,7 @@ function spray(x, y, scale, rotation, color, rng, opacity = 0.9) {
     `M 0 0`,
     `C ${n(35 * scale)} ${n(-80 * scale)} ${n(20 * scale)} ${n(-160 * scale)} ${n(-15 * scale)} ${n(-245 * scale)}`,
   ].join(' ');
-  parts.push(`<path d="${stem}" fill="none" stroke="${color}" stroke-width="${n(2.4 * scale)}" opacity="${opacity}" stroke-linecap="round"/>`);
+  parts.push(`<path d="${stem}" fill="none" stroke="${color}" stroke-width="${n(2.4 * scale)}" opacity="${o(opacity)}" stroke-linecap="round"/>`);
   for (let i = 0; i < 7; i += 1) {
     const t = 0.12 + i * 0.115;
     const lx = 35 * scale * Math.sin(t * Math.PI) * (1 - t * 0.25);
@@ -345,13 +347,13 @@ function familyBackground(family, w, h, accent, rng, id = 'art') {
     for (let i = 0; i < 6; i += 1) {
       const r = w * (0.1 + i * 0.055);
       const start = -40 + i * 38;
-      parts.push(`<path d="M ${n(w * 0.5 + r * Math.cos((start * Math.PI) / 180))} ${n(h * 0.46 + r * Math.sin((start * Math.PI) / 180))} A ${n(r)} ${n(r)} 0 0 1 ${n(w * 0.5 + r * Math.cos(((start + 220) * Math.PI) / 180))} ${n(h * 0.46 + r * Math.sin(((start + 220) * Math.PI) / 180))}" fill="none" stroke="${accent}" stroke-width="1.2" opacity="${0.3 - i * 0.025}"/>`);
+      parts.push(`<path d="M ${n(w * 0.5 + r * Math.cos((start * Math.PI) / 180))} ${n(h * 0.46 + r * Math.sin((start * Math.PI) / 180))} A ${n(r)} ${n(r)} 0 0 1 ${n(w * 0.5 + r * Math.cos(((start + 220) * Math.PI) / 180))} ${n(h * 0.46 + r * Math.sin(((start + 220) * Math.PI) / 180))}" fill="none" stroke="${accent}" stroke-width="1.2" opacity="${o(0.3 - i * 0.025)}"/>`);
     }
     parts.push(`<circle cx="${w * 0.42}" cy="${h * 0.4}" r="${w * 0.17}" fill="${soft}" opacity="0.3" filter="url(#${id}-blur)"/>`);
   } else {
     for (let i = 0; i < 4; i += 1) {
       const y = h * (0.62 + i * 0.09);
-      parts.push(`<path d="M 0 ${n(y)} C ${w * 0.24} ${n(y - 40)} ${w * 0.44} ${n(y + 44)} ${w * 0.68} ${n(y - 16)} C ${w * 0.84} ${n(y - 54)} ${w * 0.94} ${n(y - 20)} ${w} ${n(y - 34)}" fill="none" stroke="${accent}" stroke-width="1.3" opacity="${0.28 - i * 0.04}"/>`);
+      parts.push(`<path d="M 0 ${n(y)} C ${w * 0.24} ${n(y - 40)} ${w * 0.44} ${n(y + 44)} ${w * 0.68} ${n(y - 16)} C ${w * 0.84} ${n(y - 54)} ${w * 0.94} ${n(y - 20)} ${w} ${n(y - 34)}" fill="none" stroke="${accent}" stroke-width="1.3" opacity="${o(0.28 - i * 0.04)}"/>`);
     }
     parts.push(`<circle cx="${w * 0.62}" cy="${h * 0.3}" r="${w * 0.18}" fill="${soft}" opacity="0.28" filter="url(#${id}-blur)"/>`);
   }
