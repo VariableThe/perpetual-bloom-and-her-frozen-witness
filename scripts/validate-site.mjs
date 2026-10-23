@@ -225,7 +225,10 @@ try {
 
   check(exists('assets/art/cover.svg'), 'Missing edition cover assets/art/cover.svg');
   check(!/<script[^>]+src=["']https?:/i.test(html), 'index.html must not load remote scripts');
-  check(!/<link[^>]+href=["']https?:/i.test(html), 'index.html must not load remote styles or fonts');
+  check(
+    !/<link(?![^>]*rel=["']canonical["'])[^>]+href=["']https?:/i.test(html),
+    'index.html must not load remote styles or fonts'
+  );
 } catch (error) {
   failures.push(`Site validation crashed: ${error.stack || error.message}`);
 }
