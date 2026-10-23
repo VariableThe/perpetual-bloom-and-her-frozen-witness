@@ -4,6 +4,7 @@
 import fs from 'node:fs';
 import http from 'node:http';
 import path from 'node:path';
+import zlib from 'node:zlib';
 import { spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
@@ -54,6 +55,25 @@ const SECURITY_HEADERS = {
   'Referrer-Policy': 'no-referrer',
   'Cross-Origin-Resource-Policy': 'same-origin'
 };
+
+/* Text and structured formats benefit from compression; binary images and
+   WOFF/WOFF2 fonts are already compressed and must never be re-compressed. */
+function isCompressible(contentType) {
+  const base = contentType.split(';', 1)[0].trim().toLowerCase();
+  return base.startsWith('text/')
+    || base === 'application/json'
+    || base === 'image/svg+xml'
+    || base === 'application/javascript'
+    || base === 'text/javascript';
+}
+
+function chooseEncoding(acceptEncoding) {
+  if (!acceptEncoding) return null;
+  const header = String(acceptEncoding).toLowerCase();
+  if (/\bbr\b/.test(header)) return 'br';
+  if (/\bgzip\b/.test(header)) return 'gzip';
+  return null;
+}
 
 function sendText(response, status, message) {
   const body = `<!doctype html><html lang="en"><meta charset="utf-8"><title>${status}</title>` +
@@ -120,12 +140,19 @@ const server = http.createServer((request, response) => {
     }
 
     const contentType = MIME_TYPES.get(path.extname(filePath).toLowerCase()) || 'application/octet-stream';
+    const compressible = isCompressible(contentType);
+    const encoding = compressible ? chooseEncoding(request.headers['accept-encoding']) : null;
     const headers = {
       ...SECURITY_HEADERS,
       'Content-Type': contentType,
-      'Content-Length': stats.size,
       'Cache-Control': 'no-cache'
     };
+    if (compressible) headers.Vary = 'Accept-Encoding';
+    if (encoding) {
+      headers['Content-Encoding'] = encoding;
+    } else {
+      headers['Content-Length'] = stats.size;
+    }
 
     response.writeHead(200, headers);
     if (request.method === 'HEAD') {
@@ -138,7 +165,14 @@ const server = http.createServer((request, response) => {
       if (!response.headersSent) sendText(response, 500, 'The file could not be read.');
       else response.destroy();
     });
-    stream.pipe(response);
+
+    if (encoding) {
+      const compressor = encoding === 'br' ? zlib.createBrotliCompress() : zlib.createGzip();
+      compressor.on('error', () => response.destroy());
+      stream.pipe(compressor).pipe(response);
+    } else {
+      stream.pipe(response);
+    }
   });
 });
 
