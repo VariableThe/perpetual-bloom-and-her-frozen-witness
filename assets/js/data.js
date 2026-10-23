@@ -6,7 +6,7 @@ const CONFIG_URL = new URL('../../data/story.config.json', import.meta.url);
 async function fetchJson(url, label) {
   let response;
   try {
-    response = await fetch(url, { cache: 'no-store' });
+    response = await fetch(url);
   } catch (error) {
     throw new Error(`Could not fetch ${label}. Start the local server and try again.`);
   }
