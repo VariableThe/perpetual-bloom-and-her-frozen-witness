@@ -1,6 +1,6 @@
 /* Ambient petals and frost on a single fixed canvas. */
 
-import { getSettings, prefersReducedMotion, clamp } from './utils.js';
+import { getSettings, prefersReducedMotion, clamp, debounce } from './utils.js';
 import { THEME_EVENT } from './theme.js';
 
 function paletteFor(theme) {
@@ -202,7 +202,9 @@ export function createParticleField(canvas) {
     }
   }
 
-  window.addEventListener('resize', resize);
+  const onResize = debounce(resize, 170);
+
+  window.addEventListener('resize', onResize);
   document.addEventListener('visibilitychange', onVisibility);
   window.addEventListener(THEME_EVENT, onTheme);
   if (reduceQuery) {
@@ -217,7 +219,7 @@ export function createParticleField(canvas) {
     setEnabled,
     destroy() {
       stop();
-      window.removeEventListener('resize', resize);
+      window.removeEventListener('resize', onResize);
       document.removeEventListener('visibilitychange', onVisibility);
       window.removeEventListener(THEME_EVENT, onTheme);
       if (reduceQuery) {
