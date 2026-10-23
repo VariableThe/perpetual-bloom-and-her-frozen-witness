@@ -142,10 +142,38 @@ const server = http.createServer((request, response) => {
     const contentType = MIME_TYPES.get(path.extname(filePath).toLowerCase()) || 'application/octet-stream';
     const compressible = isCompressible(contentType);
     const encoding = compressible ? chooseEncoding(request.headers['accept-encoding']) : null;
+
+    const relative = path.relative(ROOT, filePath).split(path.sep).join('/');
+    const cacheControl = relative.startsWith('assets/fonts/') || relative.startsWith('assets/art/')
+      ? 'public, max-age=31536000, immutable'
+      : 'no-cache';
+    const etag = `"${stats.size}-${stats.mtimeMs}"`;
+    const lastModified = stats.mtime.toUTCString();
+
+    const ifNoneMatch = request.headers['if-none-match'];
+    const ifModifiedSince = request.headers['if-modified-since'];
+    const notModified = ifNoneMatch
+      ? ifNoneMatch.split(',').some((candidate) => candidate.trim() === etag)
+      : Boolean(ifModifiedSince && Math.floor(stats.mtimeMs / 1000) <= Math.floor(Date.parse(ifModifiedSince) / 1000));
+    if (notModified) {
+      const headers304 = {
+        ...SECURITY_HEADERS,
+        'Cache-Control': cacheControl,
+        ETag: etag,
+        'Last-Modified': lastModified
+      };
+      if (compressible) headers304.Vary = 'Accept-Encoding';
+      response.writeHead(304, headers304);
+      response.end();
+      return;
+    }
+
     const headers = {
       ...SECURITY_HEADERS,
       'Content-Type': contentType,
-      'Cache-Control': 'no-cache'
+      'Cache-Control': cacheControl,
+      ETag: etag,
+      'Last-Modified': lastModified
     };
     if (compressible) headers.Vary = 'Accept-Encoding';
     if (encoding) {
