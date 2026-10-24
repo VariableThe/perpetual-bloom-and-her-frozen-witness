@@ -1,0 +1,9 @@
+# Keep Vercel deployments static-only: local dev server and source/QA files
+# are not needed at runtime (index.html + assets/ + data/ are served).
+server.mjs
+start.bat
+scripts/
+src/
+qa/
+.env*
+.vercel

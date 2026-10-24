@@ -14,3 +14,6 @@ src/assets/media/*
 # Build output
 dist/
 build/
+
+.vercel
+.env*
