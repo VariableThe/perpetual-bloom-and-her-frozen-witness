@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://perpetual-bloom-and-her-frozen-witness.vercel.app/sitemap.xml
