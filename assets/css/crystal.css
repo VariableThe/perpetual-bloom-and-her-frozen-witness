@@ -19,15 +19,13 @@
 
 .crystal-bg__facets {
   position: absolute;
-  inset: -20%;
-  opacity: 0.5;
-  background:
-    repeating-conic-gradient(from 12deg at 18% 22%, rgba(255, 255, 255, 0.5) 0deg 9deg, transparent 9deg 24deg),
-    repeating-conic-gradient(from -30deg at 82% 78%, rgba(138, 43, 226, 0.1) 0deg 7deg, transparent 7deg 20deg),
-    repeating-linear-gradient(115deg, rgba(255, 255, 255, 0.34) 0 2px, transparent 2px 26px),
-    repeating-linear-gradient(38deg, rgba(167, 139, 250, 0.14) 0 1px, transparent 1px 34px);
-  mask-image: radial-gradient(ellipse 120% 120% at 50% 40%, #000 30%, transparent 85%);
-  animation: crystal-drift 46s ease-in-out infinite alternate;
+  inset: -4%;
+  opacity: 0.92;
+  background-image: url("../images/crystal-bg.svg");
+  background-size: cover;
+  background-position: center 32%;
+  background-repeat: no-repeat;
+  animation: crystal-drift 60s ease-in-out infinite alternate;
 }
 
 .crystal-bg__glow {
@@ -74,5 +72,6 @@ html[data-theme="dark"] .crystal-bg {
 }
 
 html[data-theme="dark"] .crystal-bg__facets {
-  opacity: 0.34;
+  background-image: url("../images/crystal-bg-dark.svg");
+  opacity: 0.9;
 }

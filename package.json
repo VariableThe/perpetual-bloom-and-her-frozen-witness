@@ -10,6 +10,7 @@
     "serve": "node server.mjs",
     "build:content": "node scripts/build-content.mjs",
     "build:art": "node scripts/build-art.mjs",
+    "build:crystal": "node scripts/build-crystal.mjs",
     "validate:content": "node scripts/validate-content.mjs",
     "validate:site": "node scripts/validate-site.mjs",
     "validate": "npm run validate:content && npm run validate:site",

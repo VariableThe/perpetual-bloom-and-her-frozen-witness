@@ -79,6 +79,8 @@ try {
     'assets/images/bookends.json',
     'assets/images/opening-default.svg',
     'assets/images/closing-default.svg',
+    'assets/images/crystal-bg.svg',
+    'assets/images/crystal-bg-dark.svg',
     'scripts/qa-gallery.mjs',
     'assets/fonts/cormorant-garamond-normal.woff2',
     'assets/fonts/cormorant-garamond-italic.woff2',

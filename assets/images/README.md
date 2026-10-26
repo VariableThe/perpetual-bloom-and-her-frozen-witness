@@ -2,8 +2,20 @@
 
 This folder holds the **visual bookends** for every chapter: one picture shown
 at the **beginning** of the chapter (opening bookend) and one shown at the
-**end** of the chapter (closing bookend), following the Act → Chapter → Text
+end of the chapter (closing bookend), following the Act → Chapter → Text
 structure of the edition.
+
+It also holds the **crystallized low-poly backdrops** (`crystal-bg.svg` for
+the light theme, `crystal-bg-dark.svg` for the dark theme) painted behind the
+whole edition. Both are generated — never hand-edited:
+
+```powershell
+npm run build:crystal
+```
+
+The generator (`scripts/build-crystal.mjs`) uses a fixed seed, so re-running
+reproduces the same facets. To re-skin the backdrop, tweak the `PALETTES`
+stops in that script and rebuild.
 
 ## How to swap or add images (no UI code changes needed)
 
