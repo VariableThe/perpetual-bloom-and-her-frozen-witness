@@ -59,6 +59,26 @@ Every chapter's final screen is an end-of-chapter gallery. It shows the chapter'
 
 The two seeded plates are original SVG artwork made for this edition; they remain part of the repository and are not affected by uploads.
 
+## Private edition gate
+
+The edition opens behind a passcode lock screen. Enter `111105` to unlock;
+anything else is denied. Unlock state stays in the browser (this tab, or
+remembered on the device when the checkbox is ticked). The backdrop is a
+crystallized pink / white / purple gradient layer (`assets/css/crystal.css`,
+`#crystal-bg`) that sits behind the ambient canvas in both themes.
+
+## Chapter bookends
+
+Every chapter shows an **opening bookend** plate on its cover screen and a
+**closing bookend** plate at the top of its end gallery, following the
+Act → Chapter → Text structure (Act → Chapter navigation lives in the archive
+cards and the reader's chapter drawer).
+
+Art is mapped in `assets/images/bookends.json` (21 chapters plus shared
+defaults). To swap art, drop a file into `assets/images/` and point the
+chapter entry at it — see `assets/images/README.md`. No UI code changes are
+required; missing files hide their slot instead of breaking the page.
+
 ## What is local
 
 Everything is served from this repository. Fonts are bundled WOFF2 files with their OFL licences in `assets/fonts/`, artwork is original SVG in `assets/art/`, and there are no runtime network requests, analytics or accounts. The soundtrack is generated in the browser; no note, buffer or request leaves the page. Fan art you add is optimised on your device and stored only in this browser's IndexedDB, so it also never leaves the machine.

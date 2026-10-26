@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-label="Closing bookend placeholder">
+  <defs>
+    <linearGradient id="cbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d9c2f5"/>
+      <stop offset="0.5" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#ffe3ee"/>
+    </linearGradient>
+    <linearGradient id="cfacet" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8a2be2" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#ffb6c1" stop-opacity="0.85"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#cbg)"/>
+  <g fill="url(#cfacet)" opacity="0.5">
+    <polygon points="400,280 580,580 400,880 220,580"/>
+    <polygon points="400,430 480,580 400,730 320,580" fill="#ffffff" opacity="0.55"/>
+    <polygon points="150,120 260,200 150,280 90,200" opacity="0.6"/>
+    <polygon points="650,120 710,200 650,280 540,200" opacity="0.6"/>
+  </g>
+  <circle cx="400" cy="580" r="52" fill="none" stroke="#6d2a9e" stroke-width="3" opacity="0.7"/>
+  <path d="M378 580h44M400 558v44" stroke="#6d2a9e" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+  <text x="400" y="880" text-anchor="middle" font-family="Georgia, serif" font-size="34" letter-spacing="6" fill="#6d2a9e" opacity="0.8">CLOSING BOOKEND</text>
+  <text x="400" y="920" text-anchor="middle" font-family="Georgia, serif" font-size="20" font-style="italic" fill="#8d7484">replace me in assets/images/</text>
+</svg>

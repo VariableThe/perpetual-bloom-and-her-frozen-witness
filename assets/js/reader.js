@@ -36,6 +36,31 @@ function pageTextFor(piece) {
   return node;
 }
 
+/* Chapter visual bookends. Art is mapped in assets/images/bookends.json so
+   plates can be swapped in the repository without touching this file. A
+   missing file removes its slot instead of showing a broken frame. */
+function bookendFigure(src, kind, chapter) {
+  if (!src) return null;
+  const label = kind === 'opening' ? 'Opening bookend' : 'Closing bookend';
+  const figure = el('figure', { class: `bookend bookend--${kind}` });
+  const img = el('img', {
+    class: 'bookend__frame',
+    src,
+    alt: `${label} for Chapter ${chapter.number}: ${chapter.title}`,
+    loading: 'lazy',
+    decoding: 'async'
+  });
+  img.addEventListener('error', () => figure.remove(), { once: true });
+  figure.append(
+    img,
+    el('figcaption', { class: 'bookend__caption' }, [
+      label,
+      el('strong', { text: `Chapter ${chapter.number} · ${chapter.title}` })
+    ])
+  );
+  return figure;
+}
+
 export class Reader {
   constructor(story, callbacks = {}) {
     this.story = story;
@@ -843,6 +868,8 @@ export class Reader {
 
     const overlay = el('div', { class: 'cover-page__overlay' }, overlayChildren);
     article.append(art, topline, overlay);
+    const opening = bookendFigure(chapter.openingBookend, 'opening', chapter);
+    if (opening) article.prepend(opening);
     return article;
   }
 
@@ -934,7 +961,7 @@ export class Reader {
       id: 'reader-gallery-container',
       'data-chapter': chapter.number,
       'data-no-swipe': ''
-    }, [intro, galleryHost, actions]);
+    }, [intro, bookendFigure(chapter.closingBookend, 'closing', chapter), galleryHost, actions]);
 
     const body = el('div', {
       class: 'reader-page__body reader-page__body--gallery',

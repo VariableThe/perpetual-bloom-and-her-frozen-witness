@@ -72,6 +72,13 @@ try {
     'assets/js/router.js',
     'assets/js/theme.js',
     'assets/js/utils.js',
+    'assets/js/lock.js',
+    'assets/css/crystal.css',
+    'assets/css/lock.css',
+    'assets/css/bookends.css',
+    'assets/images/bookends.json',
+    'assets/images/opening-default.svg',
+    'assets/images/closing-default.svg',
     'scripts/qa-gallery.mjs',
     'assets/fonts/cormorant-garamond-normal.woff2',
     'assets/fonts/cormorant-garamond-italic.woff2',
@@ -110,7 +117,12 @@ try {
     'ending-toast',
     'petal-canvas',
     'paginate-probe',
-    'gallery-layer'
+    'gallery-layer',
+    'crystal-bg',
+    'lock-screen',
+    'lock-form',
+    'lock-passcode',
+    'lock-error'
   ];
   for (const id of keyIds) {
     check(html.includes(`id="${id}"`), `index.html is missing #${id}`);
@@ -120,10 +132,44 @@ try {
   check(/<script type="module" src="assets\/js\/app\.js"><\/script>/.test(html), 'app.js must be loaded as a module');
   check(html.includes('assets/css/audio.css'), 'index.html does not load assets/css/audio.css');
   check(html.includes('assets/css/gallery.css'), 'index.html does not load assets/css/gallery.css');
+  check(html.includes('assets/css/crystal.css'), 'index.html does not load assets/css/crystal.css');
+  check(html.includes('assets/css/lock.css'), 'index.html does not load assets/css/lock.css');
+  check(html.includes('assets/css/bookends.css'), 'index.html does not load assets/css/bookends.css');
   check(
     read(path.join(ROOT, 'assets/js/app.js')).includes("from './gallery.js'"),
     'app.js must import the gallery controller from ./gallery.js'
   );
+  check(
+    read(path.join(ROOT, 'assets/js/app.js')).includes("from './lock.js'"),
+    'app.js must gate startup behind the lock module'
+  );
+  check(
+    read(path.join(ROOT, 'assets/js/lock.js')).includes("'111105'"),
+    'lock.js must verify the edition passcode'
+  );
+  check(
+    read(path.join(ROOT, 'assets/js/reader.js')).includes('openingBookend')
+      && read(path.join(ROOT, 'assets/js/reader.js')).includes('closingBookend'),
+    'reader.js must render the chapter opening and closing bookends'
+  );
+
+  const bookends = JSON.parse(read(path.join(ROOT, 'assets/images/bookends.json')));
+  check(
+    Array.isArray(bookends.chapters) && bookends.chapters.length === 21,
+    'bookends.json must map all 21 chapters'
+  );
+  check(
+    Boolean(bookends.defaults?.opening) && Boolean(bookends.defaults?.closing),
+    'bookends.json must define default opening and closing plates'
+  );
+  for (const entry of bookends.chapters || []) {
+    if (!entry.opening || !entry.closing) {
+      check(false, `Chapter ${entry.chapter} is missing a bookend plate`);
+      continue;
+    }
+    checkFile(entry.opening, `Chapter ${entry.chapter} opening bookend`);
+    checkFile(entry.closing, `Chapter ${entry.chapter} closing bookend`);
+  }
   check(!html.includes('audio-dock'), 'index.html still contains the old hidden audio dock');
 
   const stageIndex = html.indexOf('id="reader-stage"');
@@ -137,7 +183,7 @@ try {
   const htmlRefs = [...html.matchAll(/\b(?:href|src)="([^"]+)"/g)].map((match) => match[1]);
   htmlRefs.forEach((reference) => checkLocalReference(reference, INDEX));
 
-  const cssFiles = ['assets/css/base.css', 'assets/css/landing.css', 'assets/css/reader.css', 'assets/css/audio.css', 'assets/css/gallery.css'];
+  const cssFiles = ['assets/css/base.css', 'assets/css/landing.css', 'assets/css/reader.css', 'assets/css/audio.css', 'assets/css/gallery.css', 'assets/css/crystal.css', 'assets/css/lock.css', 'assets/css/bookends.css'];
   for (const cssPath of cssFiles) {
     if (!exists(cssPath)) continue;
     const cssFile = path.join(ROOT, cssPath);

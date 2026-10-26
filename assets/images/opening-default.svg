@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-label="Opening bookend placeholder">
+  <defs>
+    <linearGradient id="obg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffe3ee"/>
+      <stop offset="0.5" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#d9c2f5"/>
+    </linearGradient>
+    <linearGradient id="ofacet" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffb6c1" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#8a2be2" stop-opacity="0.55"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#obg)"/>
+  <g fill="url(#ofacet)" opacity="0.5">
+    <polygon points="400,120 620,420 400,720 180,420"/>
+    <polygon points="400,300 520,470 400,640 280,470" fill="#ffffff" opacity="0.55"/>
+    <polygon points="120,700 300,820 120,940 60,820" opacity="0.6"/>
+    <polygon points="680,700 740,820 680,940 500,820" opacity="0.6"/>
+  </g>
+  <circle cx="400" cy="470" r="52" fill="none" stroke="#6d2a9e" stroke-width="3" opacity="0.7"/>
+  <path d="M370 470l22 22 40-46" fill="none" stroke="#6d2a9e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+  <text x="400" y="880" text-anchor="middle" font-family="Georgia, serif" font-size="34" letter-spacing="6" fill="#6d2a9e" opacity="0.8">OPENING BOOKEND</text>
+  <text x="400" y="920" text-anchor="middle" font-family="Georgia, serif" font-size="20" font-style="italic" fill="#8d7484">replace me in assets/images/</text>
+</svg>

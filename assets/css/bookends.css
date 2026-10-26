@@ -1,0 +1,48 @@
+/* ==========================================================================
+   Perpetual Bloom — chapter visual bookends
+   Framed opening/closing plates at the start and end of every chapter.
+   Swap the art in assets/images/ (see bookends.json); no CSS edits needed.
+   ========================================================================== */
+
+.bookend {
+  margin: 0 0 1.1rem;
+  border: 1px solid var(--reader-edge);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--reader-paper-2);
+  box-shadow: var(--page-shadow);
+}
+
+.bookend__frame {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background:
+    linear-gradient(150deg, rgba(255, 182, 193, 0.35), rgba(167, 139, 250, 0.3));
+}
+
+.bookend__caption {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.55rem 0.9rem 0.65rem;
+  font-family: var(--font-ui);
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--reader-muted);
+  border-top: 1px solid var(--reader-rule);
+}
+
+.bookend__caption strong {
+  font-weight: 600;
+  color: var(--reader-ink);
+  letter-spacing: 0.04em;
+  text-transform: none;
+  font-size: 0.86rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

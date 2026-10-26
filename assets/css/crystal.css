@@ -1,0 +1,78 @@
+/* ==========================================================================
+   Perpetual Bloom — crystallized pink / white / purple backdrop
+   A fixed faceted-glass layer behind the ambient canvas and all content.
+   Pure CSS gradients only: no images, no external requests.
+   ========================================================================== */
+
+.crystal-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 90% 60% at 8% -10%, rgba(255, 182, 193, 0.5), transparent 65%),
+    radial-gradient(ellipse 70% 55% at 105% 12%, rgba(167, 139, 250, 0.42), transparent 62%),
+    radial-gradient(ellipse 80% 60% at 50% 112%, rgba(255, 255, 255, 0.9), transparent 68%),
+    linear-gradient(160deg, #ffe9f2 0%, #fffbfd 38%, #f3e8fb 72%, #e6d4f7 100%);
+}
+
+.crystal-bg__facets {
+  position: absolute;
+  inset: -20%;
+  opacity: 0.5;
+  background:
+    repeating-conic-gradient(from 12deg at 18% 22%, rgba(255, 255, 255, 0.5) 0deg 9deg, transparent 9deg 24deg),
+    repeating-conic-gradient(from -30deg at 82% 78%, rgba(138, 43, 226, 0.1) 0deg 7deg, transparent 7deg 20deg),
+    repeating-linear-gradient(115deg, rgba(255, 255, 255, 0.34) 0 2px, transparent 2px 26px),
+    repeating-linear-gradient(38deg, rgba(167, 139, 250, 0.14) 0 1px, transparent 1px 34px);
+  mask-image: radial-gradient(ellipse 120% 120% at 50% 40%, #000 30%, transparent 85%);
+  animation: crystal-drift 46s ease-in-out infinite alternate;
+}
+
+.crystal-bg__glow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle 320px at 12% 88%, rgba(255, 182, 193, 0.4), transparent 70%),
+    radial-gradient(circle 380px at 88% 8%, rgba(167, 139, 250, 0.32), transparent 70%),
+    radial-gradient(circle 240px at 72% 62%, rgba(255, 255, 255, 0.75), transparent 70%);
+  animation: crystal-breathe 9s ease-in-out infinite alternate;
+}
+
+@keyframes crystal-drift {
+  from {
+    transform: translate3d(-1.5%, -1%, 0) rotate(-0.6deg) scale(1);
+  }
+  to {
+    transform: translate3d(1.5%, 1.5%, 0) rotate(0.6deg) scale(1.04);
+  }
+}
+
+@keyframes crystal-breathe {
+  from {
+    opacity: 0.75;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crystal-bg__facets,
+  .crystal-bg__glow {
+    animation: none;
+  }
+}
+
+html[data-theme="dark"] .crystal-bg {
+  background:
+    radial-gradient(ellipse 90% 60% at 8% -10%, rgba(255, 143, 177, 0.22), transparent 65%),
+    radial-gradient(ellipse 70% 55% at 105% 12%, rgba(138, 43, 226, 0.4), transparent 62%),
+    radial-gradient(ellipse 80% 60% at 50% 112%, rgba(83, 42, 104, 0.42), transparent 68%),
+    linear-gradient(160deg, #2b1533 0%, #1a1220 42%, #241631 74%, #150e1b 100%);
+}
+
+html[data-theme="dark"] .crystal-bg__facets {
+  opacity: 0.34;
+}

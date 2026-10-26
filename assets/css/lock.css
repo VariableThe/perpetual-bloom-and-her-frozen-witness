@@ -1,0 +1,159 @@
+/* ==========================================================================
+   Perpetual Bloom — passcode lock screen
+   Full-viewport gate shown until the recipient unlocks the edition.
+   ========================================================================== */
+
+.lock-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background:
+    radial-gradient(ellipse 80% 55% at 50% -8%, rgba(255, 182, 193, 0.55), transparent 65%),
+    radial-gradient(ellipse 65% 50% at 50% 112%, rgba(138, 43, 226, 0.28), transparent 65%),
+    linear-gradient(165deg, rgba(255, 240, 247, 0.96), rgba(244, 237, 252, 0.97));
+  backdrop-filter: blur(6px);
+  opacity: 1;
+  transition: opacity 420ms var(--ease-out), visibility 420ms;
+}
+
+html[data-theme="dark"] .lock-screen {
+  background:
+    radial-gradient(ellipse 80% 55% at 50% -8%, rgba(255, 143, 177, 0.2), transparent 65%),
+    radial-gradient(ellipse 65% 50% at 50% 112%, rgba(138, 43, 226, 0.36), transparent 65%),
+    linear-gradient(165deg, rgba(30, 18, 38, 0.97), rgba(20, 14, 26, 0.98));
+}
+
+.lock-screen.is-unlocking {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.lock-card {
+  width: min(26rem, 100%);
+  text-align: center;
+  background: var(--surface-glass-strong);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 2.4rem 2.2rem 2rem;
+}
+
+.lock-card__mark {
+  color: var(--accent-strong);
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.lock-card__title {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  line-height: 1.15;
+  margin-bottom: 0.4rem;
+}
+
+.lock-card__title em {
+  color: var(--pink-deep);
+}
+
+html[data-theme="dark"] .lock-card__title em {
+  color: var(--pink);
+}
+
+.lock-card__note {
+  color: var(--muted);
+  font-size: 0.92rem;
+  margin-bottom: 1.4rem;
+}
+
+.lock-form {
+  display: grid;
+  gap: 0.8rem;
+  text-align: left;
+}
+
+.lock-form__label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.lock-form__row {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.lock-form__input {
+  flex: 1;
+  min-width: 0;
+  min-height: 50px;
+  padding: 0.7rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  letter-spacing: 0.35em;
+  text-align: center;
+  font-size: 1.05rem;
+}
+
+.lock-form__input[aria-invalid="true"] {
+  border-color: #c0365e;
+  box-shadow: 0 0 0 3px rgba(192, 54, 94, 0.18);
+}
+
+.lock-form__error {
+  min-height: 1.4em;
+  margin: 0;
+  font-size: 0.86rem;
+  color: #c0365e;
+}
+
+html[data-theme="dark"] .lock-form__error {
+  color: #ff9db8;
+}
+
+.lock-form__remember {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.86rem;
+  color: var(--muted);
+}
+
+.lock-screen.shake .lock-card {
+  animation: lock-shake 380ms ease;
+}
+
+@keyframes lock-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-9px);
+  }
+  50% {
+    transform: translateX(7px);
+  }
+  75% {
+    transform: translateX(-4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lock-screen,
+  .lock-screen.is-unlocking {
+    transition: none;
+  }
+
+  .lock-screen.shake .lock-card {
+    animation: none;
+  }
+}

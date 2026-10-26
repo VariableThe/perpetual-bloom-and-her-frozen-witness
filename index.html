@@ -39,6 +39,9 @@
   <link rel="stylesheet" href="assets/css/reader.css">
   <link rel="stylesheet" href="assets/css/audio.css">
   <link rel="stylesheet" href="assets/css/gallery.css">
+  <link rel="stylesheet" href="assets/css/crystal.css">
+  <link rel="stylesheet" href="assets/css/lock.css">
+  <link rel="stylesheet" href="assets/css/bookends.css">
   <script>
     (function () {
       try {
@@ -57,6 +60,11 @@
 </head>
 <body>
   <a class="skip-link" href="#landing-main">Skip to the story</a>
+
+  <div id="crystal-bg" class="crystal-bg" aria-hidden="true">
+    <div class="crystal-bg__facets"></div>
+    <div class="crystal-bg__glow"></div>
+  </div>
 
   <div id="ambient" class="ambient" aria-hidden="true">
     <canvas id="petal-canvas" class="ambient__canvas"></canvas>
@@ -80,6 +88,30 @@
     <h1 class="display">A page has slipped loose.</h1>
     <p>The story data could not be loaded. Make sure you are running the local server (<code>start.bat</code> or <code>npm start</code>) rather than opening the file directly.</p>
     <button class="btn btn--primary" type="button" onclick="location.reload()">Try again</button>
+  </div>
+
+  <div id="lock-screen" class="lock-screen" role="dialog" aria-modal="true" aria-labelledby="lock-title">
+    <div class="lock-card">
+      <div class="lock-card__mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48" width="44" height="44" focusable="false">
+          <path d="M24 4 42 15v18L24 44 6 33V15Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="M24 4v20m0 0L6 15m18 9 18-9M24 24v20" fill="none" stroke="currentColor" stroke-width="1" opacity=".55"/>
+          <circle cx="24" cy="24" r="3.2" fill="currentColor" opacity=".8"/>
+        </svg>
+      </div>
+      <p class="eyebrow">A private edition</p>
+      <h1 class="lock-card__title" id="lock-title">Perpetual Bloom <em>and her Frozen Witness</em></h1>
+      <p class="lock-card__note">This copy is kept for one reader. Enter the edition passcode to open the archive.</p>
+      <form class="lock-form" id="lock-form" autocomplete="off">
+        <label class="lock-form__label" for="lock-passcode">Edition passcode</label>
+        <div class="lock-form__row">
+          <input class="lock-form__input" id="lock-passcode" name="passcode" type="password" inputmode="numeric" maxlength="32" placeholder="••••••" aria-describedby="lock-error" autofocus>
+          <button class="btn btn--primary" type="submit">Unlock</button>
+        </div>
+        <p class="lock-form__error" id="lock-error" role="alert"></p>
+        <label class="lock-form__remember"><input id="lock-remember" type="checkbox"> Remember on this device</label>
+      </form>
+    </div>
   </div>
 
   <div id="landing-view" class="landing-view">

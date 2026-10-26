@@ -2,6 +2,7 @@
 
 const BOOK_URL = new URL('../../data/book.json', import.meta.url);
 const CONFIG_URL = new URL('../../data/story.config.json', import.meta.url);
+const BOOKENDS_URL = new URL('../../assets/images/bookends.json', import.meta.url);
 
 async function fetchJson(url, label) {
   let response;
@@ -24,10 +25,29 @@ function assert(condition, message) {
   if (!condition) throw new Error(message);
 }
 
+/* Chapter bookend art is optional: the mapping lives in the repository at
+   assets/images/bookends.json so art can be swapped without touching UI code.
+   A missing or invalid map simply leaves the slots empty. */
+async function loadBookends() {
+  try {
+    const response = await fetch(BOOKENDS_URL);
+    if (!response.ok) return null;
+    const map = await response.json();
+    if (!map || !Array.isArray(map.chapters)) return null;
+    return {
+      defaults: map.defaults || {},
+      byChapter: new Map(map.chapters.map((entry) => [entry.chapter, entry]))
+    };
+  } catch (error) {
+    return null;
+  }
+}
+
 export async function loadStory() {
-  const [book, config] = await Promise.all([
+  const [book, config, bookends] = await Promise.all([
     fetchJson(BOOK_URL, 'the story data'),
-    fetchJson(CONFIG_URL, 'the edition configuration')
+    fetchJson(CONFIG_URL, 'the edition configuration'),
+    loadBookends()
   ]);
 
   assert(book && Array.isArray(book.chapters), 'book.json is missing its chapters array.');
@@ -51,6 +71,10 @@ export async function loadStory() {
     const track = trackByNumber.get(entry.number) || tracksById.get(entry.trackId);
     assert(track, `Chapter ${entry.number} has no soundtrack track.`);
 
+    const bookend = bookends?.byChapter.get(entry.number) || {};
+    const openingBookend = bookend.opening || bookends?.defaults.opening || null;
+    const closingBookend = bookend.closing || bookends?.defaults.closing || null;
+
     return {
       number: entry.number,
       title: entry.title || source.title,
@@ -61,6 +85,8 @@ export async function loadStory() {
       coverArt: entry.coverArt,
       galleryPlates: entry.galleryPlates,
       galleryPrompt: entry.galleryPrompt,
+      openingBookend,
+      closingBookend,
       wordCount: entry.wordCount || source.wordCount,
       trackId: entry.trackId,
       track,

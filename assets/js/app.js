@@ -5,6 +5,7 @@ import { initTheme } from './theme.js';
 import { createParticleField } from './particles.js';
 import { createAudio } from './audio.js';
 import { createGallery } from './gallery.js';
+import { waitForUnlock } from './lock.js';
 import { initLanding } from './landing.js';
 import { Reader } from './reader.js';
 import { Router } from './router.js';
@@ -106,7 +107,10 @@ function boot() {
     }
   }
 
-  loadStory()
+  /* The edition stays gated until the recipient unlocks it; only then do
+     we fetch the story and wire the reader. */
+  waitForUnlock()
+    .then(() => loadStory())
     .then((story) => {
       router = new Router(handleRoute);
       audio = createAudio(story);

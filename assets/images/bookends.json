@@ -1,0 +1,135 @@
+{
+  "version": 1,
+  "defaults": {
+    "opening": "assets/images/opening-default.svg",
+    "closing": "assets/images/closing-default.svg"
+  },
+  "chapters": [
+    {
+      "chapter": 1,
+      "title": "The Book That Introduced Her to Him",
+      "opening": "assets/images/opening-default.svg",
+      "closing": "assets/images/closing-default.svg"
+    },
+    {
+      "chapter": 2,
+      "title": "The Arrow That Became a Heart",
+      "opening": "assets/images/opening-default.svg",
+      "closing": "assets/images/closing-default.svg"
+    },
+    {
+      "chapter": 3,
+      "title": "The Clover and the Home",
+      "opening": "assets/images/opening-default.svg",
+      "closing": "assets/images/closing-default.svg"
+    },
+    {
+      "chapter": 4,
+      "title": "The Things She Could Not Replace",
+      "opening": "assets/images/opening-default.svg",
+      "closing": "assets/images/closing-default.svg"
+    },
+    {
+      "chapter": 5,
+      "title": "The Hair Clip at 7:02",
+      "opening": "assets/images/opening-default.svg",
+      "closing": "assets/images/closing-default.svg"
+    },
+    {
+      "chapter": 6,
+      "title": "The First Sip",
+      "opening": "assets/images/opening-default.svg",
+      "closing": "assets/images/closing-default.svg"
+    },
+    {
+      "chapter": 7,
+      "title": "The Sparrows That Kept Getting Up",
+      "opening": "assets/images/opening-default.svg",
+      "closing": "assets/images/closing-default.svg"
+    },
+    {
+      "chapter": 8,
+      "title": "The Memory Box",
+      "opening": "assets/images/opening-default.svg",
+      "closing": "assets/images/closing-default.svg"
+    },
+    {
+      "chapter": 9,
+      "title": "The Sentence \"I Noticed\"",
+      "opening": "assets/images/opening-default.svg",
+      "closing": "assets/images/closing-default.svg"
+    },
+    {
+      "chapter": 10,
+      "title": "4:11",
+      "opening": "assets/images/opening-default.svg",
+      "closing": "assets/images/closing-default.svg"
+    },
+    {
+      "chapter": 11,
+      "title": "The Goku Figurine",
+      "opening": "assets/images/opening-default.svg",
+      "closing": "assets/images/closing-default.svg"
+    },
+    {
+      "chapter": 12,
+      "title": "The Hot Pink Note",
+      "opening": "assets/images/opening-default.svg",
+      "closing": "assets/images/closing-default.svg"
+    },
+    {
+      "chapter": 13,
+      "title": "The Bracelet and the Dried Petals",
+      "opening": "assets/images/opening-default.svg",
+      "closing": "assets/images/closing-default.svg"
+    },
+    {
+      "chapter": 14,
+      "title": "The Dried Petal Returns",
+      "opening": "assets/images/opening-default.svg",
+      "closing": "assets/images/closing-default.svg"
+    },
+    {
+      "chapter": 15,
+      "title": "The First Metro",
+      "opening": "assets/images/opening-default.svg",
+      "closing": "assets/images/closing-default.svg"
+    },
+    {
+      "chapter": 16,
+      "title": "The Penguin in the Pocket",
+      "opening": "assets/images/opening-default.svg",
+      "closing": "assets/images/closing-default.svg"
+    },
+    {
+      "chapter": 17,
+      "title": "The Rose That Knows It Will Wilt",
+      "opening": "assets/images/opening-default.svg",
+      "closing": "assets/images/closing-default.svg"
+    },
+    {
+      "chapter": 18,
+      "title": "The Hoodie, the Straw, and the Bouquet",
+      "opening": "assets/images/opening-default.svg",
+      "closing": "assets/images/closing-default.svg"
+    },
+    {
+      "chapter": 19,
+      "title": "7:02 / 7:03",
+      "opening": "assets/images/opening-default.svg",
+      "closing": "assets/images/closing-default.svg"
+    },
+    {
+      "chapter": 20,
+      "title": "The Letter That Crosses Distance",
+      "opening": "assets/images/opening-default.svg",
+      "closing": "assets/images/closing-default.svg"
+    },
+    {
+      "chapter": 21,
+      "title": "The Folding of the Final Crane",
+      "opening": "assets/images/opening-default.svg",
+      "closing": "assets/images/closing-default.svg"
+    }
+  ]
+}
