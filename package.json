@@ -18,6 +18,7 @@
     "test": "npm run test:unit && npm run validate",
     "qa:audio": "node scripts/qa-audio.mjs",
     "qa:gallery": "node scripts/qa-gallery.mjs",
-    "qa:cover": "node scripts/qa-cover.mjs"
+    "qa:cover": "node scripts/qa-cover.mjs",
+    "qa:lock": "node scripts/qa-lock.mjs"
   }
 }
