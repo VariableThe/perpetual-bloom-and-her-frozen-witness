@@ -145,9 +145,14 @@ const server = http.createServer((request, response) => {
     const encoding = compressible ? chooseEncoding(request.headers['accept-encoding']) : null;
 
     const relative = path.relative(ROOT, filePath).split(path.sep).join('/');
+    /* Edition data (book.json, story.config.json) changes only on deploy, so
+       browsers may cache it briefly and revalidate in the background. Binary
+       art and fonts carry immutable hashes-in-practice and cache for a year. */
     const cacheControl = relative.startsWith('assets/fonts/') || relative.startsWith('assets/art/')
       ? 'public, max-age=31536000, immutable'
-      : 'no-cache';
+      : relative.startsWith('data/')
+        ? 'public, max-age=3600, stale-while-revalidate=86400'
+        : 'no-cache';
     const etag = `"${stats.size}-${stats.mtimeMs}"`;
     const lastModified = stats.mtime.toUTCString();
 
