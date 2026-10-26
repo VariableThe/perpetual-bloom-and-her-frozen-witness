@@ -6,7 +6,9 @@
 .lock-screen {
   position: fixed;
   inset: 0;
-  z-index: 60;
+  /* Above the loading (900) and error (950) screens: the gate must be
+     reachable, since story boot waits for unlock. */
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
