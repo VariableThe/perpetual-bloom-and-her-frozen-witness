@@ -1101,17 +1101,18 @@ html[data-theme="dark"] .section--galleries {
   align-items: flex-end;
   justify-content: space-between;
   gap: 1rem;
-  padding: clamp(14px, 2vw, 24px);
+  padding: clamp(44px, 6vw, 72px) clamp(14px, 2vw, 24px) clamp(14px, 2vw, 24px);
+  background: linear-gradient(180deg, transparent 0%, rgba(43, 13, 37, 0.44) 42%, rgba(43, 13, 37, 0.88) 100%);
 }
 
 .gallery-card__eyebrow {
   display: block;
   margin-bottom: 0.28rem;
-  color: rgba(255, 223, 235, 0.88);
+  color: rgba(255, 233, 241, 0.95);
   font-size: 0.58rem;
   font-weight: 700;
   letter-spacing: 0.16em;
-  text-shadow: 0 1px 8px rgba(33, 7, 26, 0.6);
+  text-shadow: 0 1px 8px rgba(33, 7, 26, 0.7);
   text-transform: uppercase;
 }
 
