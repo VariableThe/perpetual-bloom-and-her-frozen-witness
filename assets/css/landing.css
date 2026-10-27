@@ -1087,7 +1087,7 @@ html[data-theme="dark"] .section--galleries {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 38%, rgba(43, 13, 37, 0.12) 58%, rgba(43, 13, 37, 0.82));
+  background: linear-gradient(180deg, transparent 30%, rgba(43, 13, 37, 0.3) 52%, rgba(43, 13, 37, 0.88) 78%);
   pointer-events: none;
 }
 
@@ -1107,10 +1107,11 @@ html[data-theme="dark"] .section--galleries {
 .gallery-card__eyebrow {
   display: block;
   margin-bottom: 0.28rem;
-  color: rgba(255, 223, 235, 0.72);
+  color: rgba(255, 223, 235, 0.88);
   font-size: 0.58rem;
   font-weight: 700;
   letter-spacing: 0.16em;
+  text-shadow: 0 1px 8px rgba(33, 7, 26, 0.6);
   text-transform: uppercase;
 }
 

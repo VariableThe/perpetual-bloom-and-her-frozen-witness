@@ -519,6 +519,16 @@ html[data-theme="dark"] .theme-icon--moon {
   color: var(--pink);
 }
 
+/* Light-headed sections sit on a dark scrim instead of the paper one. */
+.section-head--light::before {
+  background: radial-gradient(
+    130% 130% at 32% 16%,
+    rgba(43, 13, 37, 0.88) 0%,
+    rgba(43, 13, 37, 0.5) 55%,
+    transparent 80%
+  );
+}
+
 /* ---------- Loading / error / noscript ---------- */
 
 .loading-screen {
