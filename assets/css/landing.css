@@ -158,6 +158,22 @@
   animation: rise-in 900ms var(--ease-out) both;
 }
 
+/* Soft scrim so the hero copy stays readable over the crystal backdrop. */
+.hero__copy::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -34px -42px -52px;
+  pointer-events: none;
+  border-radius: 36px;
+  background: radial-gradient(
+    120% 125% at 30% 14%,
+    color-mix(in srgb, var(--paper) 90%, transparent) 0%,
+    color-mix(in srgb, var(--paper) 62%, transparent) 55%,
+    transparent 80%
+  );
+}
+
 .hero__title {
   margin-top: 1rem;
   font-family: var(--font-display);
