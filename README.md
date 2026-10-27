@@ -61,11 +61,26 @@ The two seeded plates are original SVG artwork made for this edition; they remai
 
 ## Private edition gate
 
-The edition opens behind a passcode lock screen. Enter `111105` to unlock;
-anything else is denied. Unlock state stays in the browser (this tab, or
-remembered on the device when the checkbox is ticked). The backdrop is a
-crystallized pink / white / purple gradient layer (`assets/css/crystal.css`,
-`#crystal-bg`) that sits behind the ambient canvas in both themes.
+The edition opens behind a passcode lock screen. The passcode is shared
+privately with the recipient and never appears in this repo: the served
+tree carries only the sealed envelope `data/book.enc.json` (AES-256-GCM,
+key derived from the passcode with PBKDF2-SHA256 at 210,000 iterations).
+Entering the passcode derives the key and decrypts the novel in the
+browser; anything else is denied with the invalid-pin message. Only the
+derived key is remembered in the browser (this session, or on the device
+when the checkbox is ticked) — never the passcode, never the plaintext.
+The backdrop is a crystallized pink / white / purple gradient layer
+(`assets/css/crystal.css`, `#crystal-bg`) that sits behind the ambient
+canvas in both themes.
+
+Plaintext pipeline: `src/data/novel.txt` → `content/book.json` (never
+served) → `data/book.enc.json` (sealed, served). After any content edit:
+
+```powershell
+npm run build:content
+$env:PB_PASSCODE='<edition-passcode>'; npm run encrypt:book
+npm run validate
+```
 
 ## Chapter bookends
 
@@ -123,7 +138,8 @@ npm run build:art
 npm run validate
 ```
 
-- `build:content` parses `src/data/novel.txt` into `data/book.json`.
+- `build:content` parses `src/data/novel.txt` into `content/book.json` (plaintext, never served).
+- `encrypt:book` seals `content/book.json` into `data/book.enc.json` (needs `PB_PASSCODE` in the environment).
 - `build:art` generates the cover, 21 chapter covers and 42 gallery plates in `assets/art/`.
 - `validate` checks both the content pipeline output and the static site.
 
