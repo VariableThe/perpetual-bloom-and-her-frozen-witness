@@ -79,10 +79,5 @@
     <path d="M -60,80 C -42,64 -20,66 -8,52 M 42,80 C 58,62 76,66 88,48" stroke="#D69AB4" stroke-width="1.4" opacity="0.7"/>
   </g></g>
 <g>
-  <text x="60" y="72" font-family="Georgia, 'Times New Roman', serif" font-size="14" letter-spacing="5" fill="#D69AB4">CHAPTER 09 · RELIC</text>
-  <line x1="60" y1="88" x2="182" y2="88" stroke="#D69AB4" stroke-width="1.2" opacity="0.7"/>
-  <text x="60" y="900" font-family="Georgia, 'Times New Roman', serif" font-size="30" font-weight="400" fill="#3B2B40" text-anchor="start">The Sentence &quot;I Noticed&quot;</text>
-  <text x="60" y="954" font-family="Georgia, 'Times New Roman', serif" font-size="13" letter-spacing="2.5" fill="#5B3F62" fill-opacity="0.7">THE PHONE AND THE PINK HEART BESIDE HIS NAME</text>
-  <text x="940" y="954" font-family="Georgia, 'Times New Roman', serif" font-size="11" letter-spacing="3" fill="#5B3F62" fill-opacity="0.55" text-anchor="end">09 / 21</text>
-</g>
+  <line x1="60" y1="88" x2="182" y2="88" stroke="#D69AB4" stroke-width="1.2" opacity="0.7"/>  </g>
 </svg>

@@ -106,9 +106,6 @@
     <path d="M 66,-98 C 76,-106 86,-108 96,-102" stroke="#C78FB0" stroke-width="1.2" stroke-dasharray="2 8" opacity="0.5"/>
   </g></g>
 <g>
-  <text x="70" y="78" font-family="Georgia, 'Times New Roman', serif" font-size="15" letter-spacing="5" fill="#C78FB0">CHAPTER 20</text>
   <line x1="70" y1="94" x2="170" y2="94" stroke="#C78FB0" stroke-width="1.2" opacity="0.7"/>
-  <text x="70" y="826" font-family="Georgia, 'Times New Roman', serif" font-size="27" font-weight="400" fill="#3B2B40" text-anchor="start">The Letter That Crosses Distance</text>
-  <text x="1130" y="826" font-family="Georgia, 'Times New Roman', serif" font-size="11" letter-spacing="3" fill="#5B3F62" fill-opacity="0.6" text-anchor="end">BLOOM PLATE</text>
-</g>
+  </g>
 </svg>
