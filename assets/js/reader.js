@@ -23,6 +23,7 @@ import {
 import { paginateChapter, findPageForOffset } from './paginate.js';
 
 const TURN_FALLBACK = 940;
+const TURN_FADE_FALLBACK = 320;
 const DUO_FALLBACK = 620;
 
 function padded(number) {
@@ -1172,12 +1173,29 @@ export class Reader {
     overlay = leaf;
     this.underlay.append(leaf);
 
+    /* After the flip the leaf lies face-down beside the page; dissolve it
+       away instead of removing it in one frame. */
     const onTransition = (event) => {
       if (event.target !== leaf || event.propertyName !== 'transform') return;
       leaf.removeEventListener('transitionend', onTransition);
-      finish();
+      dissolve();
     };
     leaf.addEventListener('transitionend', onTransition);
+
+    const dissolve = () => {
+      if (serial !== this.transitionSerial) return;
+      if (!leaf.isConnected) return;
+      window.clearTimeout(timer);
+      leaf.classList.add('is-fading');
+      const onFade = (event) => {
+        if (event.target !== leaf || event.propertyName !== 'opacity') return;
+        leaf.removeEventListener('transitionend', onFade);
+        finish();
+      };
+      leaf.addEventListener('transitionend', onFade);
+      /* Fallback if the opacity transitionend never fires. */
+      timer = window.setTimeout(finish, TURN_FADE_FALLBACK);
+    };
 
     requestAnimationFrame(() => {
       if (serial !== this.transitionSerial) return;
@@ -1190,7 +1208,7 @@ export class Reader {
       }
     });
 
-    timer = window.setTimeout(finish, TURN_FALLBACK);
+    timer = window.setTimeout(dissolve, TURN_FALLBACK);
   }
 
   endTransition() {
