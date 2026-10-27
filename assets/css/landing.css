@@ -842,7 +842,7 @@ html[data-theme="dark"] .petal {
   position: absolute;
   right: 9%;
   bottom: 8%;
-  color: rgba(255, 226, 237, 0.55);
+  color: rgba(255, 226, 237, 0.82);
   font-size: 0.53rem;
   font-weight: 600;
   letter-spacing: 0.16em;
@@ -853,7 +853,7 @@ html[data-theme="dark"] .petal {
   max-width: 34ch;
   margin-top: auto;
   padding-top: clamp(24px, 4vw, 44px);
-  color: rgba(247, 234, 241, 0.55);
+  color: rgba(247, 234, 241, 0.72);
   font-size: 0.7rem;
   line-height: 1.7;
 }
@@ -898,8 +898,8 @@ html[data-theme="dark"] .petal {
 }
 
 .track-act__count {
-  color: rgba(247, 234, 241, 0.4);
-  font-size: 0.6rem;
+  color: rgba(247, 234, 241, 0.62);
+  font-size: 0.62rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
