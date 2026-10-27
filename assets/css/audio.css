@@ -360,9 +360,9 @@
   flex: 0 0 auto;
   padding: 0 clamp(12px, 3vw, 36px);
   border-top: 1px solid var(--line);
-  background: color-mix(in srgb, var(--paper-2) 78%, transparent);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  background: color-mix(in srgb, var(--paper-2) 80%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .audio-bar__inner {

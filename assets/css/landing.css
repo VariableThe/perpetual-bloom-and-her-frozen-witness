@@ -17,9 +17,9 @@
   top: 0;
   z-index: 60;
   border-bottom: 1px solid var(--line);
-  background: color-mix(in srgb, var(--paper-2) 60%, transparent);
-  backdrop-filter: blur(20px) saturate(1.25);
-  -webkit-backdrop-filter: blur(20px) saturate(1.25);
+  background: color-mix(in srgb, var(--paper-2) 72%, transparent);
+  backdrop-filter: blur(12px) saturate(1.25);
+  -webkit-backdrop-filter: blur(12px) saturate(1.25);
 }
 
 .header-inner {
