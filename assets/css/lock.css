@@ -13,6 +13,7 @@
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
+  overflow-y: auto;
   background:
     radial-gradient(ellipse 80% 55% at 50% -8%, rgba(255, 182, 193, 0.55), transparent 65%),
     radial-gradient(ellipse 65% 50% at 50% 112%, rgba(138, 43, 226, 0.28), transparent 65%),
@@ -36,6 +37,10 @@ html[data-theme="dark"] .lock-screen {
 
 .lock-card {
   width: min(26rem, 100%);
+  /* margin auto (instead of relying only on the flex parent) keeps the card
+     centred yet reachable by scroll when it is taller than the viewport,
+     e.g. phones in landscape. */
+  margin: auto;
   text-align: center;
   background: var(--surface-glass-strong);
   border: 1px solid var(--line-strong);
@@ -89,6 +94,10 @@ html[data-theme="dark"] .lock-card__title em {
 .lock-form__row {
   display: flex;
   gap: 0.6rem;
+  /* Grid item of .lock-form: without min-width 0 it sizes to its min-content
+     (wide input + nowrap button) and pushes the Unlock button off-screen on
+     narrow viewports instead of shrinking. */
+  min-width: 0;
 }
 
 .lock-form__input {
@@ -146,6 +155,39 @@ html[data-theme="dark"] .lock-form__error {
   }
   75% {
     transform: translateX(-4px);
+  }
+}
+
+@media (max-width: 480px) {
+  .lock-screen {
+    padding: 1rem;
+    padding-top: max(1rem, env(safe-area-inset-top));
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+
+  .lock-card {
+    padding: 1.75rem 1.25rem 1.5rem;
+  }
+
+  .lock-card__title {
+    font-size: 1.55rem;
+  }
+
+  .lock-card__note {
+    margin-bottom: 1.1rem;
+  }
+
+  /* Stack the passcode field above a full-width Unlock button: at 360px
+     the side-by-side row left the input unusably narrow and the button
+     clipped by the card edge. */
+  .lock-form__row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .lock-form__row .btn {
+    width: 100%;
+    min-height: 50px;
   }
 }
 
