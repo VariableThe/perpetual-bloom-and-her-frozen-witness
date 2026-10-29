@@ -714,9 +714,13 @@ html[data-theme="dark"] .reader-page--blank {
 
 .page-leaf.is-fading {
   opacity: 0;
-  /* Hold the page visible for the first half of the flip, then let it
-     dissolve away as the leaf settles. */
-  transition: opacity 380ms 400ms ease-out;
+  /* Keep the flip animating (this rule wins over .is-forward/.is-backward,
+     so it must restate the transform transition) and dissolve the page
+     between the flip's 90° midpoint and its landing: fade starts at half
+     the turn and completes exactly as the leaf settles. */
+  transition:
+    transform var(--turn-duration) cubic-bezier(0.42, 0, 0.18, 1),
+    opacity calc(var(--turn-duration) / 2) calc(var(--turn-duration) / 2) ease-out;
 }
 
 .spread.is-fading-in {
