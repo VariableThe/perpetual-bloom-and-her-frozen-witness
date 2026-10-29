@@ -26,6 +26,7 @@ export function createParticleField(canvas) {
       setEnabled() {},
       pause() {},
       resume() {},
+      burst() {},
       destroy() {},
       get enabled() { return false; }
     };
@@ -37,12 +38,46 @@ export function createParticleField(canvas) {
       setEnabled() {},
       pause() {},
       resume() {},
+      burst() {},
       destroy() {},
       get enabled() { return false; }
     };
   }
 
-  const reduceQuery = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+  const DUST_COLORS = [
+  'rgba(255, 226, 176, %s)',
+  'rgba(255, 196, 152, %s)',
+  'rgba(255, 182, 203, %s)',
+  'rgba(255, 255, 255, %s)',
+  'rgba(233, 221, 246, %s)'
+];
+
+function makeDust(index, rect, direction) {
+  const spine = direction === 'prev' ? rect.right : rect.left;
+  const x = rect.left + Math.random() * rect.width;
+  const fromSpine = Math.abs(x - spine) / Math.max(rect.width, 1);
+  return {
+    x,
+    y: rect.top + Math.random() * rect.height,
+    r: 0.8 + Math.random() * 1.9,
+    /* The dust peels from the spine outward, trailing the turning leaf. */
+    delay: fromSpine * (420 + Math.random() * 260),
+    life: 1500 + Math.random() * 800,
+    age: 0,
+    vy: -(5 + Math.random() * 13),
+    drift: (spine === rect.left ? 1 : -1) * (2 + Math.random() * 6),
+    swayAmp: 4 + Math.random() * 10,
+    phase: Math.random() * Math.PI * 2,
+    phaseSpeed: 0.0011 + Math.random() * 0.0022,
+    twinkle: Math.random() * Math.PI * 2,
+    twinkleSpeed: 0.004 + Math.random() * 0.007,
+    baseAlpha: 0.45 + Math.random() * 0.45,
+    color: DUST_COLORS[index % DUST_COLORS.length],
+    star: Math.random() > 0.78
+  };
+}
+
+const reduceQuery = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
   let enabled = getSettings().particles !== false;
   let reduced = prefersReducedMotion();
   /* Suspended while the passcode gate is up: the lock screen keeps the
@@ -55,6 +90,7 @@ export function createParticleField(canvas) {
   let height = 0;
   let dpr = 1;
   let particles = [];
+  let dust = [];
   let palette = paletteFor(document.documentElement.dataset.theme);
 
   function makeParticle(index = 0) {
@@ -152,6 +188,56 @@ export function createParticleField(canvas) {
 
       context.restore();
     }
+
+    /* Fairy dust shed by a turning page: born inside the page rect, peels
+       from the spine, drifts upward with a gentle sway and a twinkle, then
+       eases out. Slower and softer than the ambient petals. */
+    if (dust.length) {
+      const alive = [];
+      for (const mote of dust) {
+        mote.age += step;
+        if (mote.age < mote.delay) {
+          alive.push(mote);
+          continue;
+        }
+        const lived = mote.age - mote.delay;
+        if (lived > mote.life) continue;
+
+        mote.phase += mote.phaseSpeed * step;
+        mote.twinkle += mote.twinkleSpeed * step;
+        mote.x += ((mote.drift + Math.sin(mote.phase) * mote.swayAmp) * step) / 1000;
+        mote.y += (mote.vy * step) / 1000;
+
+        const fadeIn = Math.min(lived / 160, 1);
+        const fadeOut = Math.max(1 - (lived - mote.life * 0.58) / (mote.life * 0.42), 0);
+        const twinkle = 0.55 + 0.45 * Math.sin(mote.twinkle);
+        const alpha = mote.baseAlpha * fadeIn * fadeOut * fadeOut * twinkle;
+        if (alpha <= 0.01) continue;
+
+        context.save();
+        context.globalAlpha = alpha;
+        context.fillStyle = mote.color.replace('%s', '1');
+        context.beginPath();
+        context.arc(mote.x, mote.y, mote.r, 0, Math.PI * 2);
+        context.fill();
+
+        if (mote.star) {
+          const reach = mote.r * (2.2 + Math.sin(mote.twinkle * 1.7));
+          context.strokeStyle = mote.color.replace('%s', '1');
+          context.lineWidth = 0.55;
+          context.beginPath();
+          context.moveTo(mote.x - reach, mote.y);
+          context.lineTo(mote.x + reach, mote.y);
+          context.moveTo(mote.x, mote.y - reach);
+          context.lineTo(mote.x, mote.y + reach);
+          context.stroke();
+        }
+        context.restore();
+
+        alive.push(mote);
+      }
+      dust = alive;
+    }
   }
 
   function frame(now) {
@@ -183,8 +269,22 @@ export function createParticleField(canvas) {
     if (enabled) start();
     else {
       stop();
+      dust = [];
       context.clearRect(0, 0, width, height);
     }
+  }
+
+  /* A page is turning: shed fairy dust from the page rect. Direction says
+     which edge is the spine ("next" turns around the left edge, "prev"
+     around the right). Honors the particles setting and reduced motion. */
+  function burst(rect, { direction = 'next' } = {}) {
+    if (!enabled || reduced || suspended || !rect || rect.width <= 0) return;
+    const count = Math.round(clamp((rect.width * rect.height) / 9000, 70, 170));
+    const offset = dust.length;
+    for (let index = 0; index < count; index += 1) {
+      dust.push(makeDust(offset + index, rect, direction));
+    }
+    if (dust.length > 600) dust.splice(0, dust.length - 600);
   }
 
   /* Gate the animation loop without touching the user's particles setting. */
@@ -207,6 +307,7 @@ export function createParticleField(canvas) {
     reduced = event.matches;
     if (reduced) {
       stop();
+      dust = [];
       context.clearRect(0, 0, width, height);
     } else {
       start();
@@ -235,6 +336,7 @@ export function createParticleField(canvas) {
 
   return {
     setEnabled,
+    burst,
     pause,
     resume,
     destroy() {

@@ -22,8 +22,8 @@ import {
 } from './utils.js';
 import { paginateChapter, findPageForOffset } from './paginate.js';
 
-const TURN_FALLBACK = 940;
-const TURN_FADE_FALLBACK = 320;
+const TURN_FALLBACK = 1180;
+const TURN_FADE_FALLBACK = 860;
 const DUO_FALLBACK = 620;
 
 function padded(number) {
@@ -1156,6 +1156,7 @@ export class Reader {
       overlay = el('div', { class: `spread-turn is-${direction}`, 'aria-hidden': 'true' });
       overlay.append(oldClone);
       this.underlay.append(overlay);
+      this.callbacks.particles?.burst?.(this.underlay.getBoundingClientRect(), { direction });
       this.underlay.classList.add(direction === 'next' ? 'is-enter-next' : 'is-enter-prev');
       timer = window.setTimeout(finish, DUO_FALLBACK);
       return;
@@ -1172,6 +1173,10 @@ export class Reader {
 
     overlay = leaf;
     this.underlay.append(leaf);
+
+    /* As the leaf lifts, the page sheds fairy dust that peels from the
+       spine and drifts away while the paper dissolves. */
+    this.callbacks.particles?.burst?.(this.underlay.getBoundingClientRect(), { direction });
 
     /* After the flip the leaf lies face-down beside the page; dissolve it
        away instead of removing it in one frame. */
