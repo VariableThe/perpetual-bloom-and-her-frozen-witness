@@ -714,7 +714,9 @@ html[data-theme="dark"] .reader-page--blank {
 
 .page-leaf.is-fading {
   opacity: 0;
-  transition: opacity var(--turn-duration) cubic-bezier(0.42, 0, 0.18, 1);
+  /* Hold the page visible for the first half of the flip, then let it
+     dissolve away as the leaf settles. */
+  transition: opacity 380ms 400ms ease-out;
 }
 
 .spread.is-fading-in {
@@ -739,7 +741,7 @@ html[data-theme="dark"] .reader-page--blank {
 
 .spread-turn.is-fading {
   opacity: 0;
-  transition: opacity 470ms ease-out;
+  transition: opacity 240ms 230ms ease-out;
 }
 
 .spread-turn.is-next {
