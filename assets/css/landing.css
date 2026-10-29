@@ -158,6 +158,18 @@
   animation: rise-in 900ms var(--ease-out) both;
 }
 
+.hero__copy::before {
+  content: "";
+  position: absolute;
+  inset: -1rem;
+  z-index: -1;
+  background: color-mix(in srgb, var(--paper) 20%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: var(--radius-xl);
+  pointer-events: none;
+}
+
 .hero__title {
   margin-top: 1rem;
   font-family: var(--font-display);
