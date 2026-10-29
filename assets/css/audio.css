@@ -131,8 +131,8 @@
 }
 
 .soundtrack-now__eyebrow {
-  color: rgba(247, 234, 241, 0.42);
-  font-size: 0.48rem;
+  color: rgba(247, 234, 241, 0.62);
+  font-size: 0.55rem;
   font-weight: 700;
   letter-spacing: 0.16em;
   line-height: 1.35;
@@ -153,8 +153,8 @@
 
 .soundtrack-now__meta {
   overflow: hidden;
-  color: rgba(247, 234, 241, 0.5);
-  font-size: 0.58rem;
+  color: rgba(247, 234, 241, 0.68);
+  font-size: 0.62rem;
   line-height: 1.35;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -163,7 +163,7 @@
 .soundtrack-now__state {
   padding-right: 0.5rem;
   color: var(--pink);
-  font-size: 0.5rem;
+  font-size: 0.55rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -248,7 +248,7 @@
 }
 
 .track-row__num {
-  color: rgba(255, 214, 230, 0.38);
+  color: rgba(255, 214, 230, 0.72);
   font-family: var(--font-display);
   font-size: 0.8rem;
   font-style: italic;
@@ -276,8 +276,8 @@
   display: block;
   overflow: hidden;
   margin-top: 0.1rem;
-  color: rgba(247, 234, 241, 0.48);
-  font-size: 0.59rem;
+  color: rgba(247, 234, 241, 0.72);
+  font-size: 0.64rem;
   line-height: 1.4;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -285,15 +285,15 @@
 
 .track-row__chapter {
   min-width: 0;
-  color: rgba(247, 234, 241, 0.48);
-  font-size: 0.58rem;
+  color: rgba(247, 234, 241, 0.68);
+  font-size: 0.62rem;
   line-height: 1.4;
 }
 
 .track-row__chapter-num {
   display: block;
   color: rgba(255, 182, 193, 0.7);
-  font-size: 0.48rem;
+  font-size: 0.56rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -360,9 +360,9 @@
   flex: 0 0 auto;
   padding: 0 clamp(12px, 3vw, 36px);
   border-top: 1px solid var(--line);
-  background: color-mix(in srgb, var(--paper-2) 78%, transparent);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  background: color-mix(in srgb, var(--paper-2) 80%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .audio-bar__inner {

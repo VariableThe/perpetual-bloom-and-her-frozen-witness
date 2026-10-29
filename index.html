@@ -105,7 +105,7 @@
       <form class="lock-form" id="lock-form" autocomplete="off">
         <label class="lock-form__label" for="lock-passcode">Edition passcode</label>
         <div class="lock-form__row">
-          <input class="lock-form__input" id="lock-passcode" name="passcode" type="password" inputmode="numeric" enterkeyhint="go" maxlength="32" placeholder="••••••" aria-describedby="lock-error" autofocus>
+          <input class="lock-form__input" id="lock-passcode" name="passcode" type="password" inputmode="numeric" autocomplete="one-time-code" enterkeyhint="go" maxlength="6" placeholder="••••••" aria-describedby="lock-error" autofocus>
           <button class="btn btn--primary" type="submit">Unlock</button>
         </div>
         <p class="lock-form__error" id="lock-error" role="alert"></p>
@@ -180,7 +180,7 @@
             <div class="book-float">
               <div class="book-3d">
                 <div class="book-cover">
-                  <img id="hero-cover" src="assets/art/cover.svg" width="1200" height="1600" alt="Cover of Perpetual Bloom and her Frozen Witness" decoding="async">
+                  <img id="hero-cover" src="assets/art/cover.svg" width="1200" height="1600" alt="Cover of Perpetual Bloom and her Frozen Witness" decoding="async" fetchpriority="high">
                 </div>
                 <span class="book-spine" aria-hidden="true"></span>
                 <span class="book-pages" aria-hidden="true"></span>
@@ -474,7 +474,7 @@
   <noscript>
     <div class="noscript">
       <h1>This reader needs JavaScript</h1>
-      <p>The novel is stored as plain text in <code>data/book.json</code>. Start the local server with <code>start.bat</code> or <code>npm start</code>, then enable JavaScript to read with page turns, chapter galleries and reading settings.</p>
+      <p>The novel is stored sealed in <code>data/book.enc.json</code> and opens only with the edition passcode. Start the local server with <code>start.bat</code> or <code>npm start</code>, then enable JavaScript to read with page turns, chapter galleries and reading settings.</p>
     </div>
   </noscript>
 

@@ -44,6 +44,9 @@ function boot() {
   initTheme();
 
   const particles = createParticleField(document.getElementById('petal-canvas'));
+  /* The ambient canvas stays parked behind the passcode gate; the static
+     crystal backdrop carries the lock screen until unlock resumes motion. */
+  particles.pause();
   let router = null;
   let landing = null;
   let reader = null;
@@ -112,6 +115,9 @@ function boot() {
   waitForUnlock()
     .then(() => loadStory())
     .then((story) => {
+      /* The gate is lifted at this point (waitForUnlock resolved), so the
+         ambient field may animate again behind the reader. */
+      particles.resume();
       router = new Router(handleRoute);
       audio = createAudio(story);
       audio.mountDock(document.getElementById('audio-bar'));

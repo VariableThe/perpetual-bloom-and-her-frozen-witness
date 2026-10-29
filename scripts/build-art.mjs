@@ -20,7 +20,7 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const CONFIG_FILE = path.join(ROOT, 'data', 'story.config.json');
-const BOOK_FILE = path.join(ROOT, 'data', 'book.json');
+const BOOK_FILE = path.join(ROOT, 'content', 'book.json');
 const ART_DIR = path.join(ROOT, 'assets', 'art');
 const CHAPTER_DIR = path.join(ART_DIR, 'chapters');
 const GALLERY_DIR = path.join(ART_DIR, 'gallery');

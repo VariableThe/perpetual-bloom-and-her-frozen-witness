@@ -134,6 +134,14 @@ const server = http.createServer((request, response) => {
     return;
   }
 
+  /* The plaintext book source is never served: content/book.json lives
+     outside the served tree and data/book.json must not exist. Answer 404
+     so a blocked path is indistinguishable from a missing one. */
+  if (pathname === '/data/book.json' || pathname.startsWith('/content/')) {
+    sendText(response, 404, 'This page has slipped loose. Check the address and try again.');
+    return;
+  }
+
   fs.stat(filePath, (error, stats) => {
     if (error || !stats.isFile()) {
       sendText(response, 404, 'This page has slipped loose. Check the address and try again.');
@@ -145,9 +153,16 @@ const server = http.createServer((request, response) => {
     const encoding = compressible ? chooseEncoding(request.headers['accept-encoding']) : null;
 
     const relative = path.relative(ROOT, filePath).split(path.sep).join('/');
+    /* Edition data (book.enc.json, story.config.json) changes only on
+       deploy, so browsers may cache it briefly and revalidate in the
+       background. Binary art and fonts carry immutable
+       hashes-in-practice and cache for a year. Plaintext (content/,
+       data/book.json) is never served. */
     const cacheControl = relative.startsWith('assets/fonts/') || relative.startsWith('assets/art/')
       ? 'public, max-age=31536000, immutable'
-      : 'no-cache';
+      : relative.startsWith('data/')
+        ? 'public, max-age=3600, stale-while-revalidate=86400'
+        : 'no-cache';
     const etag = `"${stats.size}-${stats.mtimeMs}"`;
     const lastModified = stats.mtime.toUTCString();
 

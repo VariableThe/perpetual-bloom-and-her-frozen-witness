@@ -1,4 +1,4 @@
-/* Render the landing page from data/book.json + story.config.json. */
+/* Render the landing page from the decrypted book + story.config.json. */
 
 import {
   el,
@@ -289,7 +289,7 @@ function initReveal() {
         observer.unobserve(entry.target);
       }
     }
-  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+  }, { rootMargin: '400px 0px 400px 0px', threshold: 0.01 });
 
   nodes.forEach((node) => observer.observe(node));
 }

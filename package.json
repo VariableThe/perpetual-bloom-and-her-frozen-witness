@@ -9,6 +9,7 @@
     "start:open": "node server.mjs --open",
     "serve": "node server.mjs",
     "build:content": "node scripts/build-content.mjs",
+    "encrypt:book": "node scripts/encrypt-book.mjs",
     "build:art": "node scripts/build-art.mjs",
     "build:crystal": "node scripts/build-crystal.mjs",
     "validate:content": "node scripts/validate-content.mjs",

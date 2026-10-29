@@ -24,6 +24,8 @@ export function createParticleField(canvas) {
   if (!canvas) {
     return {
       setEnabled() {},
+      pause() {},
+      resume() {},
       destroy() {},
       get enabled() { return false; }
     };
@@ -33,6 +35,8 @@ export function createParticleField(canvas) {
   if (!context) {
     return {
       setEnabled() {},
+      pause() {},
+      resume() {},
       destroy() {},
       get enabled() { return false; }
     };
@@ -41,6 +45,9 @@ export function createParticleField(canvas) {
   const reduceQuery = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
   let enabled = getSettings().particles !== false;
   let reduced = prefersReducedMotion();
+  /* Suspended while the passcode gate is up: the lock screen keeps the
+     static crystal backdrop, and the particle loop starts on unlock. */
+  let suspended = false;
   let running = false;
   let rafId = 0;
   let lastTime = 0;
@@ -156,7 +163,7 @@ export function createParticleField(canvas) {
   }
 
   function start() {
-    if (running || !enabled || reduced || document.hidden) {
+    if (suspended || running || !enabled || reduced || document.hidden) {
       if (!enabled || reduced) context.clearRect(0, 0, width, height);
       return;
     }
@@ -178,6 +185,17 @@ export function createParticleField(canvas) {
       stop();
       context.clearRect(0, 0, width, height);
     }
+  }
+
+  /* Gate the animation loop without touching the user's particles setting. */
+  function pause() {
+    suspended = true;
+    stop();
+  }
+
+  function resume() {
+    suspended = false;
+    start();
   }
 
   function onVisibility() {
@@ -217,6 +235,8 @@ export function createParticleField(canvas) {
 
   return {
     setEnabled,
+    pause,
+    resume,
     destroy() {
       stop();
       window.removeEventListener('resize', onResize);
