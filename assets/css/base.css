@@ -96,7 +96,7 @@
   --content-width: 1180px;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-  --turn-duration: 1080ms;
+  --turn-duration: 780ms;
 }
 
 html[data-theme="dark"] {
