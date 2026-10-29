@@ -714,7 +714,7 @@ html[data-theme="dark"] .reader-page--blank {
 
 .page-leaf.is-fading {
   opacity: 0;
-  transition: opacity 220ms ease-out;
+  transition: opacity var(--turn-duration) cubic-bezier(0.42, 0, 0.18, 1);
 }
 
 .spread.is-fading-in {
@@ -739,7 +739,7 @@ html[data-theme="dark"] .reader-page--blank {
 
 .spread-turn.is-fading {
   opacity: 0;
-  transition: opacity 190ms ease-out;
+  transition: opacity 470ms ease-out;
 }
 
 .spread-turn.is-next {

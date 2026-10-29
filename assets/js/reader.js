@@ -22,8 +22,7 @@ import {
 } from './utils.js';
 import { paginateChapter, findPageForOffset } from './paginate.js';
 
-const TURN_FALLBACK = 940;
-const TURN_FADE_FALLBACK = 320;
+const TURN_FALLBACK = 1140;
 const DUO_FALLBACK = 620;
 
 function padded(number) {
@@ -1153,10 +1152,13 @@ export class Reader {
     }
 
     if (mode === 'duo') {
-      overlay = el('div', { class: `spread-turn is-${direction}`, 'aria-hidden': 'true' });
+      overlay = el('div', { class: `spread-turn is-${direction} is-fading`, 'aria-hidden': 'true' });
       overlay.append(oldClone);
       this.underlay.append(overlay);
       this.underlay.classList.add(direction === 'next' ? 'is-enter-next' : 'is-enter-prev');
+      requestAnimationFrame(() => {
+        if (overlay) overlay.style.opacity = '0';
+      });
       timer = window.setTimeout(finish, DUO_FALLBACK);
       return;
     }
@@ -1173,42 +1175,16 @@ export class Reader {
     overlay = leaf;
     this.underlay.append(leaf);
 
-    /* After the flip the leaf lies face-down beside the page; dissolve it
-       away instead of removing it in one frame. */
-    const onTransition = (event) => {
-      if (event.target !== leaf || event.propertyName !== 'transform') return;
-      leaf.removeEventListener('transitionend', onTransition);
-      dissolve();
-    };
-    leaf.addEventListener('transitionend', onTransition);
-
-    const dissolve = () => {
-      if (serial !== this.transitionSerial) return;
-      if (!leaf.isConnected) return;
-      window.clearTimeout(timer);
-      leaf.classList.add('is-fading');
-      const onFade = (event) => {
-        if (event.target !== leaf || event.propertyName !== 'opacity') return;
-        leaf.removeEventListener('transitionend', onFade);
-        finish();
-      };
-      leaf.addEventListener('transitionend', onFade);
-      /* Fallback if the opacity transitionend never fires. */
-      timer = window.setTimeout(finish, TURN_FADE_FALLBACK);
-    };
-
+    /* The turning page fades away as it turns: opacity drops from 1 to 0
+       across the flip instead of an abrupt swap or a post-flip dissolve. */
     requestAnimationFrame(() => {
       if (serial !== this.transitionSerial) return;
-      if (direction === 'next') {
-        leaf.classList.remove('is-backward-start');
-        leaf.classList.add('is-forward');
-      } else {
-        leaf.classList.remove('is-backward-start');
-        leaf.classList.add('is-backward');
-      }
+      leaf.classList.remove('is-backward-start');
+      leaf.classList.add(direction === 'next' ? 'is-forward' : 'is-backward');
+      leaf.classList.add('is-fading');
     });
 
-    timer = window.setTimeout(dissolve, TURN_FALLBACK);
+    timer = window.setTimeout(finish, TURN_FALLBACK);
   }
 
   endTransition() {
