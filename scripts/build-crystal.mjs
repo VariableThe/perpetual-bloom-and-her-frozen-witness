@@ -25,7 +25,9 @@ const HEIGHT = 900;
 const COLS = 28;
 const ROWS = 16;
 const JITTER = 0.34;
-const SEED = 111105;
+/* The layout seed below is art-only randomness for the backdrop mesh. It is
+   unrelated to the edition passcode and must never be set to it. */
+const SEED = 261027;
 
 const PALETTES = {
   light: {

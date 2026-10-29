@@ -1,6 +1,10 @@
-/* Load and merge the extracted novel with the edition configuration. */
+/* Load the decrypted novel (unlocked in the browser via lock.js) and merge
+   it with the edition configuration. The sealed envelope data/book.enc.json
+   is fetched and decrypted by the passcode gate; this module only consumes
+   the in-memory plaintext, which is never written back to any storage. */
 
-const BOOK_URL = new URL('../../data/book.json', import.meta.url);
+import { getBookData } from './lock.js';
+
 const CONFIG_URL = new URL('../../data/story.config.json', import.meta.url);
 const BOOKENDS_URL = new URL('../../assets/images/bookends.json', import.meta.url);
 
@@ -44,13 +48,13 @@ async function loadBookends() {
 }
 
 export async function loadStory() {
-  const [book, config, bookends] = await Promise.all([
-    fetchJson(BOOK_URL, 'the story data'),
+  const book = getBookData();
+  const [config, bookends] = await Promise.all([
     fetchJson(CONFIG_URL, 'the edition configuration'),
     loadBookends()
   ]);
 
-  assert(book && Array.isArray(book.chapters), 'book.json is missing its chapters array.');
+  assert(book && Array.isArray(book.chapters), 'the decrypted book is missing its chapters array.');
   assert(config && Array.isArray(config.chapters), 'story.config.json is missing its chapters array.');
   assert(Array.isArray(config.acts) && config.acts.length === 5, 'Expected five acts in the configuration.');
   assert(Array.isArray(config.tracks) && config.tracks.length === 21, 'Expected twenty-one soundtrack tracks.');
@@ -62,7 +66,7 @@ export async function loadStory() {
 
   const chapters = config.chapters.map((entry) => {
     const source = bookByNumber.get(entry.number);
-    assert(source, `Chapter ${entry.number} is missing from book.json.`);
+    assert(source, `Chapter ${entry.number} is missing from the decrypted book.`);
     assert(Array.isArray(source.paragraphs) && source.paragraphs.length > 0, `Chapter ${entry.number} has no prose.`);
 
     const act = actsById.get(entry.actId);

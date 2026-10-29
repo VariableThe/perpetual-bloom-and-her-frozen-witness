@@ -1,6 +1,14 @@
 #!/usr/bin/env node
 /**
- * Build data/book.json from src/data/novel.txt.
+ * Build content/book.json from src/data/novel.txt.
+ *
+ * content/book.json is the PLAINTEXT source of truth. It is never served
+ * (see server.mjs, .vercelignore): after rebuilding it, re-seal the
+ * served envelope with
+ *
+ *   PB_PASSCODE='<edition-passcode>' node scripts/encrypt-book.mjs
+ *
+ * and commit the refreshed data/book.enc.json alongside it.
  *
  * The source is a plain-text extraction of the novel. Chapter headings are
  * explicit ("Chapter N" / blank / title), but the text also contains act and
@@ -18,7 +26,7 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SOURCE_FILE = path.join(ROOT, 'src', 'data', 'novel.txt');
-const OUTPUT_FILE = path.join(ROOT, 'data', 'book.json');
+const OUTPUT_FILE = path.join(ROOT, 'content', 'book.json');
 
 // Authoritative chapter body counts from src/data/structure.md. These are a
 // guard against accidentally letting headings, dates or markers into a body.
@@ -234,6 +242,8 @@ function main() {
     );
   }
   console.log(`Total body words: ${total} (expected ${EXPECTED_TOTAL})`);
+  console.log('Plaintext is NOT served. Re-seal it with:');
+  console.log('  PB_PASSCODE=\'<edition-passcode>\' node scripts/encrypt-book.mjs');
 }
 
 main();

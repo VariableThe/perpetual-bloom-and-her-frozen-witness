@@ -10,11 +10,16 @@
  */
 
 import fs from 'node:fs';
+import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const BOOK_FILE = path.join(ROOT, 'data', 'book.json');
+/* content/book.json is the plaintext source of truth. It is validated here
+   but never served (see server.mjs + .vercelignore). */
+const BOOK_FILE = path.join(ROOT, 'content', 'book.json');
+const ENC_FILE = path.join(ROOT, 'data', 'book.enc.json');
+const LEGACY_PLAINTEXT_FILE = path.join(ROOT, 'data', 'book.json');
 const CONFIG_FILE = path.join(ROOT, 'data', 'story.config.json');
 const ART_DIR = path.join(ROOT, 'assets', 'art');
 
@@ -170,10 +175,67 @@ function checkXml(text, label) {
   if (!text.trimEnd().endsWith('</svg>')) fail(`${label}: does not end with </svg>`);
 }
 
+/* The served envelope must be ciphertext only and must match the current
+   plaintext source. Decryption itself is exercised at runtime (and by the
+   browser QA); here we verify the envelope shape, KDF strength, freshness
+   against content/book.json, and that no title or marker leaks in. */
+function checkSealedEnvelope() {
+  let envelope;
+  try {
+    envelope = JSON.parse(fs.readFileSync(ENC_FILE, 'utf8'));
+  } catch (error) {
+    fail(`Cannot parse data/book.enc.json: ${error.message}. Regenerate with PB_PASSCODE='<edition-passcode>' node scripts/encrypt-book.mjs`);
+    return;
+  }
+
+  check(envelope.version === 1, 'book.enc.json: version must be 1');
+  check(envelope.algorithm === 'AES-256-GCM', 'book.enc.json: algorithm must be AES-256-GCM');
+  check(envelope.kdf === 'PBKDF2-SHA256', 'book.enc.json: kdf must be PBKDF2-SHA256');
+  check(
+    Number.isInteger(envelope.iterations) && envelope.iterations >= 210000,
+    `book.enc.json: iterations must be >= 210000 (found ${envelope.iterations})`
+  );
+
+  const salt = Buffer.from(envelope.salt || '', 'base64');
+  const iv = Buffer.from(envelope.iv || '', 'base64');
+  const sealed = Buffer.from(envelope.ciphertext || '', 'base64');
+  check(salt.length === 16, `book.enc.json: salt must be 16 bytes (found ${salt.length})`);
+  check(iv.length === 12, `book.enc.json: iv must be 12 bytes (found ${iv.length})`);
+  check(sealed.length > 100000, `book.enc.json: ciphertext is suspiciously small (${sealed.length} bytes)`);
+
+  const raw = fs.readFileSync(ENC_FILE, 'utf8');
+  for (const title of EXPECTED_TITLES) {
+    check(!raw.includes(title), `book.enc.json leaks chapter title "${title}"`);
+  }
+  check(!/END OF CHAPTER/i.test(raw), 'book.enc.json leaks structural markers');
+
+  let plaintextBytes = null;
+  try {
+    plaintextBytes = fs.readFileSync(BOOK_FILE);
+  } catch (error) {
+    fail(`Cannot read content/book.json: ${error.message}`);
+    return;
+  }
+  const sha = createHash('sha256').update(plaintextBytes).digest('hex');
+  check(
+    Boolean(envelope.plaintext) && envelope.plaintext.sha256 === sha,
+    'book.enc.json is stale: sha256 does not match content/book.json — re-run PB_PASSCODE=\'<edition-passcode>\' node scripts/encrypt-book.mjs'
+  );
+  check(
+    Boolean(envelope.plaintext) && envelope.plaintext.bytes === plaintextBytes.length,
+    'book.enc.json plaintext byte count does not match content/book.json'
+  );
+}
+
 function main() {
+  /* The plaintext novel must never ship in the served data/ tree. */
+  check(!fs.existsSync(LEGACY_PLAINTEXT_FILE), 'data/book.json must not exist: plaintext is never served (see content/book.json + data/book.enc.json)');
+
   const book = readJson(BOOK_FILE);
   const config = readJson(CONFIG_FILE);
   if (!book || !config) return;
+
+  checkSealedEnvelope();
 
   /* ------------------------------------------------------------- metadata */
 
@@ -387,6 +449,9 @@ function main() {
   console.log(`Total body words: ${total} / ${EXPECTED_TOTAL}`);
   console.log('');
   console.log(`Chapters: ${book.chapters.length}  Tracks: ${tracks.length}  Acts: ${acts.length}`);
+  if (fs.existsSync(ENC_FILE)) {
+    console.log(`Sealed envelope: data/book.enc.json (${(fs.statSync(ENC_FILE).size / 1024).toFixed(1)} KiB ciphertext, plaintext not served)`);
+  }
   console.log(`SVG files checked: ${allSvgFiles.length} (1 cover + 21 chapter covers + 21 bloom plates + 21 relic plates)`);
   console.log(`Approx. total SVG size: ${(allSvgFiles.reduce((sum, file) => sum + fs.statSync(file).size, 0) / 1024).toFixed(1)} KiB`);
   if (notes.length) {

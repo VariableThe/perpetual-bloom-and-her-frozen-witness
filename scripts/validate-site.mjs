@@ -52,6 +52,8 @@ function stripSvgNamespace(text) {
 
 try {
   const html = read(INDEX);
+  /* Assembled so this guard never prints the forbidden PIN itself. */
+  const FORBIDDEN_PIN = ['111', '105'].join('');
   const required = [
     'index.html',
     'server.mjs',
@@ -90,8 +92,10 @@ try {
     'assets/fonts/OFL-cormorantgaramond.txt',
     'assets/fonts/OFL-lora.txt',
     'assets/fonts/OFL-manrope.txt',
-    'data/book.json',
-    'data/story.config.json'
+    'data/book.enc.json',
+    'data/story.config.json',
+    'content/book.json',
+    'scripts/encrypt-book.mjs'
   ];
   required.forEach((item) => checkFile(item));
 
@@ -146,8 +150,21 @@ try {
     'app.js must gate startup behind the lock module'
   );
   check(
-    read(path.join(ROOT, 'assets/js/lock.js')).includes("'111105'"),
-    'lock.js must verify the edition passcode'
+    !read(path.join(ROOT, 'assets/js/lock.js')).includes(FORBIDDEN_PIN),
+    'lock.js must never contain the edition passcode'
+  );
+  check(
+    !read(path.join(ROOT, 'assets/js/lock.js')).includes('EDITION_PASSCODE'),
+    'lock.js must not hard-code a passcode constant'
+  );
+  const lockSource = read(path.join(ROOT, 'assets/js/lock.js'));
+  check(
+    lockSource.includes('PBKDF2') && lockSource.includes('AES-GCM'),
+    'lock.js must derive its key with PBKDF2 and decrypt with AES-GCM'
+  );
+  check(
+    lockSource.includes('book.enc.json'),
+    'lock.js must open the sealed envelope data/book.enc.json'
   );
   check(
     read(path.join(ROOT, 'assets/js/reader.js')).includes('openingBookend')
@@ -218,9 +235,11 @@ try {
   const runtimeFiles = [
     ...cssFiles.map((file) => path.join(ROOT, file)),
     ...jsFiles.map((name) => path.join(jsDir, name)),
-    path.join(ROOT, 'data/book.json'),
+    path.join(ROOT, 'data/book.enc.json'),
     path.join(ROOT, 'data/story.config.json')
   ];
+  check(!exists('data/book.json'), 'data/book.json must not exist: plaintext is never served');
+  check(exists('content/book.json'), 'content/book.json (plaintext source) must exist for the build pipeline');
   for (const file of runtimeFiles) {
     if (!fs.existsSync(file)) continue;
     check(
@@ -248,13 +267,13 @@ try {
     );
   }
 
-  const book = JSON.parse(read(path.join(ROOT, 'data/book.json')));
+  const book = JSON.parse(read(path.join(ROOT, 'content/book.json')));
   const config = JSON.parse(read(path.join(ROOT, 'data/story.config.json')));
-  check(book.chapters.length === 21, 'data/book.json must contain 21 chapters');
+  check(book.chapters.length === 21, 'content/book.json must contain 21 chapters');
   check(config.chapters.length === 21, 'story.config.json must contain 21 chapter records');
   check(config.acts.length === 5, 'story.config.json must contain 5 acts');
   check(config.tracks.length === 21, 'story.config.json must contain 21 tracks');
-  check(book.meta.wordCount === 85846, 'data/book.json must report 85,846 words');
+  check(book.meta.wordCount === 85846, 'content/book.json must report 85,846 words');
   check(book.chapters.every((chapter) => Array.isArray(chapter.paragraphs) && chapter.paragraphs.length), 'Every chapter needs prose');
   check(config.chapters.every((chapter) => chapter.coverArt), 'Every chapter needs cover art');
 
@@ -277,6 +296,43 @@ try {
     !/<link(?![^>]*rel=["']canonical["'])[^>]+href=["']https?:/i.test(html),
     'index.html must not load remote styles or fonts'
   );
+
+  /* Gate secrecy: the passcode must not appear in any shipped file, and no
+     chapter title, prose marker or act label may be visible before unlock
+     (index.html shell, shipped CSS/JS). Story data arrives only after the
+     gate opens (decrypted book + story.config.json via the app). */
+  check(!html.includes('data/book.json'), 'index.html must not reference the retired plaintext data/book.json');
+  const shippedDirs = ['assets/js', 'assets/css', 'data'];
+  const shippedTexts = [
+    { label: 'index.html', text: html },
+    ...shippedDirs.flatMap((dir) => {
+      const base = path.join(ROOT, dir);
+      if (!fs.existsSync(base)) return [];
+      return fs.readdirSync(base)
+        .filter((name) => /\.(js|css|json)$/.test(name))
+        .map((name) => ({ label: `${dir}/${name}`, text: read(path.join(base, name)) }));
+    })
+  ];
+  for (const { label, text } of shippedTexts) {
+    check(!text.includes(FORBIDDEN_PIN), `${label} leaks the edition passcode`);
+  }
+  const TITLES = book.chapters.map((chapter) => chapter.title).filter((title) => typeof title === 'string');
+  check(TITLES.length === 21, 'expected 21 chapter titles for the pre-unlock audit');
+  const preUnlockShell = [
+    { label: 'index.html', text: html },
+    ...fs.readdirSync(path.join(ROOT, 'assets/js'))
+      .filter((name) => name.endsWith('.js'))
+      .map((name) => ({ label: `assets/js/${name}`, text: read(path.join(ROOT, 'assets/js', name)) })),
+    ...['assets/css/base.css', 'assets/css/landing.css', 'assets/css/reader.css', 'assets/css/audio.css', 'assets/css/gallery.css', 'assets/css/crystal.css', 'assets/css/lock.css', 'assets/css/bookends.css']
+      .filter((cssPath) => exists(cssPath))
+      .map((cssPath) => ({ label: cssPath, text: read(path.join(ROOT, cssPath)) }))
+  ];
+  for (const { label, text } of preUnlockShell) {
+    for (const title of TITLES) {
+      check(!text.includes(title), `${label} exposes chapter title "${title}" before unlock`);
+    }
+    check(!/END OF CHAPTER/.test(text), `${label} exposes prose markers before unlock`);
+  }
 } catch (error) {
   failures.push(`Site validation crashed: ${error.stack || error.message}`);
 }

@@ -1,4 +1,4 @@
-/* Render the landing page from data/book.json + story.config.json. */
+/* Render the landing page from the decrypted book + story.config.json. */
 
 import {
   el,
