@@ -79,10 +79,6 @@
     <path d="M 78,52 l 16,-10 l -16,-10 Z" fill="rgb(232, 185, 203)" stroke="#D98BA8"/>
   </g></g>
 <g>
-  <text x="60" y="72" font-family="Georgia, 'Times New Roman', serif" font-size="14" letter-spacing="5" fill="#D98BA8">CHAPTER 04 · RELIC</text>
   <line x1="60" y1="88" x2="182" y2="88" stroke="#D98BA8" stroke-width="1.2" opacity="0.7"/>
-  <text x="60" y="900" font-family="Georgia, 'Times New Roman', serif" font-size="30" font-weight="400" fill="#3B2B40" text-anchor="start">The Things She Could Not Replace</text>
-  <text x="60" y="954" font-family="Georgia, 'Times New Roman', serif" font-size="13" letter-spacing="2.5" fill="#5B3F62" fill-opacity="0.7">THE SENTIMENTAL EARBUDS</text>
-  <text x="940" y="954" font-family="Georgia, 'Times New Roman', serif" font-size="11" letter-spacing="3" fill="#5B3F62" fill-opacity="0.55" text-anchor="end">04 / 21</text>
-</g>
+  </g>
 </svg>

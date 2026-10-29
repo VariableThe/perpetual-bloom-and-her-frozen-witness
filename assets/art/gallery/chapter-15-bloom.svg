@@ -106,9 +106,6 @@
     <text x="0" y="36" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#3B2B40" text-anchor="middle" stroke="none">M</text>
   </g></g>
 <g>
-  <text x="70" y="78" font-family="Georgia, 'Times New Roman', serif" font-size="15" letter-spacing="5" fill="#A18BBB">CHAPTER 15</text>
   <line x1="70" y1="94" x2="170" y2="94" stroke="#A18BBB" stroke-width="1.2" opacity="0.7"/>
-  <text x="70" y="826" font-family="Georgia, 'Times New Roman', serif" font-size="27" font-weight="400" fill="#3B2B40" text-anchor="start">The First Metro</text>
-  <text x="1130" y="826" font-family="Georgia, 'Times New Roman', serif" font-size="11" letter-spacing="3" fill="#5B3F62" fill-opacity="0.6" text-anchor="end">BLOOM PLATE</text>
-</g>
+  </g>
 </svg>

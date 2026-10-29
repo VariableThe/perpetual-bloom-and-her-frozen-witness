@@ -44,9 +44,9 @@ html[data-theme="dark"] .reader-view {
   flex: 0 0 auto;
   padding: max(10px, env(safe-area-inset-top)) clamp(12px, 2.2vw, 28px) 10px;
   border-bottom: 1px solid var(--line);
-  background: color-mix(in srgb, var(--paper-2) 68%, transparent);
-  backdrop-filter: blur(18px) saturate(1.2);
-  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  background: color-mix(in srgb, var(--paper-2) 78%, transparent);
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
 }
 
 .reader-header__start,
@@ -437,7 +437,7 @@ html[data-theme="dark"] .reader-page--blank {
   scrollbar-color: rgba(255, 213, 230, 0.5) transparent;
   color: #fff9fb;
   background:
-    linear-gradient(180deg, rgba(29, 8, 24, 0.05) 0%, rgba(29, 8, 24, 0.02) 32%, rgba(29, 8, 24, 0.18) 56%, rgba(29, 8, 24, 0.88) 100%),
+    linear-gradient(180deg, rgba(29, 8, 24, 0.05) 0%, rgba(29, 8, 24, 0.04) 34%, rgba(29, 8, 24, 0.46) 54%, rgba(29, 8, 24, 0.84) 72%, rgba(29, 8, 24, 0.95) 100%),
     linear-gradient(90deg, rgba(29, 8, 24, 0.3), transparent 46%);
 }
 
@@ -506,7 +506,7 @@ html[data-theme="dark"] .reader-page--blank {
   font-weight: 600;
   letter-spacing: -0.025em;
   line-height: 0.96;
-  text-shadow: 0 4px 30px rgba(26, 5, 21, 0.4);
+  text-shadow: 0 2px 24px rgba(26, 5, 21, 0.66), 0 1px 3px rgba(26, 5, 21, 0.5);
   text-wrap: balance;
 }
 
