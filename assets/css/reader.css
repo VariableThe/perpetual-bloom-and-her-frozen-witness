@@ -1573,6 +1573,10 @@ html[data-theme="dark"] .reader-page--blank {
     display: none;
   }
 
+  .reader-page--cover .bookend {
+    display: none;
+  }
+
   .reader-controls__hint {
     display: none;
   }

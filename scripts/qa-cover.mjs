@@ -494,6 +494,7 @@ async function main() {
     );
 
     await page.setViewport(1440, 900);
+    await sleep(260);
     await waitForCover(page);
 
     const coverWords = await page.evaluate(`(() => {
