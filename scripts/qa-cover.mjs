@@ -292,6 +292,64 @@ class Page {
   }
 }
 
+async function unlockIfLocked(page) {
+  let locked = false;
+  try {
+    locked = await page.evaluate(
+      `!!(document.getElementById('lock-screen') && !document.getElementById('lock-screen').hidden)`
+    );
+  } catch {
+    locked = false;
+  }
+  if (!locked) return false;
+  const passcode = process.env.PB_PASSCODE || '';
+  if (!passcode) {
+    console.log('SKIP  lock gate is present and PB_PASSCODE is not set; set PB_PASSCODE to run the gated QA.');
+    return true;
+  }
+  /* The lock form is static HTML but its submit handler is wired by the app
+     module after boot starts. Submitting earlier performs a native GET submit
+     and reloads the page, so wait until the gate reports itself armed. */
+  await page.waitFor(
+    `document.documentElement.dataset.locked === 'true'`,
+    'the lock gate to arm',
+    15000
+  );
+  await sleep(600);
+  const fillAndSubmit =
+    `(() => {
+    const input = document.querySelector('#lock-passcode');
+    const form = document.querySelector('#lock-form');
+    if (!input || !form) throw new Error('Lock gate is present without its form');
+    input.focus({ preventScroll: true });
+    input.value = ` +
+    JSON.stringify(passcode) +
+    `;
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    const submit = form.querySelector('[type="submit"]');
+    if (submit) submit.click();
+    else if (typeof form.requestSubmit === 'function') form.requestSubmit();
+    else form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+    return true;
+  })()`;
+  await page.evaluate(fillAndSubmit);
+  try {
+    await page.waitFor(
+      `document.getElementById('lock-screen')?.hidden === true`,
+      'the lock gate to unlock',
+      60000
+    );
+  } catch (error) {
+    const denial = await page
+      .evaluate(`document.querySelector('#lock-error')?.textContent || ''`)
+      .catch(() => '');
+    throw new Error(
+      `the lock gate to unlock (${error.message})${denial ? ` - gate says: ${denial}` : ''}`
+    );
+  }
+  return false;
+}
+
 async function waitForCover(page) {
   await page.waitFor(
     `document.documentElement.dataset.appReady === 'true' &&
@@ -352,6 +410,13 @@ async function main() {
     page = new Page(cdp);
     await page.attach();
     await page.setViewport(1440, 900);
+    await page.waitFor(
+      `document.documentElement.dataset.appReady === 'true' ||
+       (document.getElementById('lock-screen') && !document.getElementById('lock-screen').hidden)`,
+      'the app to boot or the lock gate to appear',
+      15000
+    );
+    if (await unlockIfLocked(page)) return;
     await waitForCover(page);
 
     for (const viewport of VIEWPORTS) {
@@ -429,6 +494,47 @@ async function main() {
     );
 
     await page.setViewport(1440, 900);
+    await waitForCover(page);
+
+    const coverWords = await page.evaluate(`(() => {
+      const node = document.querySelector('.reader-page--cover .cover-page__words');
+      return node ? node.textContent : null;
+    })()`);
+    assert(coverWords, 'The chapter cover is missing its word-count line (.cover-page__words)');
+    assert(
+      coverWords.includes('3,870'),
+      `Chapter 3 cover should report 3,870 words, found "${coverWords}"`
+    );
+    assert(
+      coverWords.includes('86,400'),
+      `Chapter 3 cover should report the 86,400 edition total, found "${coverWords}"`
+    );
+    pass('Cover shows the chapter and edition word counts', String(coverWords).trim());
+
+    await page.evaluate(`document.getElementById('reader-index').click()`);
+    await page.waitFor(
+      `document.querySelector('#drawer-list .drawer__foot') !== null`,
+      'the chapter drawer footer'
+    );
+    const drawerFoot = await page.evaluate(
+      `document.querySelector('#drawer-list .drawer__foot')?.textContent || ''`
+    );
+    assert(
+      drawerFoot.includes('21 chapters'),
+      `Drawer footer should report 21 chapters, found "${drawerFoot}"`
+    );
+    assert(
+      drawerFoot.includes('86,400'),
+      `Drawer footer should report the 86,400 total, found "${drawerFoot}"`
+    );
+    const drawerShot = await page.screenshot('drawer-words.png');
+    pass(
+      'Chapter drawer shows the edition word-count footer',
+      `${String(drawerFoot).trim()} - ${path.relative(ROOT, drawerShot)}`
+    );
+    await page.evaluate(`document.getElementById('drawer-close').click()`);
+    await sleep(200);
+
     await page.evaluate(`location.hash = '#/'`);
     await page.waitFor(
       `location.hash === '#/' && document.querySelectorAll('#act-list .chapter-card').length === 21`,

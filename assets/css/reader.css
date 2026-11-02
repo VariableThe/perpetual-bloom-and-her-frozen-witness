@@ -542,6 +542,17 @@ html[data-theme="dark"] .reader-page--blank {
   text-transform: uppercase;
 }
 
+.cover-page__words {
+  color: rgba(255, 240, 247, 0.72);
+  font-family: var(--font-ui);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  text-shadow: 0 1px 12px rgba(26, 5, 21, 0.5);
+}
+
 .cover-page__actions {
   display: flex;
   align-items: center;
@@ -1336,6 +1347,20 @@ html[data-theme="dark"] .reader-page--blank {
   text-transform: uppercase;
 }
 
+.drawer__foot {
+  margin-top: 1rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-family: var(--font-ui);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1.5;
+  text-align: center;
+  text-transform: uppercase;
+}
+
 /* ---------- Small screens ---------- */
 
 /* Contract: duo is enabled at 1000px and wider (see utils.js). The collapse
@@ -1541,6 +1566,10 @@ html[data-theme="dark"] .reader-page--blank {
   }
 
   .cover-page__relic {
+    display: none;
+  }
+
+  .cover-page__words {
     display: none;
   }
 

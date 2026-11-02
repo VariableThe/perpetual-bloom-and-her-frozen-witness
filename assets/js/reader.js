@@ -857,6 +857,13 @@ export class Reader {
       ]));
     }
 
+    overlayChildren.push(
+      el('p', {
+        class: 'cover-page__words',
+        text: `${formatNumber(chapter.wordCount)} words · ${formatNumber(this.story.meta.wordCount)} in all`
+      })
+    );
+
     overlayChildren.push(el('div', { class: 'cover-page__actions' }, [
       el('button', {
         class: 'btn btn--light',
@@ -1410,5 +1417,12 @@ export class Reader {
 
       this.drawerList.append(section);
     }
+
+    this.drawerList.append(
+      el('div', {
+        class: 'drawer__foot',
+        text: `${this.story.chapters.length} chapters · ${formatNumber(this.story.meta.wordCount)} words`
+      })
+    );
   }
 }

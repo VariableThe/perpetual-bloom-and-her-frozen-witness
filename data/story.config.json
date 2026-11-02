@@ -3,7 +3,7 @@
     "title": "Perpetual Bloom and her Frozen Witness",
     "subtitle": "A novel in twenty-one chapters",
     "authors": "Me and Sravz",
-    "wordCount": 85846,
+    "wordCount": 86400,
     "chapterCount": 21,
     "tagline": "Some love stories are kept in objects; this one is kept in frost and bloom.",
     "description": "A luminous, object-haunted love story told across twenty-one chapters, where memory, monsoon light and small kept things gather into a witness.",
@@ -549,7 +549,7 @@
       ],
       "coverArt": "assets/art/chapters/chapter-01.svg",
       "accent": "#D76C9B",
-      "wordCount": 4633,
+      "wordCount": 4660,
       "trackId": "track-01"
     },
     {
@@ -566,7 +566,7 @@
       ],
       "coverArt": "assets/art/chapters/chapter-02.svg",
       "accent": "#C47BAE",
-      "wordCount": 4535,
+      "wordCount": 4562,
       "trackId": "track-02"
     },
     {
@@ -583,7 +583,7 @@
       ],
       "coverArt": "assets/art/chapters/chapter-03.svg",
       "accent": "#B88BCB",
-      "wordCount": 3843,
+      "wordCount": 3870,
       "trackId": "track-03"
     },
     {
@@ -600,7 +600,7 @@
       ],
       "coverArt": "assets/art/chapters/chapter-04.svg",
       "accent": "#D98BA8",
-      "wordCount": 4502,
+      "wordCount": 4529,
       "trackId": "track-04"
     },
     {
@@ -617,7 +617,7 @@
       ],
       "coverArt": "assets/art/chapters/chapter-05.svg",
       "accent": "#C36C93",
-      "wordCount": 4322,
+      "wordCount": 4349,
       "trackId": "track-05"
     },
     {
@@ -634,7 +634,7 @@
       ],
       "coverArt": "assets/art/chapters/chapter-06.svg",
       "accent": "#E08FA6",
-      "wordCount": 4417,
+      "wordCount": 4444,
       "trackId": "track-06"
     },
     {
@@ -651,7 +651,7 @@
       ],
       "coverArt": "assets/art/chapters/chapter-07.svg",
       "accent": "#B879A6",
-      "wordCount": 5080,
+      "wordCount": 5107,
       "trackId": "track-07"
     },
     {
@@ -668,7 +668,7 @@
       ],
       "coverArt": "assets/art/chapters/chapter-08.svg",
       "accent": "#A98CC6",
-      "wordCount": 3381,
+      "wordCount": 3408,
       "trackId": "track-08"
     },
     {
@@ -685,7 +685,7 @@
       ],
       "coverArt": "assets/art/chapters/chapter-09.svg",
       "accent": "#D69AB4",
-      "wordCount": 2735,
+      "wordCount": 2761,
       "trackId": "track-09"
     },
     {
@@ -702,7 +702,7 @@
       ],
       "coverArt": "assets/art/chapters/chapter-10.svg",
       "accent": "#C17FA3",
-      "wordCount": 3944,
+      "wordCount": 3970,
       "trackId": "track-10"
     },
     {
@@ -719,7 +719,7 @@
       ],
       "coverArt": "assets/art/chapters/chapter-11.svg",
       "accent": "#B58BCF",
-      "wordCount": 3047,
+      "wordCount": 3073,
       "trackId": "track-11"
     },
     {
@@ -736,7 +736,7 @@
       ],
       "coverArt": "assets/art/chapters/chapter-12.svg",
       "accent": "#E05F9F",
-      "wordCount": 2673,
+      "wordCount": 2699,
       "trackId": "track-12"
     },
     {
@@ -753,7 +753,7 @@
       ],
       "coverArt": "assets/art/chapters/chapter-13.svg",
       "accent": "#C68CAB",
-      "wordCount": 3620,
+      "wordCount": 3646,
       "trackId": "track-13"
     },
     {
@@ -770,7 +770,7 @@
       ],
       "coverArt": "assets/art/chapters/chapter-14.svg",
       "accent": "#AE87BE",
-      "wordCount": 3188,
+      "wordCount": 3214,
       "trackId": "track-14"
     },
     {
@@ -787,7 +787,7 @@
       ],
       "coverArt": "assets/art/chapters/chapter-15.svg",
       "accent": "#A18BBB",
-      "wordCount": 2602,
+      "wordCount": 2628,
       "trackId": "track-15"
     },
     {
@@ -804,7 +804,7 @@
       ],
       "coverArt": "assets/art/chapters/chapter-16.svg",
       "accent": "#D49AAF",
-      "wordCount": 4212,
+      "wordCount": 4238,
       "trackId": "track-16"
     },
     {
@@ -821,7 +821,7 @@
       ],
       "coverArt": "assets/art/chapters/chapter-17.svg",
       "accent": "#C76A92",
-      "wordCount": 5423,
+      "wordCount": 5449,
       "trackId": "track-17"
     },
     {
@@ -838,7 +838,7 @@
       ],
       "coverArt": "assets/art/chapters/chapter-18.svg",
       "accent": "#D387A3",
-      "wordCount": 7049,
+      "wordCount": 7075,
       "trackId": "track-18"
     },
     {
@@ -855,7 +855,7 @@
       ],
       "coverArt": "assets/art/chapters/chapter-19.svg",
       "accent": "#A97BA8",
-      "wordCount": 4059,
+      "wordCount": 4085,
       "trackId": "track-19"
     },
     {
@@ -872,7 +872,7 @@
       ],
       "coverArt": "assets/art/chapters/chapter-20.svg",
       "accent": "#C78FB0",
-      "wordCount": 4185,
+      "wordCount": 4211,
       "trackId": "track-20"
     },
     {
@@ -889,7 +889,7 @@
       ],
       "coverArt": "assets/art/chapters/chapter-21.svg",
       "accent": "#E0A0C2",
-      "wordCount": 4396,
+      "wordCount": 4422,
       "trackId": "track-21"
     }
   ]
