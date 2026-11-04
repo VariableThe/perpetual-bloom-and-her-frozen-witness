@@ -570,6 +570,56 @@ async function main() {
       `${landing.cards} cards / ${landing.acts} acts - ${path.relative(ROOT, landingShot)}`
     );
 
+    const heroStats = await page.evaluate(
+      `document.querySelector('#hero-stats')?.textContent || ''`
+    );
+    assert(
+      heroStats.includes('words: 86400'),
+      `Landing hero stats should contain the exact string "words: 86400", found "${heroStats.trim()}"`
+    );
+    pass('Landing hero shows the hardcoded words: 86400 stat', String(heroStats).trim().replace(/\s+/g, ' '));
+
+    await page.evaluate(`location.hash = '#/read/21/0'`);
+    await page.waitFor(
+      `document.documentElement.dataset.appReady === 'true' &&
+       document.getElementById('reader-view')?.dataset.chapter === '21' &&
+       document.querySelector('#reader-stage')?.dataset.ready === 'true' &&
+       !document.querySelector('.book-stage.is-turning')`,
+      'chapter 21 to load'
+    );
+    await sleep(300);
+    const totalPages = await page.evaluate(
+      `Number(document.getElementById('reader-view')?.dataset.totalPages || 0)`
+    );
+    assert(Number.isFinite(totalPages) && totalPages > 2, `Chapter 21 totalPages is invalid: ${totalPages}`);
+    const lastText = totalPages - 2;
+    await page.evaluate('location.hash = "#/read/21/" + ' + JSON.stringify(String(lastText)));
+    await page.waitFor(
+      'document.getElementById("reader-view")?.dataset.page === ' +
+        JSON.stringify(String(lastText)) +
+        ' && document.querySelector("#reader-stage")?.dataset.ready === "true"' +
+        ' && !document.querySelector(".book-stage.is-turning")',
+      'chapter 21 last text page'
+    );
+    await sleep(350);
+    const ch21 = await page.evaluate(`({
+      body: document.querySelector('#spread-underlay')?.textContent || '',
+      marker: document.querySelector('#spread-underlay .page-final-words')?.textContent || null
+    })`);
+    assert(
+      ch21.body.includes('final words: 86400'),
+      'Chapter 21 last text page should contain the exact string "final words: 86400"'
+    );
+    assert(
+      ch21.marker === 'final words: 86400',
+      `Chapter 21 .page-final-words should equal "final words: 86400", found "${ch21.marker}"`
+    );
+    const ch21Shot = await page.screenshot('ch21-end.png');
+    pass(
+      'Chapter 21 ends with the hardcoded final words: 86400 line',
+      `screen ${lastText + 1} of ${totalPages} - ${path.relative(ROOT, ch21Shot)}`
+    );
+
     assert(page.pageErrors.length === 0, `Page exceptions:\n${page.pageErrors.join('\n')}`);
     assert(page.consoleErrors.length === 0, `Console errors:\n${page.consoleErrors.join('\n')}`);
     assert(

@@ -400,6 +400,21 @@ html[data-theme="dark"] .reader-page--blank {
   line-height: 0.72;
 }
 
+/* UI-only end-of-edition marker appended after Chapter 21's last paragraph. */
+.page-text p.page-final-words {
+  margin-top: 1.2em;
+  padding-bottom: 0;
+  color: var(--reader-muted, var(--muted));
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  line-height: 1.5;
+  text-align: center;
+  text-indent: 0;
+  text-transform: uppercase;
+}
+
 .reader-page--text.is-first .reader-page__head::after {
   background: linear-gradient(90deg, transparent, var(--reader-rule) 14%, var(--reader-rule) 86%, transparent);
 }
