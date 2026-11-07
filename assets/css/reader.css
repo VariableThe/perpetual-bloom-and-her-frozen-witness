@@ -1388,6 +1388,13 @@ html[data-theme="dark"] .reader-page--blank {
 }
 
 @media (max-width: 900px) {
+  /* Opaque paper avoids filtering the moving scene behind the header. */
+  .reader-header {
+    background: var(--paper-2);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
   .reader-heading__title {
     font-size: 0.98rem;
   }

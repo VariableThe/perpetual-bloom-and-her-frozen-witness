@@ -699,6 +699,12 @@ code {
 /* ---------- Responsive ---------- */
 
 @media (max-width: 900px) {
+  /* Keep the texture without a full-viewport backdrop blend on mobile. */
+  .ambient__grain,
+  html[data-theme="dark"] .ambient__grain {
+    mix-blend-mode: normal;
+  }
+
   .section-head {
     grid-template-columns: 1fr;
     gap: 1rem;
