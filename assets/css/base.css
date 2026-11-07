@@ -473,7 +473,7 @@ html[data-theme="dark"] .theme-icon--moon {
 
 .section-head {
   position: relative;
-  overflow-x: clip;
+  isolation: isolate;
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
   gap: clamp(24px, 5vw, 76px);
@@ -486,7 +486,9 @@ html[data-theme="dark"] .theme-icon--moon {
   content: "";
   position: absolute;
   z-index: -1;
-  inset: -28px -36px -36px;
+  /* Keep horizontal bleed inside the mobile side margins so the backdrop stays rounded without triggering document scroll. */
+  inset-block: -28px -36px;
+  inset-inline: max(-36px, calc(4px + 50% - 50vw));
   pointer-events: none;
   border-radius: 32px;
   background: radial-gradient(
