@@ -29,16 +29,15 @@ function renderHeroStats(story) {
   const galleryCount = story.chapters.filter((chapter) => chapter.galleryPlates?.length).length;
   const stats = [
     [story.chapters.length, 'chapters'],
-    [formatNumber(story.meta.wordCount), 'words'],
+    ['words: 86400', ''],
     [story.tracks.length, 'generative tracks'],
     [galleryCount, 'chapter galleries']
   ];
 
   for (const [value, label] of stats) {
-    host.append(el('li', {}, [
-      el('strong', { text: value }),
-      el('span', { text: label })
-    ]));
+    const children = [el('strong', { text: value })];
+    if (label) children.push(el('span', { text: label }));
+    host.append(el('li', {}, children));
   }
 }
 

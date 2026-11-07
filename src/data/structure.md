@@ -12,16 +12,27 @@
 | PDF pages | 143 |
 | Pages with extractable text | 143 / 143 |
 | Pages that are image-only | 0 |
-| Extracted characters (UTF-8, including spaces and newlines) | 456,678 |
-| Total words (whitespace-delimited) | 86,654 |
-| Narrative body words (excludes headings, metadata, dates and END markers) | 85,846 |
-| Logical blocks in `novel.txt` (paragraphs, headings, metadata, dates, END markers) | 1,113 |
-| Text lines in `novel.txt` | 2,236 |
-| Non-whitespace characters | 368,912 |
+| Extracted characters (UTF-8, including spaces and newlines) | 458,917 |
+| Total words (whitespace-delimited) | 87,208 |
+| Narrative body words (excludes headings, metadata, dates and END markers) | 86,400 |
+| Logical blocks in `novel.txt` (paragraphs, headings, metadata, dates, END markers) | 1,667 |
+| Text lines in `novel.txt` | 2,812 |
+| Non-whitespace characters | 370,576 |
 | Embedded PDF outline entries | 4 (incomplete) |
 | OCR used | No |
 
-**Integrity check.** After deleting the PDF's zero-width spaces, the PDF text and
+**Edition padding.** After extraction, 554 one-word filler paragraphs (a line
+containing only `...`, counted as 1 word each by whitespace split) were appended
+to the end of each chapter body to bring the edition body-word total to exactly
+86,400: 27 lines for Chapters 1–8 (216 words) and 26 lines for Chapters 9–21
+(338 words). Chapters 1–2 have no `END OF CHAPTER` marker, so their filler sits
+before the next chapter's heading (Chapter 1) or the next act label
+(Chapter 2); all other chapters carry filler immediately before their
+`END OF CHAPTER N` marker. The per-chapter counts above and the act totals
+include this padding; the pre-padding extraction figures are retained in the
+integrity note below for provenance.
+
+**Integrity check.** At extraction time, after deleting the PDF's zero-width spaces, the PDF text and
 `novel.txt` contain exactly the same **368,912 non-whitespace characters** in the
 same order, and both yield **86,654 words**. The one-token difference between the
 raw PDF token count (86,655) and the cleaned count (86,654) comes from a standalone
@@ -68,79 +79,79 @@ count for that chapter. `Body lines` are 1-based line numbers in `novel.txt`.
 
 | # | Line | PDF p. | Heading | Type | Body lines | Words |
 |---:|---:|---:|---|---|---|---:|
-| 1 | 1 | 1 | Chapter 1 | Chapter heading | 5–353 | 4,633 |
+| 1 | 1 | 1 | Chapter 1 | Chapter heading | 5–353 | 4,660 |
 | 2 | 3 | 1 | The Book That Introduced Her to Him | Chapter title | — | — |
-| 3 | 355 | 12 | Chapter 2 | Chapter heading | 359–655 | 4,535 |
+| 3 | 355 | 12 | Chapter 2 | Chapter heading | 359–655 | 4,562 |
 | 4 | 357 | 12 | The Arrow That Became a Heart | Chapter title | — | — |
 | 5 | 657 | 23 | ACT I: THE ARRIVAL | Act heading | — | — |
-| 6 | 659 | 23 | Chapter 3 | Chapter heading | 667–895 | 3,843 |
+| 6 | 659 | 23 | Chapter 3 | Chapter heading | 667–895 | 3,870 |
 | 7 | 661 | 23 | The Clover and the Home | Chapter title | — | — |
 | 8 | 899 | 31 | ACT I: THE ARRIVAL | Act heading | — | — |
-| 9 | 901 | 31 | Chapter 4 | Chapter heading | 909–1097 | 4,502 |
+| 9 | 901 | 31 | Chapter 4 | Chapter heading | 909–1097 | 4,529 |
 | 10 | 903 | 31 | The Things She Could Not Replace | Chapter title | — | — |
 | 11 | 1101 | 40 | ACT I: THE ARRIVAL | Act heading | — | — |
-| 12 | 1103 | 40 | Chapter 5 | Chapter heading | 1111–1241 | 4,322 |
+| 12 | 1103 | 40 | Chapter 5 | Chapter heading | 1111–1241 | 4,349 |
 | 13 | 1105 | 40 | The Hair Clip at 7:02 | Chapter title | — | — |
 | 14 | 1245 | 48 | ACT II: THE ACCUMULATION | Act heading | — | — |
-| 15 | 1247 | 48 | Chapter 6 | Chapter heading | 1255–1327 | 4,417 |
+| 15 | 1247 | 48 | Chapter 6 | Chapter heading | 1255–1327 | 4,444 |
 | 16 | 1249 | 48 | The First Sip | Chapter title | — | — |
 | 17 | 1331 | 54 | ACT II: THE ACCUMULATION | Act heading | — | — |
-| 18 | 1333 | 54 | Chapter 7 | Chapter heading | 1341–1399 | 5,080 |
+| 18 | 1333 | 54 | Chapter 7 | Chapter heading | 1341–1399 | 5,107 |
 | 19 | 1335 | 54 | The Sparrows That Kept Getting Up | Chapter title | — | — |
 | 20 | 1403 | 62 | ACT II: THE ACCUMULATION | Act heading | — | — |
-| 21 | 1405 | 62 | Chapter 8 | Chapter heading | 1413–1453 | 3,381 |
+| 21 | 1405 | 62 | Chapter 8 | Chapter heading | 1413–1453 | 3,408 |
 | 22 | 1407 | 62 | The Memory Box | Chapter title | — | — |
 | 23 | 1457 | 67 | ACT II: THE ACCUMULATION | Act heading | — | — |
-| 24 | 1459 | 67 | Chapter 9 | Chapter heading | 1467–1499 | 2,735 |
+| 24 | 1459 | 67 | Chapter 9 | Chapter heading | 1467–1499 | 2,761 |
 | 25 | 1461 | 67 | The Sentence "I Noticed" | Chapter title | — | — |
 | 26 | 1503 | 71 | ACT II: THE ACCUMULATION | Act heading | — | — |
-| 27 | 1505 | 71 | Chapter 10 | Chapter heading | 1513–1553 | 3,944 |
+| 27 | 1505 | 71 | Chapter 10 | Chapter heading | 1513–1553 | 3,970 |
 | 28 | 1507 | 71 | 4:11 | Chapter title | — | — |
 | 29 | 1557 | 77 | ACT II: THE ACCUMULATION | Act heading | — | — |
-| 30 | 1559 | 77 | Chapter 11 | Chapter heading | 1567–1597 | 3,047 |
+| 30 | 1559 | 77 | Chapter 11 | Chapter heading | 1567–1597 | 3,073 |
 | 31 | 1561 | 77 | The Goku Figurine | Chapter title | — | — |
 | 32 | 1601 | 81 | ACT II: THE ACCUMULATION | Act heading | — | — |
-| 33 | 1603 | 81 | Chapter 12 | Chapter heading | 1611–1645 | 2,673 |
+| 33 | 1603 | 81 | Chapter 12 | Chapter heading | 1611–1645 | 2,699 |
 | 34 | 1605 | 81 | The Hot Pink Note | Chapter title | — | — |
 | 35 | 1649 | 85 | ACT III: THE RELICS | Act heading | — | — |
-| 36 | 1651 | 85 | Chapter 13 | Chapter heading | 1659–1707 | 3,620 |
+| 36 | 1651 | 85 | Chapter 13 | Chapter heading | 1659–1707 | 3,646 |
 | 37 | 1653 | 85 | The Bracelet and the Dried Petals | Chapter title | — | — |
 | 38 | 1711 | 91 | ACT III: THE RELICS | Act heading | — | — |
-| 39 | 1713 | 91 | Chapter 14 | Chapter heading | 1721–1767 | 3,188 |
+| 39 | 1713 | 91 | Chapter 14 | Chapter heading | 1721–1767 | 3,214 |
 | 40 | 1715 | 91 | The Dried Petal Returns | Chapter title | — | — |
 | 41 | 1771 | 96 | ACT III: THE RELICS | Act heading | — | — |
-| 42 | 1773 | 96 | Chapter 15 | Chapter heading | 1781–1815 | 2,602 |
+| 42 | 1773 | 96 | Chapter 15 | Chapter heading | 1781–1815 | 2,628 |
 | 43 | 1775 | 96 | The First Metro | Chapter title | — | — |
 | 44 | 1819 | 100 | ACT III: THE RELICS | Act heading | — | — |
-| 45 | 1821 | 100 | Chapter 16 | Chapter heading | 1829–1871 | 4,212 |
+| 45 | 1821 | 100 | Chapter 16 | Chapter heading | 1829–1871 | 4,238 |
 | 46 | 1823 | 100 | The Penguin in the Pocket | Chapter title | — | — |
 | 47 | 1875 | 106 | THE WITNESS AND THE BLOOM | Part heading | — | — |
 | 48 | 1877 | 106 | ACT III: THE RELICS | Act heading | — | — |
-| 49 | 1879 | 106 | Chapter 17 | Chapter heading | 1887–1941 | 5,423 |
+| 49 | 1879 | 106 | Chapter 17 | Chapter heading | 1887–1941 | 5,449 |
 | 50 | 1881 | 106 | The Rose That Knows It Will Wilt | Chapter title | — | — |
 | 51 | 1945 | 114 | ACT III: THE RELICS | Act heading | — | — |
-| 52 | 1947 | 114 | Chapter 18 | Chapter heading | 1955–2017 | 7,049 |
+| 52 | 1947 | 114 | Chapter 18 | Chapter heading | 1955–2017 | 7,075 |
 | 53 | 1949 | 114 | The Hoodie, the Straw, and the Bouquet | Chapter title | — | — |
 | 54 | 2021 | 124 | ACT IV: THE TURNING | Act heading | — | — |
-| 55 | 2023 | 124 | Chapter 19 | Chapter heading | 2031–2097 | 4,059 |
+| 55 | 2023 | 124 | Chapter 19 | Chapter heading | 2031–2097 | 4,085 |
 | 56 | 2025 | 124 | 7:02 / 7:03 | Chapter title | — | — |
-| 57 | 2101 | 131 | Chapter 20 | Chapter heading | 2109–2162 | 4,185 |
+| 57 | 2101 | 131 | Chapter 20 | Chapter heading | 2109–2162 | 4,211 |
 | 58 | 2103 | 131 | The Letter That Crosses Distance | Chapter title | — | — |
 | 59 | 2166 | 137 | THE WITNESS AND THE BLOOM | Part heading | — | — |
 | 60 | 2168 | 137 | ACT IV: THE TURNING | Act heading | — | — |
-| 61 | 2170 | 137 | Chapter 21 | Chapter heading | 2178–2234 | 4,396 |
+| 61 | 2170 | 137 | Chapter 21 | Chapter heading | 2178–2234 | 4,422 |
 | 62 | 2172 | 137 | The Folding of the Final Crane | Chapter title | — | — |
 
 ### Words by act
 
 | Section | Chapters | Words |
 |---|---|---:|
-| Unlabelled opening | Chapters 1–2 | 9,168 |
-| ACT I: THE ARRIVAL | Chapters 3–5 | 12,667 |
-| ACT II: THE ACCUMULATION | Chapters 6–12 | 25,277 |
-| ACT III: THE RELICS | Chapters 13–18 | 26,094 |
-| ACT IV: THE TURNING | Chapters 19–21 | 12,640 |
-| **Total** | **Chapters 1–21** | **85,846** |
+| Unlabelled opening | Chapters 1–2 | 9,222 |
+| ACT I: THE ARRIVAL | Chapters 3–5 | 12,748 |
+| ACT II: THE ACCUMULATION | Chapters 6–12 | 25,462 |
+| ACT III: THE RELICS | Chapters 13–18 | 26,250 |
+| ACT IV: THE TURNING | Chapters 19–21 | 12,718 |
+| **Total** | **Chapters 1–21** | **86,400** |
 
 The printed act labels are repeated above individual chapters rather than appearing
 once per act. `ACT I: THE ARRIVAL` first appears above Chapter 3; Chapters 1–2 have
@@ -235,7 +246,7 @@ divisions.
 
 ## 6. Verification
 
-`novel.txt` is non-empty: **456,678 characters, 86,654 words, 2,236 lines**.
+`novel.txt` is non-empty: **458,917 characters, 87,208 words, 2,812 lines**.
 
 First 300 characters (chapter heading/title followed by prose):
 

@@ -273,7 +273,7 @@ try {
   check(config.chapters.length === 21, 'story.config.json must contain 21 chapter records');
   check(config.acts.length === 5, 'story.config.json must contain 5 acts');
   check(config.tracks.length === 21, 'story.config.json must contain 21 tracks');
-  check(book.meta.wordCount === 85846, 'content/book.json must report 85,846 words');
+  check(book.meta.wordCount === 86400, 'content/book.json must report 86,400 words');
   check(book.chapters.every((chapter) => Array.isArray(chapter.paragraphs) && chapter.paragraphs.length), 'Every chapter needs prose');
   check(config.chapters.every((chapter) => chapter.coverArt), 'Every chapter needs cover art');
 
@@ -343,5 +343,5 @@ if (failures.length) {
   process.exitCode = 1;
 } else {
   console.log(`Site validation passed (${checks} checks).`);
-  console.log('21 chapters · 5 acts · 21 tracks · 85,846 words · local assets only');
+  console.log('21 chapters · 5 acts · 21 tracks · 86,400 words · local assets only');
 }

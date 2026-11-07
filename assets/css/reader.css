@@ -400,6 +400,21 @@ html[data-theme="dark"] .reader-page--blank {
   line-height: 0.72;
 }
 
+/* UI-only end-of-edition marker appended after Chapter 21's last paragraph. */
+.page-text p.page-final-words {
+  margin-top: 1.2em;
+  padding-bottom: 0;
+  color: var(--reader-muted, var(--muted));
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  line-height: 1.5;
+  text-align: center;
+  text-indent: 0;
+  text-transform: uppercase;
+}
+
 .reader-page--text.is-first .reader-page__head::after {
   background: linear-gradient(90deg, transparent, var(--reader-rule) 14%, var(--reader-rule) 86%, transparent);
 }
@@ -540,6 +555,17 @@ html[data-theme="dark"] .reader-page--blank {
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
+}
+
+.cover-page__words {
+  color: rgba(255, 240, 247, 0.72);
+  font-family: var(--font-ui);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  text-shadow: 0 1px 12px rgba(26, 5, 21, 0.5);
 }
 
 .cover-page__actions {
@@ -1336,6 +1362,20 @@ html[data-theme="dark"] .reader-page--blank {
   text-transform: uppercase;
 }
 
+.drawer__foot {
+  margin-top: 1rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-family: var(--font-ui);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1.5;
+  text-align: center;
+  text-transform: uppercase;
+}
+
 /* ---------- Small screens ---------- */
 
 /* Contract: duo is enabled at 1000px and wider (see utils.js). The collapse
@@ -1541,6 +1581,14 @@ html[data-theme="dark"] .reader-page--blank {
   }
 
   .cover-page__relic {
+    display: none;
+  }
+
+  .cover-page__words {
+    display: none;
+  }
+
+  .reader-page--cover .bookend {
     display: none;
   }
 

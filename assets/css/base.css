@@ -473,6 +473,7 @@ html[data-theme="dark"] .theme-icon--moon {
 
 .section-head {
   position: relative;
+  overflow-x: clip;
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
   gap: clamp(24px, 5vw, 76px);

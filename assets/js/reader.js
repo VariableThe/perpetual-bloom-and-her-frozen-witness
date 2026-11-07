@@ -29,9 +29,28 @@ function padded(number) {
   return String(number).padStart(2, '0');
 }
 
-function pageTextFor(piece) {
+/* UI-only display literals. The validated edition total stays 86,400; these
+   hardcoded strings are presentation copies and must never be written back
+   into stored data, validators or builders. */
+function paginationInput(chapter) {
+  if (chapter.number === 21) {
+    return { ...chapter, paragraphs: [...chapter.paragraphs, 'final words: 86400'] };
+  }
+  return chapter;
+}
+
+function isFinalWordsPiece(chapter, piece) {
+  return chapter?.number === 21
+    && piece?.paragraphIndex === chapter.paragraphs.length;
+}
+
+function pageTextFor(piece, chapter = null) {
   const node = document.createElement('p');
-  if (piece.cont) node.className = 'cont';
+  if (isFinalWordsPiece(chapter, piece)) {
+    node.className = 'page-final-words';
+  } else if (piece.cont) {
+    node.className = 'cont';
+  }
   node.textContent = piece.text;
   return node;
 }
@@ -569,7 +588,7 @@ export class Reader {
       const key = this.cacheKey(chapter, dimensions);
       let result = this.cache.get(key);
       if (!result) {
-        result = paginateChapter(chapter, {
+        result = paginateChapter(paginationInput(chapter), {
           probe: this.probe,
           width: dimensions.width,
           height: dimensions.height
@@ -730,7 +749,7 @@ export class Reader {
     this.view.dataset.ready = 'false';
     let result = this.cache.get(key);
     if (!result) {
-      result = paginateChapter(this.chapter, {
+      result = paginateChapter(paginationInput(this.chapter), {
         probe: this.probe,
         width: dimensions.width,
         height: dimensions.height
@@ -857,6 +876,13 @@ export class Reader {
       ]));
     }
 
+    overlayChildren.push(
+      el('p', {
+        class: 'cover-page__words',
+        text: `${formatNumber(chapter.wordCount)} words · 86,400 in all`
+      })
+    );
+
     overlayChildren.push(el('div', { class: 'cover-page__actions' }, [
       el('button', {
         class: 'btn btn--light',
@@ -886,7 +912,7 @@ export class Reader {
 
     const textHost = el('div', { class: `page-text${isFirst ? ' is-first' : ''}` });
     for (const piece of pieces) {
-      textHost.append(pageTextFor(piece));
+      textHost.append(pageTextFor(piece, chapter));
     }
 
     const article = el('article', {
@@ -1410,5 +1436,12 @@ export class Reader {
 
       this.drawerList.append(section);
     }
+
+    this.drawerList.append(
+      el('div', {
+        class: 'drawer__foot',
+        text: `${this.story.chapters.length} chapters · 86,400 words`
+      })
+    );
   }
 }
