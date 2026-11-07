@@ -1457,6 +1457,13 @@ html[data-theme="dark"] .section--about {
 }
 
 @media (max-width: 900px) {
+  /* Opaque paper avoids filtering the moving scene behind the header. */
+  .site-header {
+    background: var(--paper-2);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
   :root {
     --header-height: 68px;
   }
